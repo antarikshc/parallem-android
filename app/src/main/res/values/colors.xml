@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/parallemPurple</color>
+    <color name="colorPrimaryDark">@color/parallemPurpleDark</color>
+    <color name="colorAccent">@color/parallemRed</color>
+
+    <color name="parallemRed">#E30425</color>
+    <color name="parallemPurple">#5D1049</color>
+    <color name="parallemPurpleLight">#720D5D</color>
+    <color name="parallemPurpleDark">#4E0D3A</color>
 </resources>
