@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Parallem</string>
+    <string name="title_login">Welcome Back</string>
 </resources>
