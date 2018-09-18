@@ -1,6 +1,7 @@
 package com.antarikshc.parallem.activity;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,15 +24,17 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout editPasswordLayout;
 
     // Global params
+    private ActivityLoginBinding binding;
     private String userEmail;
     private String userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        initializeViews();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+
+        //initializeViews();
 
     }
 
@@ -41,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     public void hitLoginAPI(View view) {
 
         // Retrieve data from views
-        userEmail = editEmail.getText().toString();
-        userPassword = editPassword.getText().toString();
+        userEmail = binding.editLoginEmail.getText().toString();
+        userPassword = binding.editLoginPassword.getText().toString();
 
         if (validateForm()) {
 
@@ -59,21 +63,21 @@ public class LoginActivity extends AppCompatActivity {
     private Boolean validateForm() {
 
         // Clear all errors
-        editEmailLayout.setError(null);
-        editPasswordLayout.setError(null);
+        binding.editLoginEmailLayout.setError(null);
+        binding.editLoginPasswordLayout.setError(null);
 
         Boolean validation = true;
 
         if (userEmail.isEmpty()) {
-            editEmailLayout.setError("*Required");
+            binding.editLoginEmailLayout.setError("*Required");
             validation = false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-            editEmailLayout.setError("Input Valid Email");
+            binding.editLoginEmailLayout.setError("Input Valid Email");
             validation = false;
         }
 
         if (userPassword.isEmpty()) {
-            editPasswordLayout.setError("*Required");
+            binding.editLoginPasswordLayout.setError("*Required");
             validation = false;
         }
 
