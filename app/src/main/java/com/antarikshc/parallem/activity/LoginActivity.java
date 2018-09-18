@@ -44,10 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         userEmail = editEmail.getText().toString();
         userPassword = editPassword.getText().toString();
 
-        // Clear all errors
-        editEmailLayout.setError(null);
-        editPasswordLayout.setError(null);
-
         if (validateForm()) {
 
             // TODO: Call Login API
@@ -61,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
      * @return Boolean validation
      */
     private Boolean validateForm() {
+
+        // Clear all errors
+        editEmailLayout.setError(null);
+        editPasswordLayout.setError(null);
 
         Boolean validation = true;
 
