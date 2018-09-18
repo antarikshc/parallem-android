@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.MotionEvent;
@@ -16,12 +15,6 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
-
-    // Views
-    private TextInputEditText editEmail;
-    private TextInputLayout editEmailLayout;
-    private TextInputEditText editPassword;
-    private TextInputLayout editPasswordLayout;
 
     // Global params
     private ActivityLoginBinding binding;
@@ -34,7 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        //initializeViews();
+        // Request focus on EditText on Startup
+        binding.editLoginEmail.requestFocus();
 
     }
 
@@ -83,17 +77,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return validation;
 
-    }
-
-    /**
-     * Boilerplate to Find and initialize all views
-     */
-    private void initializeViews() {
-        editEmail = findViewById(R.id.edit_login_email);
-        editEmail.requestFocus();
-        editPassword = findViewById(R.id.edit_login_password);
-        editEmailLayout = findViewById(R.id.edit_login_email_layout);
-        editPasswordLayout = findViewById(R.id.edit_login_password_layout);
     }
 
     public void backButton(View view) {
