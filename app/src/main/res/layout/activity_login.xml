@@ -26,7 +26,7 @@
         android:layout_below="@+id/btn_login_back"
         android:layout_marginStart="@dimen/dimen_18dp"
         android:layout_marginTop="@dimen/dimen_10dp"
-        android:text="@string/title_login"
+        android:text="@string/login_title"
         android:textSize="22sp" />
 
     <android.support.design.card.MaterialCardView

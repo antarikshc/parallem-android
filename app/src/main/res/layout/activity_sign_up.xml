@@ -25,7 +25,7 @@
         android:layout_below="@+id/btn_signup_back"
         android:layout_marginStart="@dimen/dimen_18dp"
         android:layout_marginTop="@dimen/dimen_10dp"
-        android:text="Hello!"
+        android:text="@string/signup_title"
         android:textSize="22sp" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_below="@+id/text_signup_title"
         android:layout_marginStart="@dimen/dimen_18dp"
         android:layout_marginTop="@dimen/dimen_4dp"
-        android:text="Lets create an account to continue" />
+        android:text="@string/signup_desc" />
 
     <android.support.design.card.MaterialCardView
         android:id="@+id/card_login"
@@ -75,7 +75,7 @@
                     android:id="@+id/edit_signup_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="First Name"
+                    android:hint="@string/hint_first_name"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +99,7 @@
                     android:id="@+id/edit_signup_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name"
+                    android:hint="@string/hint_last_name"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
 
@@ -146,7 +146,7 @@
                     android:id="@+id/edit_signup_isd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ISD" />
+                    android:hint="@string/hint_isd" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -168,7 +168,7 @@
                     android:id="@+id/edit_signup_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Mobile Number" />
+                    android:hint="@string/hint_mobile_number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -211,7 +211,7 @@
                     android:id="@+id/edit_signup_cnf_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm Password"
+                    android:hint="@string/hint_confirm_password"
                     android:inputType="textPassword" />
             </android.support.design.widget.TextInputLayout>
 
@@ -220,7 +220,7 @@
                 android:layout_height="64dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:layout_marginTop="@dimen/dimen_8dp"
-                android:text="signup"
+                android:text="@string/button_signup"
                 app:backgroundTint="@color/parallemPurpleLight"
                 app:cornerRadius="@dimen/dimen_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
