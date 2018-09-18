@@ -34,13 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void backButton(View view) {
-        onBackPressed();
-    }
-
     /**
      * OnClick Button Login - Validate form and Call API
-     *
      * @param view
      */
     public void hitLoginAPI(View view) {
@@ -90,11 +85,15 @@ public class LoginActivity extends AppCompatActivity {
      * Boilerplate to Find and initialize all views
      */
     private void initializeViews() {
-        editEmail = findViewById(R.id.edit_email);
+        editEmail = findViewById(R.id.edit_login_email);
         editEmail.requestFocus();
-        editPassword = findViewById(R.id.edit_password);
-        editEmailLayout = findViewById(R.id.edit_email_layout);
-        editPasswordLayout = findViewById(R.id.edit_password_layout);
+        editPassword = findViewById(R.id.edit_login_password);
+        editEmailLayout = findViewById(R.id.edit_login_email_layout);
+        editPasswordLayout = findViewById(R.id.edit_login_password_layout);
+    }
+
+    public void backButton(View view) {
+        onBackPressed();
     }
 
     /**
