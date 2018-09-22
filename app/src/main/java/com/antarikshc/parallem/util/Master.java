@@ -13,4 +13,9 @@ public class Master {
         return PARALLEM_BASE_API + "/users";
     }
 
+
+    public static String getEmailCheckEndpoint() {
+        return PARALLEM_BASE_API + "/users/check";
+    }
+
 }

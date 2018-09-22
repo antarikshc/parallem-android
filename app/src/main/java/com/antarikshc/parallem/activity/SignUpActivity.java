@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,6 +42,9 @@ public class SignUpActivity extends AppCompatActivity {
     private String mobileNumber;
     private String userPassword;
     private String userConfirmPassword;
+    // Params for Email checking
+    private Boolean isEmailExist = true;
+    private String lastCheckedEmail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,121 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Get Singleton Volley Request Queue Instance
         requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
+
+        // Set up Email EditText focus listener to check email uniqueness
+        setupEmailFocusListener();
+
+    }
+
+    /**
+     * Hit Check Email API and update Email EditText
+     * Clear requestQueue to prevent memory hogging
+     */
+    private void setupEmailFocusListener() {
+
+        binding.editSignupEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                final String currentEmail = binding.editSignupEmail.getText().toString();
+
+                // Conditions to prevent unnecessary requests
+                if (!hasFocus && !currentEmail.isEmpty() &&
+                        !(currentEmail.equals(lastCheckedEmail))) {
+
+                    // Clear requestQueue to any previous check email requests
+                    requestQueue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
+
+                    // Create JSONObject for request body
+                    JSONObject emailObject = new JSONObject();
+
+                    try {
+                        emailObject.put("email", currentEmail);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Create a Volley request to check email endpoint
+                    JsonObjectRequest emailCheckRequest = new JsonObjectRequest(
+                            Method.POST,
+                            Master.getEmailCheckEndpoint(),
+                            emailObject,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                                    lastCheckedEmail = currentEmail;
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                                    lastCheckedEmail = currentEmail;
+                                }
+                            }) {
+                        @Override
+                        protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                            Log.i(LOG_TAG, "Volley: Parsing network response");
+
+                            Integer statusCode;
+                            String responseString;
+                            JSONObject resObject;
+                            Boolean isExist;
+
+                            try {
+                                // Retrieve status code
+                                statusCode = response.statusCode;
+
+                                // Parse response data into String
+                                responseString = new String(response.data, "UTF-8");
+
+                                // Create JsonObject for data
+                                resObject = new JSONObject(responseString);
+
+                                if (statusCode == 200) {
+                                    // Retrieve whether email exist
+                                    isExist = resObject.getBoolean("isExist");
+
+                                    if (isExist) {
+                                        Log.i(LOG_TAG, "Email exist already");
+                                        isEmailExist = true; // Update Global param
+
+                                        //TODO: Update UI to indicate user
+                                    } else {
+                                        Log.i(LOG_TAG, "Email doesn't exist.");
+                                        isEmailExist = false; // Update Global param
+                                        
+                                        //TODO: Update UI to indicate user
+                                    }
+
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            return super.parseNetworkResponse(response);
+                        }
+                    };
+
+                    // Make the request to backoff after 1 retry
+                    // Set the timeout to 0
+                    emailCheckRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                    requestQueue.add(emailCheckRequest);
+
+                }
+
+            }
+        });
 
     }
 
@@ -70,7 +189,7 @@ public class SignUpActivity extends AppCompatActivity {
         userPassword = binding.editSignupPassword.getText().toString();
         userConfirmPassword = binding.editSignupCnfPassword.getText().toString();
 
-        if (validateForm()) {
+        if (validateForm() && isEmailExist) {
 
             // Create JsonObject for POST Method
             JSONObject userObject = new JSONObject();
