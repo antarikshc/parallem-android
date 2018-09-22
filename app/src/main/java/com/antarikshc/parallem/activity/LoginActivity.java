@@ -71,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 userObject.put("email", userEmail);
                 userObject.put("password", userPassword);
-                Log.i("Login Object", userObject.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -79,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
             JsonObjectRequest loginRequest = new JsonObjectRequest(
                     Method.POST,
-                    Master.getLoginAPI(),
+                    Master.getLoginEndpoint(),
                     userObject,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -113,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Parse Response received
+     * Parsing the Response received from API
      *
      * @param response : Contains the JSONObject in String format
      */
