@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Overwrite cornerRadius for MaterialComponents TextInputLayout -->
+    <style name="Rounded.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">@dimen/dimen_8dp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/dimen_8dp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/dimen_8dp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/dimen_8dp</item>
+    </style>
+
 </resources>
