@@ -76,7 +76,10 @@
                     app:boxCornerRadiusBottomEnd="@dimen/dimen_8dp"
                     app:boxCornerRadiusBottomStart="@dimen/dimen_8dp"
                     app:boxCornerRadiusTopEnd="@dimen/dimen_8dp"
-                    app:boxCornerRadiusTopStart="@dimen/dimen_8dp">
+                    app:boxCornerRadiusTopStart="@dimen/dimen_8dp"
+                    app:passwordToggleDrawable="@drawable/ic_password_toggle"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/parallemPurpleLight">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edit_login_password"
