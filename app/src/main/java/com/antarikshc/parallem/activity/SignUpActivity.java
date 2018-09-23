@@ -62,142 +62,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /**
-     * Hit Check Email API and update Email EditText
-     * Clear requestQueue to prevent memory hogging
-     */
-    private void setupEmailFocusListener() {
-
-        binding.editSignupEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                final String currentEmail = binding.editSignupEmail.getText().toString();
-
-                // Remove validation drawable as the EditText is empty
-                if (!hasFocus && currentEmail.isEmpty()) {
-                    binding.editSignupEmail
-                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                }
-
-                // Conditions to prevent unnecessary requests
-                if (!hasFocus && !currentEmail.isEmpty() &&
-                        !(currentEmail.equals(lastCheckedEmail))) {
-
-                    // Clear requestQueue to any previous check email requests
-                    requestQueue.cancelAll(new RequestQueue.RequestFilter() {
-                        @Override
-                        public boolean apply(Request<?> request) {
-                            return true;
-                        }
-                    });
-
-                    // Call the check mail API
-                    hitCheckMailAPI(currentEmail);
-                }
-
-            }
-        });
-
-    }
-
-    private void hitCheckMailAPI(final String currentEmail) {
-
-        // Create JSONObject for request body
-        JSONObject emailObject = new JSONObject();
-
-        try {
-            emailObject.put("email", currentEmail);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        // Create a Volley request to check email endpoint
-        JsonObjectRequest emailCheckRequest = new JsonObjectRequest(
-                Method.POST,
-                Master.getEmailCheckEndpoint(),
-                emailObject,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley Response received: " + response.toString());
-                        lastCheckedEmail = currentEmail;
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
-                        lastCheckedEmail = currentEmail;
-                    }
-                }) {
-            @Override
-            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Volley: Parsing network response");
-
-                Integer statusCode;
-                String responseString;
-                JSONObject resObject;
-                Boolean isExist;
-
-                try {
-                    // Retrieve status code
-                    statusCode = response.statusCode;
-
-                    // Parse response data into String
-                    responseString = new String(response.data, "UTF-8");
-
-                    // Create JsonObject for data
-                    resObject = new JSONObject(responseString);
-
-                    if (statusCode == 200) {
-                        // Retrieve whether email exist
-                        isExist = resObject.getBoolean("isExist");
-
-                        if (isExist) {
-                            Log.i(LOG_TAG, "Email exist already");
-                            isEmailExist = true; // Update Global param
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    binding.editSignupEmail
-                                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_invalid, 0);
-                                }
-                            });
-                        } else {
-                            Log.i(LOG_TAG, "Email doesn't exist.");
-                            isEmailExist = false; // Update Global param
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    binding.editSignupEmail
-                                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_valid, 0);
-                                }
-                            });
-                        }
-
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                return super.parseNetworkResponse(response);
-            }
-        };
-
-        // Make the request to backoff after 1 retry
-        // Set the timeout to 0
-        emailCheckRequest.setRetryPolicy(new DefaultRetryPolicy(0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        requestQueue.add(emailCheckRequest);
-
-    }
-
-    /**
      * OnClick Button SignUp - Validate form and Call API
      *
      * @param view SignUp Button View
@@ -334,6 +198,146 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Setup FocusListener on EditText to call checkMailAPI
+     * Clear requestQueue to prevent memory hogging
+     */
+    private void setupEmailFocusListener() {
+
+        binding.editSignupEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                final String currentEmail = binding.editSignupEmail.getText().toString();
+
+                // Remove validation drawable as the EditText is empty
+                if (!hasFocus && currentEmail.isEmpty()) {
+                    binding.editSignupEmail
+                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                }
+
+                // Conditions to prevent unnecessary requests
+                if (!hasFocus && !currentEmail.isEmpty() &&
+                        !(currentEmail.equals(lastCheckedEmail))) {
+
+                    // Clear requestQueue to any previous check email requests
+                    requestQueue.cancelAll(new RequestQueue.RequestFilter() {
+                        @Override
+                        public boolean apply(Request<?> request) {
+                            return true;
+                        }
+                    });
+
+                    // Call the check mail API
+                    hitCheckMailAPI(currentEmail);
+                }
+
+            }
+        });
+
+    }
+
+    /**
+     * Hit Check Email API and update Email EditText
+     *
+     * @param currentEmail Text retrieved from View
+     */
+    private void hitCheckMailAPI(final String currentEmail) {
+
+        // Create JSONObject for request body
+        JSONObject emailObject = new JSONObject();
+
+        try {
+            emailObject.put("email", currentEmail);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Create a Volley request to check email endpoint
+        JsonObjectRequest emailCheckRequest = new JsonObjectRequest(
+                Method.POST,
+                Master.getEmailCheckEndpoint(),
+                emailObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                        lastCheckedEmail = currentEmail;
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                        lastCheckedEmail = currentEmail;
+                    }
+                }) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                Log.i(LOG_TAG, "Volley: Parsing network response");
+
+                Integer statusCode;
+                String responseString;
+                JSONObject resObject;
+                Boolean isExist;
+
+                try {
+                    // Retrieve status code
+                    statusCode = response.statusCode;
+
+                    // Parse response data into String
+                    responseString = new String(response.data, "UTF-8");
+
+                    // Create JsonObject for data
+                    resObject = new JSONObject(responseString);
+
+                    if (statusCode == 200) {
+                        // Retrieve whether email exist
+                        isExist = resObject.getBoolean("isExist");
+
+                        if (isExist) {
+                            Log.i(LOG_TAG, "Email exist already");
+                            isEmailExist = true; // Update Global param
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    binding.editSignupEmail
+                                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
+                                }
+                            });
+                        } else {
+                            Log.i(LOG_TAG, "Email doesn't exist.");
+                            isEmailExist = false; // Update Global param
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    binding.editSignupEmail
+                                            .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_valid, 0);
+                                }
+                            });
+                        }
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        // Make the request to backoff after 1 retry
+        // Set the timeout to 0
+        emailCheckRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        requestQueue.add(emailCheckRequest);
+
+    }
 
     /**
      * Validate form before Calling Login API

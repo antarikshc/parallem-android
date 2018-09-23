@@ -8,5 +8,8 @@
     <color name="parallemPurple">#5D1049</color>
     <color name="parallemPurpleLight">#720D5D</color>
     <color name="parallemPurpleDark">#4E0D3A</color>
-    <color name="parallemGreenAccent">#64DD17</color>
+
+    <color name="validGreen">#64DD17</color>
+    <color name="warningYellow">#FFD600</color>
+
 </resources>
