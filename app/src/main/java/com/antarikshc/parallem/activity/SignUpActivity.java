@@ -304,6 +304,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void run() {
                                     binding.editSignupEmail
                                             .setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
+                                    Toast.makeText(SignUpActivity.this, "Email already exist!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
