@@ -1,4 +1,4 @@
-package com.antarikshc.parallem.activity;
+package com.antarikshc.parallem.ui.authentication;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

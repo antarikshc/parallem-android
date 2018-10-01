@@ -1,4 +1,4 @@
-package com.antarikshc.parallem.activity;
+package com.antarikshc.parallem.ui.dashboard;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.antarikshc.parallem.R;
-import com.antarikshc.parallem.fragment.HomeFragment;
 
 public class DashboardActivity extends AppCompatActivity {
 

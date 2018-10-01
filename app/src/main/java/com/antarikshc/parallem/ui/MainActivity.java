@@ -1,4 +1,4 @@
-package com.antarikshc.parallem.activity;
+package com.antarikshc.parallem.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.ui.authentication.LoginActivity;
+import com.antarikshc.parallem.ui.authentication.SignUpActivity;
+import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
 
 public class MainActivity extends AppCompatActivity {
 

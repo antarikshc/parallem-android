@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
-        tools:context=".activity.SignUpActivity">
+        tools:context=".ui.authentication.SignUpActivity">
 
         <ImageView
             android:id="@+id/btn_signup_back"

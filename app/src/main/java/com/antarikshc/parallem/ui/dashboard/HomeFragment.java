@@ -1,4 +1,4 @@
-package com.antarikshc.parallem.fragment;
+package com.antarikshc.parallem.ui.dashboard;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
