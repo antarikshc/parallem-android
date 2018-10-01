@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/bottom_nav_home"
+        android:id="@+id/bottom_nav_item_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/item_home" />
     <item
-        android:id="@+id/bottom_nav_projects"
+        android:id="@+id/bottom_nav_item_projects"
         android:icon="@drawable/ic_projects"
-        android:title="Projects" />
+        android:title="@string/item_projects" />
     <item
-        android:id="@+id/bottom_nav_teams"
+        android:id="@+id/bottom_nav_item_teams"
         android:icon="@drawable/ic_teams"
-        android:title="Teams" />
+        android:title="@string/item_teams" />
     <item
-        android:id="@+id/bottom_nav_alerts"
+        android:id="@+id/bottom_nav_item_alerts"
         android:icon="@drawable/ic_notify_alert"
-        android:title="Alerts" />
+        android:title="@string/item_alerts" />
     <item
-        android:id="@+id/bottom_nav_profile"
+        android:id="@+id/bottom_nav_item_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:title="@string/item_profile" />
 </menu>

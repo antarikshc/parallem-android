@@ -15,4 +15,9 @@
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="button_signup">signup</string>
     <string name="text_isd">+91</string>
+    <string name="item_home">Home</string>
+    <string name="item_projects">Projects</string>
+    <string name="item_teams">Teams</string>
+    <string name="item_alerts">Alerts</string>
+    <string name="item_profile">Profile</string>
 </resources>
