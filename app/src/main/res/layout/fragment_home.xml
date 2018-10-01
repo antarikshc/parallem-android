@@ -80,6 +80,7 @@
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_toEndOf="@+id/img_twd_profile"
                     android:text="Collab Requests: 16"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
 
                 <TextView
@@ -90,6 +91,7 @@
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_toEndOf="@+id/txt_twd_collab"
                     android:text="Projects: 7"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
 
             </RelativeLayout>
