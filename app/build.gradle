@@ -37,6 +37,10 @@ dependencies {
     // Volley for Networking
     implementation 'com.android.volley:volley:1.1.1'
 
+    // Architecture ComponentsViewModel and LiveData
+    def lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
     // Unit Test and Espresso
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
