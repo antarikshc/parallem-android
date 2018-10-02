@@ -18,6 +18,6 @@ public class DashboardViewModelFactory extends ViewModelProvider.NewInstanceFact
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         // No inspection unchecked
-        return super.create(modelClass);
+        return (T) new DashboardViewModel(mRepository);
     }
 }

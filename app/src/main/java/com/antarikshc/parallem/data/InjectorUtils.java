@@ -2,14 +2,19 @@ package com.antarikshc.parallem.data;
 
 import android.content.Context;
 
+import com.android.volley.RequestQueue;
 import com.antarikshc.parallem.data.network.NetworkDataSource;
 import com.antarikshc.parallem.ui.dashboard.DashboardViewModelFactory;
+import com.antarikshc.parallem.util.VolleySingleton;
 
 public class InjectorUtils {
 
     public static ParallemRepository provideRepository(Context context) {
+        // Get Singleton Volley Request Queue Instance
+        RequestQueue requestQueue = VolleySingleton.getInstance(context.getApplicationContext()).getRequestQueue();
+
         NetworkDataSource networkDataSource =
-                NetworkDataSource.getInstance(context.getApplicationContext());
+                NetworkDataSource.getInstance(context.getApplicationContext(), requestQueue);
 
         return ParallemRepository.getInstance(networkDataSource);
     }
@@ -19,7 +24,10 @@ public class InjectorUtils {
         // In this case repo will not exist unless it is specifically created
         provideRepository(context.getApplicationContext());
 
-        return NetworkDataSource.getInstance(context.getApplicationContext());
+        // Get Singleton Volley Request Queue Instance
+        RequestQueue requestQueue = VolleySingleton.getInstance(context.getApplicationContext()).getRequestQueue();
+
+        return NetworkDataSource.getInstance(context.getApplicationContext(), requestQueue);
     }
 
     public static DashboardViewModelFactory provideDashboardViewModelFactory(Context context) {
