@@ -15,6 +15,8 @@ import com.antarikshc.parallem.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
+    private static final String LOG_TAG = HomeFragment.class.getSimpleName();
+
     // Global params
     private FragmentHomeBinding binding;
 

@@ -3,10 +3,11 @@ package com.antarikshc.parallem.ui.dashboard;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.antarikshc.parallem.R;
@@ -20,27 +21,37 @@ public class DashboardActivity extends AppCompatActivity {
     private BottomNavigationView bottomNav;
 
     // Global params
+    private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private HomeFragment homeFragment;
+    private ProjectsFragment projectFragment;
+    private TeamsFragment teamsFragment;
+    private NotificationsFragment notificationsFragment;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        // Begin Fragment Transaction
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        homeFragment = new HomeFragment();
+        projectFragment = new ProjectsFragment();
+        teamsFragment = new TeamsFragment();
+        notificationsFragment = new NotificationsFragment();
+        profileFragment = new ProfileFragment();
 
-        // Keep HomeFragment attached by default
-        fragmentTransaction.add(R.id.frame_dash_main, new HomeFragment());
-        fragmentTransaction.addToBackStack("home");
-        fragmentTransaction.commit();
+        setupFragmentManager();
 
         setupToolbar();
 
-        setupBottomNavListner();
+        setupBottomNavListener();
     }
 
-    private void setupBottomNavListner() {
+    /**
+     * Setup Bottom Navigation Item Selected listener to
+     * switch between fragments
+     */
+    private void setupBottomNavListener() {
 
         bottomNav = findViewById(R.id.bottom_nav_dashboard);
 
@@ -52,35 +63,35 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_home:
                         if (!menuItem.isChecked()) {
-                            Log.i(LOG_TAG, "Bottom Nav Item: Home");
+                            attachFragment(homeFragment);
                             menuItem.setChecked(true);
                         }
                         return true;
 
                     case R.id.bottom_nav_item_projects:
                         if (!menuItem.isChecked()) {
-                            Log.i(LOG_TAG, "Bottom Nav Item: Projects");
+                            attachFragment(projectFragment);
                             menuItem.setChecked(true);
                         }
                         return true;
 
                     case R.id.bottom_nav_item_teams:
                         if (!menuItem.isChecked()) {
-                            Log.i(LOG_TAG, "Bottom Nav Item: Teams");
+                            attachFragment(teamsFragment);
                             menuItem.setChecked(true);
                         }
                         return true;
 
                     case R.id.bottom_nav_item_alerts:
                         if (!menuItem.isChecked()) {
-                            Log.i(LOG_TAG, "Bottom Nav Item: Alerts");
+                            attachFragment(notificationsFragment);
                             menuItem.setChecked(true);
                         }
                         return true;
 
                     case R.id.bottom_nav_item_profile:
                         if (!menuItem.isChecked()) {
-                            Log.i(LOG_TAG, "Bottom Nav Item: Profiles");
+                            attachFragment(profileFragment);
                             menuItem.setChecked(true);
                         }
                         return true;
@@ -92,6 +103,39 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * Setup Fragment Manager and Transactions
+     * Add HomeFragment to backstack
+     */
+    private void setupFragmentManager() {
+        // Retrieve FragmentManager instance
+        fragmentManager = getSupportFragmentManager();
+        // Begin Fragment Transaction
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Keep HomeFragment attached by default
+        attachFragment(homeFragment);
+    }
+
+    private void attachFragment(Fragment fragment) {
+        String backStateName = fragment.getClass().getSimpleName();
+
+        Fragment fragmentFromBackStack = getSupportFragmentManager().findFragmentByTag(backStateName);
+
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+
+        if (fragmentFromBackStack == null) {
+            // Fragment not in back stack, create it.
+            fragmentTransaction.replace(R.id.frame_dash_main, fragment, backStateName);
+            fragmentTransaction.addToBackStack(backStateName);
+            fragmentTransaction.commit();
+        } else {
+            fragmentTransaction.replace(R.id.frame_dash_main, fragmentFromBackStack, backStateName);
+            fragmentTransaction.commit();
+        }
     }
 
     /**
