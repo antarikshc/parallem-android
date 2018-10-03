@@ -20,4 +20,5 @@
     <string name="item_teams">Teams</string>
     <string name="item_alerts">Alerts</string>
     <string name="item_profile">Profile</string>
+    <string name="label_explore">Explore</string>
 </resources>
