@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".ui.dashboard.DashboardActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img_arc_left"
         android:layout_width="@dimen/dimen_12dp"
         android:layout_height="@dimen/dimen_12dp"
-        android:layout_below="@+id/toolbar_dashboard"
-        android:layout_alignParentStart="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_dashboard"
         app:srcCompat="@drawable/ic_arc_left" />
 
     <ImageView
         android:id="@+id/img_arc_right"
         android:layout_width="@dimen/dimen_12dp"
         android:layout_height="@dimen/dimen_12dp"
-        android:layout_below="@+id/toolbar_dashboard"
-        android:layout_alignParentEnd="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_dashboard"
         app:srcCompat="@drawable/ic_arc_right" />
 
     <FrameLayout
         android:id="@+id/frame_dash_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_nav_dashboard"
-        android:layout_below="@+id/img_arc_left"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_dashboard"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_dashboard">
 
     </FrameLayout>
 
@@ -47,7 +47,8 @@
         android:id="@+id/bottom_nav_dashboard"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_nav_items" />
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

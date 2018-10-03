@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.antarikshc.parallem.R;
 
@@ -18,6 +20,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     // Views
     private Toolbar toolbar;
+    private ImageView leftArc;
+    private ImageView rightArc;
     private BottomNavigationView bottomNav;
 
     // Global params
@@ -63,6 +67,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_home:
                         if (!menuItem.isChecked()) {
+                            showToolbar();
+
                             attachFragment(homeFragment);
                             menuItem.setChecked(true);
                         }
@@ -70,6 +76,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_projects:
                         if (!menuItem.isChecked()) {
+                            showToolbar();
+
                             attachFragment(projectFragment);
                             menuItem.setChecked(true);
                         }
@@ -77,6 +85,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_teams:
                         if (!menuItem.isChecked()) {
+                            showToolbar();
+
                             attachFragment(teamsFragment);
                             menuItem.setChecked(true);
                         }
@@ -84,6 +94,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_alerts:
                         if (!menuItem.isChecked()) {
+                            showToolbar();
+
                             attachFragment(notificationsFragment);
                             menuItem.setChecked(true);
                         }
@@ -91,6 +103,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.bottom_nav_item_profile:
                         if (!menuItem.isChecked()) {
+                            hideToolbar();
+
                             attachFragment(profileFragment);
                             menuItem.setChecked(true);
                         }
@@ -119,6 +133,11 @@ public class DashboardActivity extends AppCompatActivity {
         attachFragment(homeFragment);
     }
 
+    /**
+     * Method to avoid fragment recreation
+     *
+     * @param fragment Pass the Fragment to be launched
+     */
     private void attachFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getSimpleName();
 
@@ -139,10 +158,32 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     /**
+     * Toggle Toolbar
+     */
+    private void showToolbar() {
+        if (!(toolbar.getVisibility() == View.VISIBLE)) {
+            toolbar.setVisibility(View.VISIBLE);
+            leftArc.setVisibility(View.VISIBLE);
+            rightArc.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideToolbar() {
+        if (!(toolbar.getVisibility() == View.GONE)) {
+            toolbar.setVisibility(View.GONE);
+            leftArc.setVisibility(View.GONE);
+            rightArc.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * Set Title and Text Color on Toolbar
      */
     private void setupToolbar() {
         toolbar = findViewById(R.id.toolbar_dashboard);
+        leftArc = findViewById(R.id.img_arc_left);
+        rightArc = findViewById(R.id.img_arc_right);
+
         toolbar.setTitle(R.string.title_dashboard_parallem);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
