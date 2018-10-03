@@ -5,11 +5,13 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.antarikshc.parallem.models.User;
 import com.antarikshc.parallem.util.Master;
@@ -98,12 +100,45 @@ public class NetworkDataSource {
                     e.printStackTrace();
                 }
 
+                // Store the response in cache
+                cacheResponse(response);
+
                 return super.parseNetworkResponse(response);
             }
         };
 
         // Queue the API Call
         mRequestQueue.add(fetchUserRequest);
+    }
+
+    private void cacheResponse(NetworkResponse response) {
+        try {
+            Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+            if (cacheEntry == null) {
+                cacheEntry = new Cache.Entry();
+            }
+            final long cacheHitButRefreshed = 2 * 60 * 1000; // in 2 minutes cache will be hit, but also refreshed on background
+            final long cacheExpired = 48 * 60 * 60 * 1000; // in 48 hours this cache entry expires completely
+            long now = System.currentTimeMillis();
+            final long softExpire = now + cacheHitButRefreshed;
+            final long ttl = now + cacheExpired;
+            cacheEntry.data = response.data;
+            cacheEntry.softTtl = softExpire;
+            cacheEntry.ttl = ttl;
+            String headerValue;
+            headerValue = response.headers.get("Date");
+            if (headerValue != null) {
+                cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+            }
+            headerValue = response.headers.get("Last-Modified");
+            if (headerValue != null) {
+                cacheEntry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
+            }
+            cacheEntry.responseHeaders = response.headers;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
