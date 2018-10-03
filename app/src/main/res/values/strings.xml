@@ -21,4 +21,5 @@
     <string name="item_alerts">Alerts</string>
     <string name="item_profile">Profile</string>
     <string name="label_explore">Explore</string>
+    <string name="char_bullet">\u2022</string>
 </resources>
