@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentHomeBinding;
 import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.ui.adapters.ExploreRecyclerAdapter;
 
 
 public class HomeFragment extends Fragment {
@@ -25,6 +28,8 @@ public class HomeFragment extends Fragment {
     // Global params
     private FragmentHomeBinding binding;
     private DashboardViewModel viewModel;
+    private RecyclerView exploreUserList;
+    private ExploreRecyclerAdapter adapter;
 
     @Nullable
     @Override
@@ -42,6 +47,23 @@ public class HomeFragment extends Fragment {
 
         setupViewModel();
 
+        setupRecyclerViewAdapter();
+
+    }
+
+    /**
+     * Setup and Initialize RecyclerView and RecyclerViewAdapter
+     */
+    private void setupRecyclerViewAdapter() {
+
+        exploreUserList = binding.recyclerHomeExplore;
+
+        // Initialize Adapter
+        adapter = new ExploreRecyclerAdapter(getActivity());
+
+        exploreUserList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        exploreUserList.setAdapter(adapter);
+
     }
 
     /**
@@ -53,16 +75,14 @@ public class HomeFragment extends Fragment {
         viewModel = ViewModelProviders.of(getActivity(), factory).get(DashboardViewModel.class);
 
         Log.i(LOG_TAG, "Getting Users from ViewModel");
-        viewModel.getUsers().observe(getActivity(), new Observer<User[]>() {
+        viewModel.getUsers().observe(HomeFragment.this, new Observer<User[]>() {
             @Override
             public void onChanged(@Nullable User[] users) {
-                Log.i(LOG_TAG, "Users Received");
-
                 assert users != null;
+
+                Log.i(LOG_TAG, users.length + " Users Received");
                 if (users.length > 0) {
-                    for (User user : users) {
-                        Log.i(LOG_TAG, "User name: " + user.getName());
-                    }
+                    adapter.setData(users);
                 }
             }
         });
