@@ -21,4 +21,8 @@ public class Master {
         return PARALLEM_BASE_API + "/users";
     }
 
+    public static String getExploreEndpoint() {
+        return PARALLEM_BASE_API + "/explore";
+    }
+
 }

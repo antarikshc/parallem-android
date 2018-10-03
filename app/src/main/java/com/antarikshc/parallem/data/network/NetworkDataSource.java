@@ -63,7 +63,7 @@ public class NetworkDataSource {
         // Fetch all users from API
         JsonArrayRequest fetchUserRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Master.getfetchAllUsersEndpoint(),
+                Master.getExploreEndpoint(),
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override
