@@ -1,6 +1,6 @@
 package com.antarikshc.parallem.data.network;
 
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +49,7 @@ public class UserJsonParser {
                     location = userObject.getString(USER_LOCATION);
                 }
 
-                fetchedUsers[i] = new User(_id, name, email, headline, location);
+                //fetchedUsers[i] = new User(_id, name, email, headline, location);
 
             }
         }

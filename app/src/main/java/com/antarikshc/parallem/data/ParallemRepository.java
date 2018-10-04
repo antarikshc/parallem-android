@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
 import com.antarikshc.parallem.data.network.NetworkDataSource;
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 
 public class ParallemRepository {
 

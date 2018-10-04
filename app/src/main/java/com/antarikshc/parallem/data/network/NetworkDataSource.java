@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 
 import org.json.JSONArray;

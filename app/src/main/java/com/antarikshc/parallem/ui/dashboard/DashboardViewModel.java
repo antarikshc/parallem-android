@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.antarikshc.parallem.data.ParallemRepository;
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 
 public class DashboardViewModel extends ViewModel {
 

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.antarikshc.parallem.R;
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 
 public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.ViewHolder> {
 
@@ -40,10 +40,10 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             User user = data[i];
 
             // Set Profile name
-            viewHolder.profileName.setText(user.getName());
+            //viewHolder.profileName.setText(user.getName());
 
             // Set Profile headline
-            viewHolder.profileHeadline.setText(user.getHeadline());
+            //viewHolder.profileHeadline.setText(user.getHeadline());
 
         }
     }

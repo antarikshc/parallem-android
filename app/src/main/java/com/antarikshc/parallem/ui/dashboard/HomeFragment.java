@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentHomeBinding;
-import com.antarikshc.parallem.models.User;
+import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.adapters.ExploreRecyclerAdapter;
 
 
