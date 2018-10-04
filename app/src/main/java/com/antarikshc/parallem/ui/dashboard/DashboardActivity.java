@@ -32,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
     private TeamsFragment teamsFragment;
     private NotificationsFragment notificationsFragment;
     private ProfileFragment profileFragment;
+    private Boolean isToolbarHidden = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +166,7 @@ public class DashboardActivity extends AppCompatActivity {
             toolbar.setVisibility(View.VISIBLE);
             leftArc.setVisibility(View.VISIBLE);
             rightArc.setVisibility(View.VISIBLE);
+            isToolbarHidden = false;
         }
     }
 
@@ -173,7 +175,18 @@ public class DashboardActivity extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
             leftArc.setVisibility(View.GONE);
             rightArc.setVisibility(View.GONE);
+            isToolbarHidden = true;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (isToolbarHidden) {
+            showToolbar();
+        }
+
     }
 
     /**
