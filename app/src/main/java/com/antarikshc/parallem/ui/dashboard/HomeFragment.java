@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
         viewModel = ViewModelProviders.of(getActivity(), factory).get(DashboardViewModel.class);
 
         Log.i(LOG_TAG, "Getting Users from ViewModel");
-        viewModel.getUsers().observe(HomeFragment.this, new Observer<User[]>() {
+        viewModel.getExploreUsers().observe(HomeFragment.this, new Observer<User[]>() {
             @Override
             public void onChanged(@Nullable User[] users) {
                 assert users != null;

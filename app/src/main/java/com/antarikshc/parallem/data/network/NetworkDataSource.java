@@ -54,12 +54,12 @@ public class NetworkDataSource {
         return sInstance;
     }
 
-    public LiveData<User[]> getUsers() {
-        fetchUsers();
+    public LiveData<User[]> getExploreUsers() {
+        fetchExploreUsers();
         return retrievedUsers;
     }
 
-    private void fetchUsers() {
+    private void fetchExploreUsers() {
 
         // Temporary - until Explore API is ready
         // Fetch all users from API

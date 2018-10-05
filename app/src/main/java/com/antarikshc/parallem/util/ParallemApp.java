@@ -30,12 +30,12 @@ public class ParallemApp extends Application {
         if (userId == null || sp == null) {
             return;
         }
-        // Add token to shared preference
+        // Add UserId to shared preference
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(USER_ID, userId);
         editor.apply();
 
-        // Save the token in class variable
+        // Save the UserId in class variable
         ParallemApp.userId = userId;
 
     }

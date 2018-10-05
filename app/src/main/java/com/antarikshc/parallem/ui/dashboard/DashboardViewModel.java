@@ -18,11 +18,11 @@ public class DashboardViewModel extends ViewModel {
         mRepository = repository;
 
         Log.i(LOG_TAG, "Getting Users from Repository");
-        mUsers = mRepository.getUsers();
+        mUsers = mRepository.getExploreUsers();
     }
 
     // Return the users
-    public LiveData<User[]> getUsers() {
+    public LiveData<User[]> getExploreUsers() {
         return mUsers;
     }
 }

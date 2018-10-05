@@ -34,8 +34,8 @@ public class ParallemRepository {
     }
 
     // Retrieve Users from Data Source
-    public LiveData<User[]> getUsers() {
+    public LiveData<User[]> getExploreUsers() {
         Log.i(LOG_TAG, "Getting Users from Data Source");
-        return mNetworkDataSource.getUsers();
+        return mNetworkDataSource.getExploreUsers();
     }
 }
