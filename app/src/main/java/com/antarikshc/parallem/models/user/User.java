@@ -19,9 +19,9 @@ public class User {
     private ArrayList<UserProject> userProjects;
     private ArrayList<Skill> skills;
     private ArrayList<Team> teams;
-    private String password;
+    private ArrayList<Notification> notifications;
 
-    public User(String _id, String name, String email, String mobileNumber, String headline, String location, String profileImage, ArrayList<Experience> experiences, ArrayList<Certification> certifications, ArrayList<UserProject> userProjects, ArrayList<Skill> skills, ArrayList<Team> teams, String password) {
+    public User(String _id, String name, String email, String mobileNumber, String headline, String location, String profileImage, ArrayList<Experience> experiences, ArrayList<Certification> certifications, ArrayList<UserProject> userProjects, ArrayList<Skill> skills, ArrayList<Team> teams, ArrayList<Notification> notifications) {
         this._id = _id;
         this.name = name;
         this.email = email;
@@ -34,7 +34,7 @@ public class User {
         this.userProjects = userProjects;
         this.skills = skills;
         this.teams = teams;
-        this.password = password;
+        this.notifications = notifications;
     }
 
     public String get_id() {
@@ -133,11 +133,11 @@ public class User {
         this.teams = teams;
     }
 
-    public String getPassword() {
-        return password;
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNotifications(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
     }
 }
