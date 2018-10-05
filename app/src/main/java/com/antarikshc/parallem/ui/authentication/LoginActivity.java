@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivityLoginBinding;
 import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 
 import org.json.JSONException;
@@ -164,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
+                        ParallemApp.addUserId(userID);
                     }
                 } else {
                     runOnUiThread(new Runnable() {
