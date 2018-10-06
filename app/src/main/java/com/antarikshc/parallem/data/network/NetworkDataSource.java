@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
@@ -77,13 +78,13 @@ public class NetworkDataSource {
         String userId = ParallemApp.getUserId();
 
         // Volley request to fetch single user (profile)
-        JsonArrayRequest profileRequest = new JsonArrayRequest(
+        JsonObjectRequest profileRequest = new JsonObjectRequest(
                 Request.Method.GET,
                 Master.getUserById(userId),
                 null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         Log.i(LOG_TAG, "Volley response received");
                     }
                 },
@@ -95,7 +96,7 @@ public class NetworkDataSource {
                 }
         ) {
             @Override
-            protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 
                 Log.i(LOG_TAG, "Parsing network response");
 
@@ -103,8 +104,8 @@ public class NetworkDataSource {
                     // Parse response data into String
                     String responseString = new String(response.data, "UTF-8");
 
-                    // Create JSONObject from the responseString which has JSONArray
-                    JSONObject userObject = (new JSONArray(responseString)).getJSONObject(0);
+                    // Create JSONObject from the responseString
+                    JSONObject userObject = new JSONObject(responseString);
 
                     // Parse JSON Array
                     User user = gson.fromJson(userObject.toString(), User.class);
