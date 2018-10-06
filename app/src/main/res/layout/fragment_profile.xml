@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="Experience"
+                    android:text="@string/label_experience"
                     android:textColor="#9e9e9e"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="Projects"
+                    android:text="@string/label_projects"
                     android:textColor="#9e9e9e"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -235,7 +235,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="Certifications"
+                    android:text="@string/label_certifications"
                     android:textColor="#9e9e9e"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -301,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_8dp"
                     android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="Skills"
+                    android:text="@string/label_skills"
                     android:textColor="#9e9e9e"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

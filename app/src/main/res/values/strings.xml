@@ -22,4 +22,8 @@
     <string name="item_profile">Profile</string>
     <string name="label_explore">Explore</string>
     <string name="char_bullet">\u2022</string>
+    <string name="label_experience">Experience</string>
+    <string name="label_projects">Projects</string>
+    <string name="label_certifications">Certifications</string>
+    <string name="label_skills">Skills</string>
 </resources>

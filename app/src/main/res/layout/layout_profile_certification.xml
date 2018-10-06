@@ -10,7 +10,6 @@
         android:id="@+id/txt_certification_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android Developer Nanodegree"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -19,6 +18,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="5"
-        android:text="Google" />
+        android:maxLines="5" />
 </LinearLayout>

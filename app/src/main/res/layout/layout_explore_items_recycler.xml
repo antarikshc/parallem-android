@@ -39,7 +39,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="@dimen/dimen_8dp"
                 android:layout_toEndOf="@+id/img_explore_profile"
-                android:text="Antariksh Chavan"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -52,8 +51,7 @@
                 android:layout_marginTop="@dimen/dimen_2dp"
                 android:layout_toEndOf="@+id/img_explore_profile"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="An aspiring Android Developer" />
+                android:maxLines="2" />
 
 
         </RelativeLayout>

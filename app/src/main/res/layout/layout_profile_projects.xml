@@ -10,7 +10,6 @@
         android:id="@+id/txt_user_project_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Intrack"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -20,6 +19,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_2dp"
         android:ellipsize="end"
-        android:maxLines="5"
-        android:text="TextView" />
+        android:maxLines="5" />
 </LinearLayout>
