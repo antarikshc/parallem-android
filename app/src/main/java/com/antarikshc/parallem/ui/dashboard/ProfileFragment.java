@@ -100,6 +100,13 @@ public class ProfileFragment extends Fragment {
             public void onChanged(@Nullable User user) {
                 assert user != null;
 
+                // Represent data in Toolbar
+                binding.txtProfileName.setText(user.getName());
+                binding.txtProfileHeadline.setText(user.getHeadline());
+                String locationEmail = user.getLocation() + " " + getString(R.string.char_bullet)
+                        + " " + user.getEmail();
+                binding.txtProfileLocEmail.setText(locationEmail);
+
                 // Send data to adapter to update them
                 expAdapter.setData(user.getExperiences());
                 userProjectAdapter.setData(user.getUserProjects());
