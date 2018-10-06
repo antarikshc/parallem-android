@@ -40,10 +40,10 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             User user = data[i];
 
             // Set Profile name
-            //viewHolder.profileName.setText(user.getName());
+            viewHolder.profileName.setText(user.getName());
 
             // Set Profile headline
-            //viewHolder.profileHeadline.setText(user.getHeadline());
+            viewHolder.profileHeadline.setText(user.getHeadline());
 
         }
     }
@@ -72,7 +72,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         TextView profileName;
         TextView profileHeadline;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             profileImage = itemView.findViewById(R.id.img_explore_profile);

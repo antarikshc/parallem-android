@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentProfileBinding;
 import com.antarikshc.parallem.models.user.User;
+import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 
 public class ProfileFragment extends Fragment {
 
@@ -24,6 +27,8 @@ public class ProfileFragment extends Fragment {
     // Global params
     private FragmentProfileBinding binding;
     private DashboardViewModel viewModel;
+    private RecyclerView experienceList;
+    private ExperienceRecyclerAdapter expAdapter;
 
     @Nullable
     @Override
@@ -39,7 +44,21 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupExperinceAdapter();
+
         setupViewModel();
+    }
+
+    private void setupExperinceAdapter() {
+
+        experienceList = binding.recyclerProfileExperience;
+
+        // Initialize Adapter
+        expAdapter = new ExperienceRecyclerAdapter(getActivity());
+
+        experienceList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        experienceList.setAdapter(expAdapter);
+
     }
 
 
@@ -55,7 +74,12 @@ public class ProfileFragment extends Fragment {
         viewModel.getProfileDetails().observe(ProfileFragment.this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
-                Log.i(LOG_TAG, user.toString());
+                assert user != null;
+
+                if (user.getExperiences().size() > 0) {
+                    expAdapter.setData(user.getExperiences());
+                }
+
             }
         });
 
