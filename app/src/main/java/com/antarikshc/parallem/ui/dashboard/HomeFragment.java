@@ -45,16 +45,16 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupViewModel();
+        setupExploreAdapter();
 
-        setupRecyclerViewAdapter();
+        setupViewModel();
 
     }
 
     /**
      * Setup and Initialize RecyclerView and RecyclerViewAdapter
      */
-    private void setupRecyclerViewAdapter() {
+    private void setupExploreAdapter() {
 
         exploreUserList = binding.recyclerHomeExplore;
 
