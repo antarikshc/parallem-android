@@ -107,8 +107,6 @@ public class NetworkDataSource {
                     JSONObject userObject = (new JSONArray(responseString)).getJSONObject(0);
 
                     // Parse JSON Array
-                    //User user = UserJsonParser.parseSingleUser(userObject);
-
                     User user = gson.fromJson(userObject.toString(), User.class);
 
                     // Let the LiveData know that content has been updated
@@ -165,7 +163,6 @@ public class NetworkDataSource {
                     JSONArray usersArray = new JSONArray(responseString);
 
                     // Parse JSON Array
-                    //User[] users = UserJsonParser.parseUserArray(usersArray);
                     User[] users = gson.fromJson(usersArray.toString(), User[].class);
 
                     // Let the LiveData know that content has been updated
