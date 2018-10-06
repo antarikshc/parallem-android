@@ -260,7 +260,7 @@ public class UserJsonParser {
 
         return new User(
                 _id, name, email, mobileNumber, headline, location, profileImg,
-                experience, certification, userProject, skills, teamId, null, notification, collabRequestCount
+                experience, certification, userProject, skills, teamId, teamProjectCount, notification, collabRequestCount
         );
 
     }

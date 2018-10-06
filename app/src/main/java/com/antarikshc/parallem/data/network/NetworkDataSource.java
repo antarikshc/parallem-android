@@ -103,11 +103,11 @@ public class NetworkDataSource {
                     JSONObject userObject = (new JSONArray(responseString)).getJSONObject(0);
 
                     // Parse JSON Array
-                    User users = UserJsonParser.parseSingleUser(userObject);
+                    User user = UserJsonParser.parseSingleUser(userObject);
 
                     // Let the LiveData know that content has been updated
                     // This posts the update to the main thread
-                    userProfile.postValue(users);
+                    userProfile.postValue(user);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
