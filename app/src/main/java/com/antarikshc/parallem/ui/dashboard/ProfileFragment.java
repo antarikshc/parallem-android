@@ -19,6 +19,7 @@ import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentProfileBinding;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
 
 public class ProfileFragment extends Fragment {
 
@@ -29,6 +30,8 @@ public class ProfileFragment extends Fragment {
     private DashboardViewModel viewModel;
     private RecyclerView experienceList;
     private ExperienceRecyclerAdapter expAdapter;
+    private RecyclerView userProjectList;
+    private UserProjectRecyclerAdapter userProjectAdapter;
 
     @Nullable
     @Override
@@ -44,21 +47,24 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setupExperinceAdapter();
+        setupAdapter();
 
         setupViewModel();
     }
 
-    private void setupExperinceAdapter() {
+    private void setupAdapter() {
 
+        // Experience Adapter
         experienceList = binding.recyclerProfileExperience;
-
-        // Initialize Adapter
         expAdapter = new ExperienceRecyclerAdapter(getActivity());
-
         experienceList.setLayoutManager(new LinearLayoutManager(getActivity()));
         experienceList.setAdapter(expAdapter);
 
+        // User Project Adapter
+        userProjectList = binding.recyclerProfileProjects;
+        userProjectAdapter = new UserProjectRecyclerAdapter(getActivity());
+        userProjectList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        userProjectList.setAdapter(userProjectAdapter);
     }
 
 
@@ -77,7 +83,11 @@ public class ProfileFragment extends Fragment {
                 assert user != null;
 
                 if (user.getExperiences().size() > 0) {
+
+                    // Send data to adapter to update them
                     expAdapter.setData(user.getExperiences());
+                    userProjectAdapter.setData(user.getUserProjects());
+
                 }
 
             }
