@@ -20,6 +20,7 @@ import com.antarikshc.parallem.databinding.FragmentProfileBinding;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
 
 public class ProfileFragment extends Fragment {
@@ -35,6 +36,8 @@ public class ProfileFragment extends Fragment {
     private UserProjectRecyclerAdapter userProjectAdapter;
     private RecyclerView certificateList;
     private CertificationRecyclerAdapter certificationAdapter;
+    private RecyclerView skillList;
+    private SkillRecyclerAdapter skillAdapter;
 
     @Nullable
     @Override
@@ -75,6 +78,11 @@ public class ProfileFragment extends Fragment {
         certificateList.setLayoutManager(new LinearLayoutManager(getActivity()));
         certificateList.setAdapter(certificationAdapter);
 
+        // Skill Adapter
+        skillList = binding.recyclerProfileSkills;
+        skillAdapter = new SkillRecyclerAdapter(getActivity());
+        skillList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        skillList.setAdapter(skillAdapter);
     }
 
 
@@ -96,6 +104,7 @@ public class ProfileFragment extends Fragment {
                 expAdapter.setData(user.getExperiences());
                 userProjectAdapter.setData(user.getUserProjects());
                 certificationAdapter.setData(user.getCertifications());
+                skillAdapter.setData(user.getSkills());
 
             }
         });
