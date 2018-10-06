@@ -258,10 +258,12 @@ public class UserJsonParser {
 
         Log.i(LOG_TAG, "JSON response parsed for 1 user");
 
+        /*
         return new User(
                 _id, name, email, mobileNumber, headline, location, profileImg,
                 experience, certification, userProject, skills, teamId, teamProjectCount, notification, collabRequestCount
-        );
+        );*/
+        return null;
 
     }
 

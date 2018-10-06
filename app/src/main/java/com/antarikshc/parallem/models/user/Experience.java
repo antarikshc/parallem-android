@@ -1,10 +1,22 @@
 package com.antarikshc.parallem.models.user;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Experience {
 
+    @Expose
     private String name;
+
+    @Expose
     private String desgn;
+
+    @Expose
+    @SerializedName("start_date")
     private String startDate;
+
+    @Expose
+    @SerializedName("end_date")
     private String endDate;
 
     public Experience(String name, String desgn, String startDate, String endDate) {

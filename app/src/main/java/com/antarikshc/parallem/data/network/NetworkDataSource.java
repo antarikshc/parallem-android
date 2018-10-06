@@ -16,6 +16,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,16 +31,18 @@ public class NetworkDataSource {
     private static NetworkDataSource sInstance;
     private final Context mContext;
 
-    private final MutableLiveData<User[]> retrievedUsers;
-    private final MutableLiveData<User> userProfile;
     // Global params
     private RequestQueue mRequestQueue;
+    private final MutableLiveData<User[]> retrievedUsers;
+    private final MutableLiveData<User> userProfile;
+    private final Gson gson;
 
     private NetworkDataSource(Context context, RequestQueue requestQueue) {
         mContext = context;
         mRequestQueue = requestQueue;
         retrievedUsers = new MutableLiveData<User[]>();
         userProfile = new MutableLiveData<User>();
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
     /**
@@ -103,7 +107,9 @@ public class NetworkDataSource {
                     JSONObject userObject = (new JSONArray(responseString)).getJSONObject(0);
 
                     // Parse JSON Array
-                    User user = UserJsonParser.parseSingleUser(userObject);
+                    //User user = UserJsonParser.parseSingleUser(userObject);
+
+                    User user = gson.fromJson(userObject.toString(), User.class);
 
                     // Let the LiveData know that content has been updated
                     // This posts the update to the main thread
@@ -159,7 +165,8 @@ public class NetworkDataSource {
                     JSONArray usersArray = new JSONArray(responseString);
 
                     // Parse JSON Array
-                    User[] users = UserJsonParser.parseUserArray(usersArray);
+                    //User[] users = UserJsonParser.parseUserArray(usersArray);
+                    User[] users = gson.fromJson(usersArray.toString(), User[].class);
 
                     // Let the LiveData know that content has been updated
                     // This posts the update to the main thread

@@ -1,9 +1,19 @@
 package com.antarikshc.parallem.models.user;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Notification {
 
+    @Expose
+    @SerializedName("type_id")
     private Integer typeId;
+
+    @Expose
     private String message;
+
+    @Expose
+    @SerializedName("team_id")
     private String teamId;
 
     public Notification(Integer typeId, String message, String teamId) {

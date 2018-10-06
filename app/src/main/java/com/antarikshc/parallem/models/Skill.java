@@ -1,8 +1,15 @@
 package com.antarikshc.parallem.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Skill {
 
+    @Expose
+    @SerializedName("skill_id")
     private Integer skillId;
+
+    @Expose(deserialize = false, serialize = false)
     private String name;
 
     public Skill(Integer skillId, String name) {
