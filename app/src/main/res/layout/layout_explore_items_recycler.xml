@@ -12,10 +12,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/dimen_8dp"
-        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginTop="@dimen/dimen_6dp"
         android:layout_marginEnd="@dimen/dimen_8dp"
-        android:layout_marginBottom="@dimen/dimen_4dp"
-        app:cardCornerRadius="@dimen/dimen_8dp">
+        android:layout_marginBottom="@dimen/dimen_6dp"
+        app:cardCornerRadius="@dimen/dimen_8dp"
+        app:cardElevation="3dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
