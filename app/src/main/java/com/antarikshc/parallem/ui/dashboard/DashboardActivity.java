@@ -127,8 +127,6 @@ public class DashboardActivity extends AppCompatActivity {
     private void setupFragmentManager() {
         // Retrieve FragmentManager instance
         fragmentManager = getSupportFragmentManager();
-        // Begin Fragment Transaction
-        fragmentTransaction = fragmentManager.beginTransaction();
 
         // Keep HomeFragment attached by default
         attachFragment(homeFragment);
@@ -153,8 +151,7 @@ public class DashboardActivity extends AppCompatActivity {
             fragmentTransaction.addToBackStack(backStateName);
             fragmentTransaction.commit();
         } else {
-            fragmentTransaction.replace(R.id.frame_dash_main, fragmentFromBackStack, backStateName);
-            fragmentTransaction.commit();
+            fragmentManager.popBackStack(backStateName, 0);
         }
     }
 
