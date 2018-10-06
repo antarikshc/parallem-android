@@ -22,6 +22,8 @@ import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
+import com.antarikshc.parallem.util.Master;
+import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
 
@@ -99,6 +101,11 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(@Nullable User user) {
                 assert user != null;
+
+                // Load image with Picasso and set to ImageView
+                Picasso.get()
+                        .load(Master.getProfileImageUrl(user.getProfileImage()))
+                        .into(binding.imgProfilePicture);
 
                 // Represent data in Toolbar
                 binding.txtProfileName.setText(user.getName());

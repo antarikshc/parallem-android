@@ -11,5 +11,6 @@
 
     <color name="validGreen">#64DD17</color>
     <color name="warningYellow">#FFD600</color>
+    <color name="lightGrey">#9e9e9e</color>
 
 </resources>
