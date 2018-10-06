@@ -1,8 +1,13 @@
 package com.antarikshc.parallem.models.user;
 
+import com.google.gson.annotations.Expose;
+
 public class Certification {
 
+    @Expose
     private String name;
+
+    @Expose
     private String authority;
 
     public Certification(String name, String authority) {

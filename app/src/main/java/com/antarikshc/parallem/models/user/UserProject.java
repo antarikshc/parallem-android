@@ -1,8 +1,13 @@
 package com.antarikshc.parallem.models.user;
 
+import com.google.gson.annotations.Expose;
+
 public class UserProject {
 
+    @Expose
     private String name;
+
+    @Expose
     private String desc;
 
     public UserProject(String name, String desc) {
