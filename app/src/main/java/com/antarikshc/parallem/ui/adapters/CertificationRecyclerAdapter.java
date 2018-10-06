@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.antarikshc.parallem.R;
-import com.antarikshc.parallem.models.user.UserProject;
+import com.antarikshc.parallem.models.user.Certification;
 
 import java.util.List;
 
-public class UserProjectRecyclerAdapter extends RecyclerView.Adapter<UserProjectRecyclerAdapter.ViewHolder> {
+public class CertificationRecyclerAdapter extends RecyclerView.Adapter<CertificationRecyclerAdapter.ViewHolder> {
 
     // Global params
     private Context context;
-    private List<UserProject> data;
+    private List<Certification> data;
 
-    public UserProjectRecyclerAdapter(Context context) {
+    public CertificationRecyclerAdapter(Context context) {
         this.context = context;
     }
 
@@ -27,7 +27,7 @@ public class UserProjectRecyclerAdapter extends RecyclerView.Adapter<UserProject
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.layout_profile_projects, viewGroup, false);
+                .inflate(R.layout.layout_profile_certification, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -38,13 +38,14 @@ public class UserProjectRecyclerAdapter extends RecyclerView.Adapter<UserProject
         if (data != null && data.size() > 0) {
 
             // Get the single Experience
-            UserProject userProject = data.get(i);
+            Certification certification = data.get(i);
 
-            // Set Project name
-            viewHolder.txtProjectName.setText(userProject.getName());
+            // Set Certificate name
+            viewHolder.txtCertName.setText(certification.getName());
 
-            // Set Project description
-            viewHolder.txtProjectDesc.setText(userProject.getDesc());
+            // Set Certificate Authority
+            viewHolder.txtCertAuthority.setText(certification.getAuthority());
+
 
         }
 
@@ -60,25 +61,25 @@ public class UserProjectRecyclerAdapter extends RecyclerView.Adapter<UserProject
     }
 
 
-    public List<UserProject> getData() {
+    public List<Certification> getData() {
         return data;
     }
 
-    public void setData(List<UserProject> data) {
+    public void setData(List<Certification> data) {
         this.data = data;
         notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtProjectName;
-        TextView txtProjectDesc;
+        TextView txtCertName;
+        TextView txtCertAuthority;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            txtProjectName = itemView.findViewById(R.id.txt_user_project_name);
-            txtProjectDesc = itemView.findViewById(R.id.txt_user_project_desc);
+            txtCertName = itemView.findViewById(R.id.txt_certification_name);
+            txtCertAuthority = itemView.findViewById(R.id.txt_certification_authority);
 
         }
     }

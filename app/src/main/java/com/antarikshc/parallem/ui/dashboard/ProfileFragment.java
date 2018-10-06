@@ -18,6 +18,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentProfileBinding;
 import com.antarikshc.parallem.models.user.User;
+import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
 
@@ -32,6 +33,8 @@ public class ProfileFragment extends Fragment {
     private ExperienceRecyclerAdapter expAdapter;
     private RecyclerView userProjectList;
     private UserProjectRecyclerAdapter userProjectAdapter;
+    private RecyclerView certificateList;
+    private CertificationRecyclerAdapter certificationAdapter;
 
     @Nullable
     @Override
@@ -65,6 +68,13 @@ public class ProfileFragment extends Fragment {
         userProjectAdapter = new UserProjectRecyclerAdapter(getActivity());
         userProjectList.setLayoutManager(new LinearLayoutManager(getActivity()));
         userProjectList.setAdapter(userProjectAdapter);
+
+        // Certification Adapter
+        certificateList = binding.recyclerProfileCertifications;
+        certificationAdapter = new CertificationRecyclerAdapter(getActivity());
+        certificateList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        certificateList.setAdapter(certificationAdapter);
+
     }
 
 
@@ -82,13 +92,10 @@ public class ProfileFragment extends Fragment {
             public void onChanged(@Nullable User user) {
                 assert user != null;
 
-                if (user.getExperiences().size() > 0) {
-
-                    // Send data to adapter to update them
-                    expAdapter.setData(user.getExperiences());
-                    userProjectAdapter.setData(user.getUserProjects());
-
-                }
+                // Send data to adapter to update them
+                expAdapter.setData(user.getExperiences());
+                userProjectAdapter.setData(user.getUserProjects());
+                certificationAdapter.setData(user.getCertifications());
 
             }
         });
