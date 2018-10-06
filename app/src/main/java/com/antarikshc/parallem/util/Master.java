@@ -1,5 +1,7 @@
 package com.antarikshc.parallem.util;
 
+import android.support.annotation.NonNull;
+
 public class Master {
 
     // Parallem API Base URL
@@ -19,6 +21,10 @@ public class Master {
 
     public static String getfetchAllUsersEndpoint() {
         return PARALLEM_BASE_API + "/users";
+    }
+
+    public static String getUserById(@NonNull String userId) {
+        return PARALLEM_BASE_API + "/users/" + userId;
     }
 
     public static String getExploreEndpoint() {

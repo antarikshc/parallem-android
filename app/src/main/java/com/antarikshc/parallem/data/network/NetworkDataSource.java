@@ -15,8 +15,10 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.ParallemApp;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class NetworkDataSource {
 
@@ -28,6 +30,7 @@ public class NetworkDataSource {
     private final Context mContext;
 
     private final MutableLiveData<User[]> retrievedUsers;
+    private final MutableLiveData<User> userProfile;
     // Global params
     private RequestQueue mRequestQueue;
 
@@ -35,6 +38,7 @@ public class NetworkDataSource {
         mContext = context;
         mRequestQueue = requestQueue;
         retrievedUsers = new MutableLiveData<User[]>();
+        userProfile = new MutableLiveData<User>();
     }
 
     /**
@@ -54,11 +58,75 @@ public class NetworkDataSource {
         return sInstance;
     }
 
+    public LiveData<User> getProfileDetails() {
+        fetchProfileDetails();
+        return userProfile;
+    }
     public LiveData<User[]> getExploreUsers() {
         fetchExploreUsers();
         return retrievedUsers;
     }
 
+    private void fetchProfileDetails() {
+
+        // Get UserId from Shared preferences
+        String userId = ParallemApp.getUserId();
+
+        // Volley request to fetch single user (profile)
+        JsonArrayRequest profileRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                Master.getUserById(userId),
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i(LOG_TAG, "Volley response received");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                    }
+                }
+        ) {
+            @Override
+            protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+
+                Log.i(LOG_TAG, "Parsing network response");
+
+                try {
+                    // Parse response data into String
+                    String responseString = new String(response.data, "UTF-8");
+
+                    // Create JSONObject from the responseString which has JSONArray
+                    JSONObject userObject = (new JSONArray(responseString)).getJSONObject(0);
+
+                    // Parse JSON Array
+                    User users = UserJsonParser.parseSingleUser(userObject);
+
+                    // Let the LiveData know that content has been updated
+                    // This posts the update to the main thread
+                    userProfile.postValue(users);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Store the response in cache
+                cacheResponse(response);
+
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        // Queue the API Call
+        mRequestQueue.add(profileRequest);
+
+    }
+
+    /**
+     * Contains Volley request to fetch Users from /explore endpoint
+     */
     private void fetchExploreUsers() {
 
         // Temporary - until Explore API is ready
@@ -91,7 +159,7 @@ public class NetworkDataSource {
                     JSONArray usersArray = new JSONArray(responseString);
 
                     // Parse JSON Array
-                    User[] users = UserJsonParser.parseJson(usersArray);
+                    User[] users = UserJsonParser.parseUserArray(usersArray);
 
                     // Let the LiveData know that content has been updated
                     // This posts the update to the main thread
@@ -111,6 +179,11 @@ public class NetworkDataSource {
         mRequestQueue.add(fetchUserRequest);
     }
 
+    /**
+     * Helper method to cache the response received from Volley request
+     *
+     * @param response Pass the NetworkResponse that needs to be cached
+     */
     private void cacheResponse(NetworkResponse response) {
         try {
             Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);

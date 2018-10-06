@@ -13,16 +13,24 @@ public class DashboardViewModel extends ViewModel {
 
     private final ParallemRepository mRepository;
     private final LiveData<User[]> mUsers;
+    private final LiveData<User> mProfile;
 
     public DashboardViewModel(ParallemRepository repository) {
         mRepository = repository;
 
         Log.i(LOG_TAG, "Getting Users from Repository");
         mUsers = mRepository.getExploreUsers();
+        mProfile = mRepository.getProfileDetails();
+
     }
 
-    // Return the users
+    // Return the Explore users
     public LiveData<User[]> getExploreUsers() {
         return mUsers;
+    }
+
+    // Return the details of single user (Profile)
+    public LiveData<User> getProfileDetails() {
+        return mProfile;
     }
 }

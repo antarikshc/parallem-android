@@ -1,8 +1,5 @@
 package com.antarikshc.parallem.models.user;
 
-import com.antarikshc.parallem.models.Skill;
-import com.antarikshc.parallem.models.team.Team;
-
 import java.util.ArrayList;
 
 public class User {
@@ -17,11 +14,13 @@ public class User {
     private ArrayList<Experience> experiences;
     private ArrayList<Certification> certifications;
     private ArrayList<UserProject> userProjects;
-    private ArrayList<Skill> skills;
-    private ArrayList<Team> teams;
+    private ArrayList<Integer> skills;
+    private String teams;
+    private Integer teamProjectCount;
     private ArrayList<Notification> notifications;
+    private Integer collabRequestCount;
 
-    public User(String _id, String name, String email, String mobileNumber, String headline, String location, String profileImage, ArrayList<Experience> experiences, ArrayList<Certification> certifications, ArrayList<UserProject> userProjects, ArrayList<Skill> skills, ArrayList<Team> teams, ArrayList<Notification> notifications) {
+    public User(String _id, String name, String email, String mobileNumber, String headline, String location, String profileImage, ArrayList<Experience> experiences, ArrayList<Certification> certifications, ArrayList<UserProject> userProjects, ArrayList<Integer> skills, String teams, Integer teamProjectCount, ArrayList<Notification> notifications, Integer collabRequestCount) {
         this._id = _id;
         this.name = name;
         this.email = email;
@@ -34,7 +33,9 @@ public class User {
         this.userProjects = userProjects;
         this.skills = skills;
         this.teams = teams;
+        this.teamProjectCount = teamProjectCount;
         this.notifications = notifications;
+        this.collabRequestCount = collabRequestCount;
     }
 
     public String get_id() {
@@ -117,20 +118,28 @@ public class User {
         this.userProjects = userProjects;
     }
 
-    public ArrayList<Skill> getSkills() {
+    public ArrayList<Integer> getSkills() {
         return skills;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
+    public void setSkills(ArrayList<Integer> skills) {
         this.skills = skills;
     }
 
-    public ArrayList<Team> getTeams() {
+    public String getTeams() {
         return teams;
     }
 
-    public void setTeams(ArrayList<Team> teams) {
+    public void setTeams(String teams) {
         this.teams = teams;
+    }
+
+    public Integer getTeamProjectCount() {
+        return teamProjectCount;
+    }
+
+    public void setTeamProjectCount(Integer teamProjectCount) {
+        this.teamProjectCount = teamProjectCount;
     }
 
     public ArrayList<Notification> getNotifications() {
@@ -139,5 +148,13 @@ public class User {
 
     public void setNotifications(ArrayList<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public Integer getCollabRequestCount() {
+        return collabRequestCount;
+    }
+
+    public void setCollabRequestCount(Integer collabRequestCount) {
+        this.collabRequestCount = collabRequestCount;
     }
 }
