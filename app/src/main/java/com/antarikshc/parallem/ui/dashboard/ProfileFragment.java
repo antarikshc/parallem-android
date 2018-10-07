@@ -66,24 +66,28 @@ public class ProfileFragment extends Fragment {
         experienceList = binding.recyclerProfileExperience;
         expAdapter = new ExperienceRecyclerAdapter(getActivity());
         experienceList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        experienceList.setNestedScrollingEnabled(false);
         experienceList.setAdapter(expAdapter);
 
         // User Project Adapter
         userProjectList = binding.recyclerProfileProjects;
         userProjectAdapter = new UserProjectRecyclerAdapter(getActivity());
         userProjectList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        userProjectList.setNestedScrollingEnabled(false);
         userProjectList.setAdapter(userProjectAdapter);
 
         // Certification Adapter
         certificateList = binding.recyclerProfileCertifications;
         certificationAdapter = new CertificationRecyclerAdapter(getActivity());
         certificateList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        certificateList.setNestedScrollingEnabled(false);
         certificateList.setAdapter(certificationAdapter);
 
         // Skill Adapter
         skillList = binding.recyclerProfileSkills;
         skillAdapter = new SkillRecyclerAdapter(getActivity());
         skillList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        skillList.setNestedScrollingEnabled(false);
         skillList.setAdapter(skillAdapter);
     }
 

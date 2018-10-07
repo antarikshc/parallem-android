@@ -3,351 +3,358 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <RelativeLayout
-            android:id="@+id/relative_profile_toolbar"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:padding="@dimen/dimen_16dp">
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/relative_profile_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:padding="@dimen/dimen_16dp">
+
+                <ImageView
+                    android:id="@+id/img_profile_picture"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    app:srcCompat="@mipmap/ic_launcher_round" />
+
+                <TextView
+                    android:id="@+id/txt_profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_toEndOf="@+id/img_profile_picture"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_profile_headline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_profile_name"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_2dp"
+                    android:layout_toEndOf="@+id/img_profile_picture"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingBottom="@dimen/dimen_4dp"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/txt_profile_loc_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_profile_headline"
+                    android:layout_marginStart="@dimen/dimen_8dp"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:layout_toEndOf="@+id/img_profile_picture"
+                    android:maxLines="2"
+                    android:text="@string/char_bullet"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/img_profile_picture"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:id="@+id/img_arc_left"
+                android:layout_width="@dimen/dimen_12dp"
+                android:layout_height="@dimen/dimen_12dp"
+                android:layout_below="@+id/relative_profile_toolbar"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar"
+                app:srcCompat="@drawable/ic_arc_left" />
 
-            <TextView
-                android:id="@+id/txt_profile_name"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/img_arc_right"
+                android:layout_width="@dimen/dimen_12dp"
+                android:layout_height="@dimen/dimen_12dp"
+                android:layout_below="@+id/relative_profile_toolbar"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar"
+                app:srcCompat="@drawable/ic_arc_right" />
+
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/card_profile_experience"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/img_profile_picture"
                 android:layout_marginStart="@dimen/dimen_8dp"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                app:cardCornerRadius="@dimen/dimen_6dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar">
 
-            <TextView
-                android:id="@+id/txt_profile_headline"
-                android:layout_width="wrap_content"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_profile_exp_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="@string/label_experience"
+                        android:textColor="@color/lightGrey"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/horizontal_line_exp"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_4dp"
+                        android:background="@drawable/bg_horizontal_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_exp_label"
+                        app:layout_constraintEnd_toStartOf="@+id/img_exp_edit"
+                        app:layout_constraintStart_toEndOf="@+id/txt_profile_exp_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_exp_label" />
+
+                    <ImageView
+                        android:id="@+id/img_exp_edit"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_exp_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_exp_label"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_profile_experience"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_exp_label"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/layout_profile_experience" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
+
+
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/card_profile_projects"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_profile_name"
-                android:layout_toEndOf="@+id/img_profile_picture"
                 android:layout_marginStart="@dimen/dimen_8dp"
-                android:layout_marginTop="@dimen/dimen_2dp"
-                android:paddingBottom="@dimen/dimen_4dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@android:color/white" />
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                app:cardCornerRadius="@dimen/dimen_6dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_profile_experience">
 
-            <TextView
-                android:id="@+id/txt_profile_loc_email"
-                android:layout_width="wrap_content"
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_profile_projects_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="@string/label_projects"
+                        android:textColor="@color/lightGrey"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/horizontal_line_projects"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_4dp"
+                        android:background="@drawable/bg_horizontal_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_projects_label"
+                        app:layout_constraintEnd_toStartOf="@+id/img_projects_edit"
+                        app:layout_constraintStart_toEndOf="@+id/txt_profile_projects_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_projects_label" />
+
+                    <ImageView
+                        android:id="@+id/img_projects_edit"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_projects_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_projects_label"
+                        app:srcCompat="@drawable/ic_edit" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_profile_projects"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_projects_label"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/layout_profile_projects" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
+
+
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/card_profile_certifications"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txt_profile_headline"
-                android:layout_toEndOf="@+id/img_profile_picture"
                 android:layout_marginStart="@dimen/dimen_8dp"
-                android:layout_marginTop="@dimen/dimen_4dp"
-                android:maxLines="2"
-                android:text="@string/char_bullet"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                app:cardCornerRadius="@dimen/dimen_6dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_profile_projects">
 
-        </RelativeLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/img_arc_left"
-            android:layout_width="@dimen/dimen_12dp"
-            android:layout_height="@dimen/dimen_12dp"
-            android:layout_below="@+id/relative_profile_toolbar"
-            android:layout_alignParentStart="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar"
-            app:srcCompat="@drawable/ic_arc_left" />
+                    <TextView
+                        android:id="@+id/txt_profile_cert_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="@string/label_certifications"
+                        android:textColor="@color/lightGrey"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/img_arc_right"
-            android:layout_width="@dimen/dimen_12dp"
-            android:layout_height="@dimen/dimen_12dp"
-            android:layout_below="@+id/relative_profile_toolbar"
-            android:layout_alignParentEnd="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar"
-            app:srcCompat="@drawable/ic_arc_right" />
+                    <View
+                        android:id="@+id/horizontal_line_cert"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_4dp"
+                        android:background="@drawable/bg_horizontal_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_cert_label"
+                        app:layout_constraintEnd_toStartOf="@+id/img_cert_edit"
+                        app:layout_constraintStart_toEndOf="@+id/txt_profile_cert_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_cert_label" />
 
-        <android.support.design.card.MaterialCardView
-            android:id="@+id/card_profile_experience"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_12dp"
-            android:layout_marginEnd="@dimen/dimen_8dp"
-            app:cardCornerRadius="@dimen/dimen_6dp"
-            app:cardElevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relative_profile_toolbar">
+                    <ImageView
+                        android:id="@+id/img_cert_edit"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_cert_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_cert_label"
+                        app:srcCompat="@drawable/ic_edit" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_profile_certifications"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_cert_label"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/layout_profile_certification" />
 
-                <TextView
-                    android:id="@+id/txt_profile_exp_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="@string/label_experience"
-                    android:textColor="@color/lightGrey"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/horizontal_line_exp"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_4dp"
-                    android:background="@drawable/bg_horizontal_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_exp_label"
-                    app:layout_constraintEnd_toStartOf="@+id/img_exp_edit"
-                    app:layout_constraintStart_toEndOf="@+id/txt_profile_exp_label"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_exp_label" />
-
-                <ImageView
-                    android:id="@+id/img_exp_edit"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_exp_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_exp_label"
-                    app:srcCompat="@drawable/ic_edit" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_profile_experience"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_profile_exp_label"
-                    tools:itemCount="1"
-                    tools:listitem="@layout/layout_profile_experience" />
-
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.card.MaterialCardView>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
 
 
-        <android.support.design.card.MaterialCardView
-            android:id="@+id/card_profile_projects"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_12dp"
-            android:layout_marginEnd="@dimen/dimen_8dp"
-            app:cardCornerRadius="@dimen/dimen_6dp"
-            app:cardElevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_profile_experience">
+            <android.support.design.card.MaterialCardView
+                android:id="@+id/card_profile_skills"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_12dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                app:cardCornerRadius="@dimen/dimen_6dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_profile_certifications">
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/txt_profile_projects_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="@string/label_projects"
-                    android:textColor="@color/lightGrey"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/txt_profile_skills_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:text="@string/label_skills"
+                        android:textColor="@color/lightGrey"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/horizontal_line_projects"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_4dp"
-                    android:background="@drawable/bg_horizontal_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_projects_label"
-                    app:layout_constraintEnd_toStartOf="@+id/img_projects_edit"
-                    app:layout_constraintStart_toEndOf="@+id/txt_profile_projects_label"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_projects_label" />
+                    <View
+                        android:id="@+id/horizontal_line_skills"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_4dp"
+                        android:background="@drawable/bg_horizontal_line"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_skills_label"
+                        app:layout_constraintEnd_toStartOf="@+id/img_skills_edit"
+                        app:layout_constraintStart_toEndOf="@+id/txt_profile_skills_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_skills_label" />
 
-                <ImageView
-                    android:id="@+id/img_projects_edit"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_projects_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_projects_label"
-                    app:srcCompat="@drawable/ic_edit" />
+                    <ImageView
+                        android:id="@+id/img_skills_edit"
+                        android:layout_width="18dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_profile_skills_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/txt_profile_skills_label"
+                        app:srcCompat="@drawable/ic_edit" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_profile_projects"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_profile_projects_label"
-                    tools:itemCount="1"
-                    tools:listitem="@layout/layout_profile_projects" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_profile_skills"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_8dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_skills_label"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/layout_profile_skills" />
 
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.card.MaterialCardView>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.card.MaterialCardView>
 
+        </android.support.constraint.ConstraintLayout>
 
-        <android.support.design.card.MaterialCardView
-            android:id="@+id/card_profile_certifications"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_12dp"
-            android:layout_marginEnd="@dimen/dimen_8dp"
-            app:cardCornerRadius="@dimen/dimen_6dp"
-            app:cardElevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_profile_projects">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txt_profile_cert_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="@string/label_certifications"
-                    android:textColor="@color/lightGrey"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/horizontal_line_cert"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_4dp"
-                    android:background="@drawable/bg_horizontal_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_cert_label"
-                    app:layout_constraintEnd_toStartOf="@+id/img_cert_edit"
-                    app:layout_constraintStart_toEndOf="@+id/txt_profile_cert_label"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_cert_label" />
-
-                <ImageView
-                    android:id="@+id/img_cert_edit"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_cert_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_cert_label"
-                    app:srcCompat="@drawable/ic_edit" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_profile_certifications"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_profile_cert_label"
-                    tools:itemCount="1"
-                    tools:listitem="@layout/layout_profile_certification" />
-
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.card.MaterialCardView>
-
-
-        <android.support.design.card.MaterialCardView
-            android:id="@+id/card_profile_skills"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_8dp"
-            android:layout_marginTop="@dimen/dimen_12dp"
-            android:layout_marginEnd="@dimen/dimen_8dp"
-            app:cardCornerRadius="@dimen/dimen_6dp"
-            app:cardElevation="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_profile_certifications">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txt_profile_skills_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_8dp"
-                    android:text="@string/label_skills"
-                    android:textColor="@color/lightGrey"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/horizontal_line_skills"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_4dp"
-                    android:background="@drawable/bg_horizontal_line"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_skills_label"
-                    app:layout_constraintEnd_toStartOf="@+id/img_skills_edit"
-                    app:layout_constraintStart_toEndOf="@+id/txt_profile_skills_label"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_skills_label" />
-
-                <ImageView
-                    android:id="@+id/img_skills_edit"
-                    android:layout_width="18dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txt_profile_skills_label"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txt_profile_skills_label"
-                    app:srcCompat="@drawable/ic_edit" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_profile_skills"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_8dp"
-                    android:layout_marginTop="@dimen/dimen_4dp"
-                    android:layout_marginEnd="@dimen/dimen_8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_profile_skills_label"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/layout_profile_skills" />
-
-            </android.support.constraint.ConstraintLayout>
-        </android.support.design.card.MaterialCardView>
-
-    </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </layout>
