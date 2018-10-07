@@ -50,6 +50,21 @@ public class CareerDetailsFragment extends Fragment {
             }
         });
 
+        // Button - Add Project
+        binding.imgCareerProjectsAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createProjectDialog();
+            }
+        });
+
+        // Button - Add Certificate
+        binding.imgCareerCertAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createCertificateDialog();
+            }
+        });
     }
 
     /**
@@ -66,6 +81,80 @@ public class CareerDetailsFragment extends Fragment {
         TextInputEditText expCompany = mView.findViewById(R.id.edit_dialog_experience_company);
         Button btnSave = mView.findViewById(R.id.btn_dialog_experience_save);
         Button btnCancel = mView.findViewById(R.id.btn_dialog_experience_cancel);
+
+        // Set view and create AlertDialog
+        mBuilder.setView(mView);
+        final AlertDialog alertDialog = mBuilder.create();
+
+        // OnClickListeners for Buttons
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    /**
+     * AlertDialog for adding Project
+     */
+    private void createProjectDialog() {
+
+        // Build AlertDialog and inflate views
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity(), R.style.DialogRoundedCorners);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_project, null);
+
+        // Bind views from Dialog layout
+        TextInputEditText projectName = mView.findViewById(R.id.edit_dialog_project_name);
+        TextInputEditText projectDesc = mView.findViewById(R.id.edit_dialog_project_desc);
+        Button btnSave = mView.findViewById(R.id.btn_dialog_project_save);
+        Button btnCancel = mView.findViewById(R.id.btn_dialog_project_cancel);
+
+        // Set view and create AlertDialog
+        mBuilder.setView(mView);
+        final AlertDialog alertDialog = mBuilder.create();
+
+        // OnClickListeners for Buttons
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    /**
+     * AlertDialog for adding Certificate
+     */
+    private void createCertificateDialog() {
+
+        // Build AlertDialog and inflate views
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity(), R.style.DialogRoundedCorners);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_certificate, null);
+
+        // Bind views from Dialog layout
+        TextInputEditText certName = mView.findViewById(R.id.edit_dialog_certificate_name);
+        TextInputEditText certAuthority = mView.findViewById(R.id.edit_dialog_certificate_authority);
+        Button btnSave = mView.findViewById(R.id.btn_dialog_certificate_save);
+        Button btnCancel = mView.findViewById(R.id.btn_dialog_certificate_cancel);
 
         // Set view and create AlertDialog
         mBuilder.setView(mView);

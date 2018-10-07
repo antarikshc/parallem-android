@@ -36,4 +36,7 @@
     <string name="button_cancel">Cancel</string>
     <string name="hint_title">Title</string>
     <string name="hint_company">Company</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_authority">Authority</string>
 </resources>
