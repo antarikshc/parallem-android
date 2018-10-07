@@ -33,4 +33,7 @@
     <string name="hint_location">Location</string>
     <string name="button_continue">Continue</string>
     <string name="button_skip">Skip</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_company">Company</string>
 </resources>

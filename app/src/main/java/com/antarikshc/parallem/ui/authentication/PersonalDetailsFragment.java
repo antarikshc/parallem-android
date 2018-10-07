@@ -82,7 +82,6 @@ public class PersonalDetailsFragment extends Fragment {
         }
         avatarAdapter.setData(avatars);
 
-
     }
 
     /**
