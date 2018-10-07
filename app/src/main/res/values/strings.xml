@@ -26,4 +26,6 @@
     <string name="label_projects">Projects</string>
     <string name="label_certifications">Certifications</string>
     <string name="label_skills">Skills</string>
+    <string name="label_know_you_better">We would like to know you better..</string>
+    <string name="button_save">Save</string>
 </resources>
