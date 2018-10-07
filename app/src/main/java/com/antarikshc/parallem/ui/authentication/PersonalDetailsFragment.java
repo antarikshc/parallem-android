@@ -15,6 +15,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.FragmentPersonalDetailsBinding;
 import com.antarikshc.parallem.models.user.ProfileAvatar;
 import com.antarikshc.parallem.ui.adapters.AvatarRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class PersonalDetailsFragment extends Fragment {
     private FragmentPersonalDetailsBinding binding;
     private RecyclerView avatarList;
     private AvatarRecyclerAdapter avatarAdapter;
+    private List<ProfileAvatar> avatars;
+    private Integer previouslySelectedAvatar = 0;
+    private Integer currentSelectedAvatar = 0;
 
     @Nullable
     @Override
@@ -54,15 +58,22 @@ public class PersonalDetailsFragment extends Fragment {
         // Find the Recycler View Adapter
         avatarList = binding.recyclerPersonalAvatar;
 
-        // Initialize adapter
-        avatarAdapter = new AvatarRecyclerAdapter();
+        // Initialize adapter with CustomItemClickListener
+        avatarAdapter = new AvatarRecyclerAdapter(getContext(), new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                previouslySelectedAvatar = currentSelectedAvatar;
+                currentSelectedAvatar = position;
+                setSelectedBackground(previouslySelectedAvatar, position);
+            }
+        });
 
         // Set GridLayout as LayoutManager
         avatarList.setLayoutManager(new GridLayoutManager(getContext(), 4));
 
         avatarList.setAdapter(avatarAdapter);
 
-        List<ProfileAvatar> avatars = new ArrayList<ProfileAvatar>();
+        avatars = new ArrayList<ProfileAvatar>();
         for (int i = 1; i <= 22; i++) {
             // Temp: Hardcoding 22 as we 22 image illustrations
 
@@ -71,6 +82,22 @@ public class PersonalDetailsFragment extends Fragment {
         }
         avatarAdapter.setData(avatars);
 
+
+    }
+
+    /**
+     * Clear previous selection and set new selected background
+     *
+     * @param previousPosition to clear selected background
+     * @param position         to set selected background
+     */
+    private void setSelectedBackground(int previousPosition, int position) {
+
+        avatars.get(previousPosition).setSelected(false);
+
+        avatars.get(position).setSelected(true);
+
+        avatarAdapter.setData(avatars);
 
     }
 

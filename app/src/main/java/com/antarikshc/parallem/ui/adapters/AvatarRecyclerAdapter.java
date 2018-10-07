@@ -19,7 +19,13 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
     // Global params
     private Context context;
+    private CustomItemClickListener listener;
     private List<ProfileAvatar> data;
+
+    public AvatarRecyclerAdapter(Context context, CustomItemClickListener listener) {
+        this.context = context;
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -27,7 +33,17 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.layout_personal_avatar, viewGroup, false);
 
-        return new ViewHolder(view);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        // Pass OnClickListener from view to CustomOnItemClickListener
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, viewHolder.getAdapterPosition());
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
@@ -47,8 +63,9 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
             if (avatar.getSelected()) {
                 viewHolder.imgAvatar.setBackgroundResource(R.drawable.bg_avatar_selected);
+            } else {
+                viewHolder.imgAvatar.setBackground(null);
             }
-
         }
 
     }
