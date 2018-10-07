@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.models.user.ProfileAvatar;
 import com.antarikshc.parallem.util.Master;
 import com.squareup.picasso.Picasso;
 
@@ -18,7 +19,7 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
     // Global params
     private Context context;
-    private List<Integer> data;
+    private List<ProfileAvatar> data;
 
     @NonNull
     @Override
@@ -34,13 +35,19 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
         if (data != null && data.size() > 0) {
 
-            // Get the single Image ID
-            Integer imageId = data.get(i);
+            // Get the single Avatar
+            ProfileAvatar avatar = data.get(i);
+
+            Integer avatarIdId = avatar.getAvatarId();
 
             // Download Image bitmap with Picasso
             Picasso.get()
-                    .load(Master.getProfileImageUrl(String.valueOf(imageId)))
+                    .load(Master.getProfileImageUrl(String.valueOf(avatarIdId)))
                     .into(viewHolder.imgAvatar);
+
+            if (avatar.getSelected()) {
+                viewHolder.imgAvatar.setBackgroundResource(R.drawable.bg_avatar_selected);
+            }
 
         }
 
@@ -56,11 +63,11 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
     }
 
-    public List<Integer> getData() {
+    public List<ProfileAvatar> getData() {
         return data;
     }
 
-    public void setData(List<Integer> data) {
+    public void setData(List<ProfileAvatar> data) {
         this.data = data;
         notifyDataSetChanged();
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.FragmentPersonalDetailsBinding;
+import com.antarikshc.parallem.models.user.ProfileAvatar;
 import com.antarikshc.parallem.ui.adapters.AvatarRecyclerAdapter;
 
 import java.util.ArrayList;
@@ -61,14 +62,15 @@ public class PersonalDetailsFragment extends Fragment {
 
         avatarList.setAdapter(avatarAdapter);
 
-        List<Integer> images = new ArrayList<Integer>();
+        List<ProfileAvatar> avatars = new ArrayList<ProfileAvatar>();
         for (int i = 1; i <= 22; i++) {
             // Temp: Hardcoding 22 as we 22 image illustrations
 
-            images.add(i);
+            avatars.add(new ProfileAvatar(i, false));
 
         }
-        avatarAdapter.setData(images);
+        avatarAdapter.setData(avatars);
+
 
     }
 
