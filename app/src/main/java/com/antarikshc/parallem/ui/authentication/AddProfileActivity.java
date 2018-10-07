@@ -11,8 +11,7 @@ import com.antarikshc.parallem.R;
 public class AddProfileActivity extends AppCompatActivity {
 
     // Global params
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
+    private static FragmentManager fragmentManager;
     private PersonalDetailsFragment personalDetailsFragment;
     private CareerDetailsFragment careerDetailsFragment;
 
@@ -46,13 +45,15 @@ public class AddProfileActivity extends AppCompatActivity {
      *
      * @param fragment Pass the Fragment to be launched
      */
-    private void attachFragment(Fragment fragment) {
+    public static void attachFragment(Fragment fragment) {
         String backStateName = fragment.getClass().getSimpleName();
 
-        Fragment fragmentFromBackStack = getSupportFragmentManager().findFragmentByTag(backStateName);
+        Fragment fragmentFromBackStack = fragmentManager.findFragmentByTag(backStateName);
 
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(
+                R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);
 
         if (fragmentFromBackStack == null) {
             // Fragment not in back stack, create it.

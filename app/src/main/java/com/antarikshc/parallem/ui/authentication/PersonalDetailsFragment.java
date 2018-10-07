@@ -31,6 +31,31 @@ public class PersonalDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        onClickListeners();
+    }
+
+    /**
+     * Setup all the Button onClick here
+     */
+    private void onClickListeners() {
+
+        // Button - Continue
+        binding.btnPersonalDetailsContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+            }
+        });
+
+        // Button - Skip
+        binding.btnPersonalDetailsSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+            }
+        });
     }
 
 }
