@@ -6,6 +6,7 @@
     android:padding="@dimen/dimen_6dp">
 
     <ImageView
+        android:id="@+id/img_recycler_avatar"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="fitXY"

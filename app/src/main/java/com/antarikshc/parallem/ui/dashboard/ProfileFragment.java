@@ -60,6 +60,9 @@ public class ProfileFragment extends Fragment {
         setupViewModel();
     }
 
+    /**
+     * Boilerplate setup for RecyclerViewAdapter
+     */
     private void setupAdapter() {
 
         // Experience Adapter
