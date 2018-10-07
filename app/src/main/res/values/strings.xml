@@ -28,4 +28,9 @@
     <string name="label_skills">Skills</string>
     <string name="label_know_you_better">We would like to know you better..</string>
     <string name="button_save">Save</string>
+    <string name="label_choose_avatar">Choose your avatar</string>
+    <string name="hint_headline">Headline</string>
+    <string name="hint_location">Location</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_skip">Skip</string>
 </resources>

@@ -13,6 +13,7 @@ public class AddProfileActivity extends AppCompatActivity {
     // Global params
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private PersonalDetailsFragment personalDetailsFragment;
     private CareerDetailsFragment careerDetailsFragment;
 
     @Override
@@ -20,6 +21,7 @@ public class AddProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_profile);
 
+        personalDetailsFragment = new PersonalDetailsFragment();
         careerDetailsFragment = new CareerDetailsFragment();
 
         setupFragmentManager();
@@ -28,14 +30,14 @@ public class AddProfileActivity extends AppCompatActivity {
 
     /**
      * Setup Fragment Manager and Transactions
-     * Add ExperienceProject to backstack
+     * Add to backstack
      */
     private void setupFragmentManager() {
         // Retrieve FragmentManager instance
         fragmentManager = getSupportFragmentManager();
 
-        // Keep CareerDetailsFragment attached by default
-        attachFragment(careerDetailsFragment);
+        // Keep PersonalDetailsFragment attached by default
+        attachFragment(personalDetailsFragment);
     }
 
 
