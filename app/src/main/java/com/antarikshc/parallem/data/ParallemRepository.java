@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
 import com.antarikshc.parallem.data.network.NetworkDataSource;
+import com.antarikshc.parallem.models.Skill;
 import com.antarikshc.parallem.models.user.User;
 
 public class ParallemRepository {
@@ -33,15 +34,23 @@ public class ParallemRepository {
         return sInstance;
     }
 
+    // Retrieve Profile details from Data Source
+    public LiveData<User> getProfileDetails() {
+        Log.i(LOG_TAG, "Getting Profile details from Data Source");
+        return mNetworkDataSource.getProfileDetails();
+    }
+
     // Retrieve Users from Data Source
     public LiveData<User[]> getExploreUsers() {
         Log.i(LOG_TAG, "Getting Explore Users from Data Source");
         return mNetworkDataSource.getExploreUsers();
     }
 
-    // Retrieve Profile details from Data Source
-    public LiveData<User> getProfileDetails() {
-        Log.i(LOG_TAG, "Getting Profile details from Data Source");
-        return mNetworkDataSource.getProfileDetails();
+
+    // Retrieve Skilsl from Data Source
+    public LiveData<Skill[]> getAllSkills() {
+        Log.i(LOG_TAG, "Getting Skills from Data Source");
+        return mNetworkDataSource.getAllSkills();
     }
+
 }
