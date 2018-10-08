@@ -11,11 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentPersonalDetailsBinding;
 import com.antarikshc.parallem.models.user.ProfileAvatar;
+import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.adapters.AvatarRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 
@@ -35,6 +37,7 @@ public class PersonalDetailsFragment extends Fragment {
     private List<ProfileAvatar> avatars;
     private Integer previouslySelectedAvatar = 0;
     private Integer currentSelectedAvatar = 0;
+    private Boolean dataIntegrity = false;
 
     @Nullable
     @Override
@@ -111,6 +114,8 @@ public class PersonalDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddProfileActivity.attachFragment(new CareerDetailsFragment());
+
+                saveUser();
             }
         });
 
@@ -121,6 +126,39 @@ public class PersonalDetailsFragment extends Fragment {
                 AddProfileActivity.attachFragment(new CareerDetailsFragment());
             }
         });
+    }
+
+    /**
+     * Create a User object and pass it to ViewModel
+     */
+    private void saveUser() {
+
+        User user = viewModel.getUser();
+
+        if (user == null) {
+            Toast.makeText(getActivity(), "Couldn't retrieve profile details.", Toast.LENGTH_SHORT).show();
+            dataIntegrity = false;
+        } else {
+            dataIntegrity = true;
+
+            // Retrieve data from Views for null checks
+            String headline = binding.editPersonalHeadline.getText().toString();
+            String location = binding.editPersonalLocation.getText().toString();
+
+            // Updating user object
+            if (!headline.isEmpty()) {
+                user.setHeadline(headline);
+            }
+            if (!location.isEmpty()) {
+                user.setLocation(location);
+            }
+            user.setProfileImage(String.valueOf(currentSelectedAvatar));
+
+            // Pass back User to ViewModel
+            viewModel.updateUser(user);
+        }
+
+
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.antarikshc.parallem.util;
 
-import android.util.Log;
-
 import com.antarikshc.parallem.models.Skill;
 
 public class SkillHelper {
@@ -30,7 +28,6 @@ public class SkillHelper {
         String[] skillNameArray = new String[skills.length];
 
         for (int i = 0; i < skills.length; i++) {
-            Log.i("Skill", "Skill: " + skills[i].getName());
             skillNameArray[i] = skills[i].getName();
         }
 
