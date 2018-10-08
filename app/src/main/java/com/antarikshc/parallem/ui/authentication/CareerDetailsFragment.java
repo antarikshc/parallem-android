@@ -1,5 +1,7 @@
 package com.antarikshc.parallem.ui.authentication;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,18 +9,24 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentCareerDetailsBinding;
+import com.antarikshc.parallem.models.Skill;
 
 public class CareerDetailsFragment extends Fragment {
 
+    private static final String LOG_TAG = CareerDetailsFragment.class.getSimpleName();
+
     // Global params
     private FragmentCareerDetailsBinding binding;
+    private AddProfileViewModel viewModel;
 
     @Nullable
     @Override
@@ -35,6 +43,28 @@ public class CareerDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         onClickListeners();
+
+        setupViewModel();
+    }
+
+    /**
+     * Initiate ViewModel to start fetching data
+     */
+    private void setupViewModel() {
+
+        AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
+        viewModel = ViewModelProviders.of(getActivity(), factory).get(AddProfileViewModel.class);
+
+        Log.i(LOG_TAG, "Getting Skills from ViewModel");
+        viewModel.getAllSkills().observe(CareerDetailsFragment.this, new Observer<Skill[]>() {
+            @Override
+            public void onChanged(@Nullable Skill[] skills) {
+                assert skills != null;
+                
+                Log.i(LOG_TAG, skills.length + " skills received");
+            }
+        });
+
     }
 
     /**
