@@ -35,4 +35,8 @@ public class Master {
         return PARALLEM_BASE_API + "/images/profile" + imageId + ".png";
     }
 
+    public static String getSkillsEndpoint() {
+        return PARALLEM_BASE_API + "/skills";
+    }
+
 }

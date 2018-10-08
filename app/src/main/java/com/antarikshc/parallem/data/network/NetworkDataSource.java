@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.antarikshc.parallem.models.Skill;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
@@ -36,6 +37,7 @@ public class NetworkDataSource {
     private RequestQueue mRequestQueue;
     private final MutableLiveData<User[]> retrievedUsers;
     private final MutableLiveData<User> userProfile;
+    private final MutableLiveData<Skill[]> retrievedSkills;
     private final Gson gson;
 
     private NetworkDataSource(Context context, RequestQueue requestQueue) {
@@ -43,6 +45,7 @@ public class NetworkDataSource {
         mRequestQueue = requestQueue;
         retrievedUsers = new MutableLiveData<User[]>();
         userProfile = new MutableLiveData<User>();
+        retrievedSkills = new MutableLiveData<Skill[]>();
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
@@ -63,15 +66,33 @@ public class NetworkDataSource {
         return sInstance;
     }
 
+    /**
+     * Public method for Repository
+     *
+     * @return Single user profile
+     */
     public LiveData<User> getProfileDetails() {
         fetchProfileDetails();
         return userProfile;
     }
+
+    /**
+     * Public method for Repository
+     * @return Array of users for Explore recycler
+     */
     public LiveData<User[]> getExploreUsers() {
         fetchExploreUsers();
         return retrievedUsers;
     }
 
+    public LiveData<Skill[]> getAllSkills() {
+        fetchAllSkills();
+        return retrievedSkills;
+    }
+
+    /**
+     * Contains Volley request to fetch User from UserID
+     */
     private void fetchProfileDetails() {
 
         // Get UserId from Shared preferences
@@ -182,6 +203,59 @@ public class NetworkDataSource {
 
         // Queue the API Call
         mRequestQueue.add(fetchUserRequest);
+    }
+
+    /**
+     * Contains Volley request to fetch Skills from /skills endpoint
+     */
+    private void fetchAllSkills() {
+
+        JsonArrayRequest fetchSkillsRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                Master.getSkillsEndpoint(),
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i(LOG_TAG, "Volley response received");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                    }
+                }
+        ) {
+            @Override
+            protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
+
+                Log.i(LOG_TAG, "Parsing network response");
+
+                try {
+                    // Parse response data into String
+                    String responseString = new String(response.data, "UTF-8");
+                    JSONArray skillsArray = new JSONArray(responseString);
+
+                    // Parse JSON Array
+                    Skill[] skills = gson.fromJson(skillsArray.toString(), Skill[].class);
+
+                    // Let the LiveData know that content has been updated
+                    // This posts the update to the main thread
+                    retrievedSkills.postValue(skills);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Store the response in cache
+                cacheResponse(response);
+
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        // Queue the API Call
+        mRequestQueue.add(fetchSkillsRequest);
     }
 
     /**
