@@ -21,6 +21,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentCareerDetailsBinding;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.SkillHelper;
 
 public class CareerDetailsFragment extends Fragment {
@@ -32,6 +33,7 @@ public class CareerDetailsFragment extends Fragment {
     private AddProfileViewModel viewModel;
     private Skill[] mSkills;
     private String[] mSkillNameArray;
+    private User user;
 
     @Nullable
     @Override
@@ -76,6 +78,9 @@ public class CareerDetailsFragment extends Fragment {
             }
         });
 
+        Log.i(LOG_TAG, "Getting User from ViewModel");
+        // This will essentially return the Updated User from PersonalDetailsFragment
+        user = viewModel.getUser();
     }
 
     /**
