@@ -1,19 +1,28 @@
 package com.antarikshc.parallem.ui.authentication;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.data.InjectorUtils;
+import com.antarikshc.parallem.models.Skill;
 
 public class AddProfileActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = AddProfileActivity.class.getSimpleName();
 
     // Global params
     private static FragmentManager fragmentManager;
     private PersonalDetailsFragment personalDetailsFragment;
     private CareerDetailsFragment careerDetailsFragment;
+    private AddProfileViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +33,32 @@ public class AddProfileActivity extends AppCompatActivity {
         careerDetailsFragment = new CareerDetailsFragment();
 
         setupFragmentManager();
+
+        setupViewModel();
+    }
+
+    /**
+     * This ViewModel will start fetching data of Current User Signed up
+     * and List of skills, both of which are used in the 2 attached fragments
+     */
+    private void setupViewModel() {
+
+        AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getApplicationContext());
+        viewModel = ViewModelProviders.of(this, factory).get(AddProfileViewModel.class);
+
+        // No need to explicitly fetch User data
+        // as it's being fetched as soon as the ViewModel is instantiated
+
+        Log.i(LOG_TAG, "Getting Skills from ViewModel");
+        viewModel.getAllSkills().observe(this, new Observer<Skill[]>() {
+            @Override
+            public void onChanged(@Nullable Skill[] skills) {
+                Log.i(LOG_TAG, skills.length + " skills received");
+                // Do not do anything here.
+                // This is just to initiate fetching skills on the first fragment
+                // Recollect the data on Second Fragment
+            }
+        });
 
     }
 

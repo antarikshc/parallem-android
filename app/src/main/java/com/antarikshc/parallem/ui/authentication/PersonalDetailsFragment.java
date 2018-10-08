@@ -1,6 +1,5 @@
 package com.antarikshc.parallem.ui.authentication;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import android.view.ViewGroup;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentPersonalDetailsBinding;
-import com.antarikshc.parallem.models.Skill;
 import com.antarikshc.parallem.models.user.ProfileAvatar;
 import com.antarikshc.parallem.ui.adapters.AvatarRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
@@ -68,17 +65,6 @@ public class PersonalDetailsFragment extends Fragment {
         AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
         viewModel = ViewModelProviders.of(getActivity(), factory).get(AddProfileViewModel.class);
 
-        Log.i(LOG_TAG, "Getting Skills from ViewModel");
-        viewModel.getAllSkills().observe(PersonalDetailsFragment.this, new Observer<Skill[]>() {
-            @Override
-            public void onChanged(@Nullable Skill[] skills) {
-                Log.i(LOG_TAG, skills.length + " skills received");
-                // Do not do anything here.
-                // This is just to initiate fetching skills on the first fragment
-                // Recollect the data on Second Fragment
-            }
-        });
-
     }
 
     /**
@@ -116,6 +102,28 @@ public class PersonalDetailsFragment extends Fragment {
     }
 
     /**
+     * Setup all the Button onClick here
+     */
+    private void onClickListeners() {
+
+        // Button - Continue
+        binding.btnPersonalDetailsContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+            }
+        });
+
+        // Button - Skip
+        binding.btnPersonalDetailsSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+            }
+        });
+    }
+
+    /**
      * Clear previous selection and set new selected background
      *
      * @param previousPosition to clear selected background
@@ -129,29 +137,6 @@ public class PersonalDetailsFragment extends Fragment {
 
         avatarAdapter.setData(avatars);
 
-    }
-
-    /**
-     * Setup all the Button onClick here
-     */
-    private void onClickListeners() {
-
-        // Button - Continue
-        binding.btnPersonalDetailsContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                AddProfileActivity.attachFragment(new CareerDetailsFragment());
-            }
-        });
-
-        // Button - Skip
-        binding.btnPersonalDetailsSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddProfileActivity.attachFragment(new CareerDetailsFragment());
-            }
-        });
     }
 
 }
