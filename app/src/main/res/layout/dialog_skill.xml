@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_16dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_dialog_skill_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:hint="@string/hint_description"
+        android:paddingStart="@dimen/dimen_6dp"
+        android:paddingEnd="@dimen/dimen_6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/auto_complete_text_skill"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:completionThreshold="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_dialog_skill_cancel"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:layout_marginEnd="@dimen/dimen_8dp"
+        android:text="@string/button_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_dialog_skill_save"
+        app:layout_constraintTop_toBottomOf="@+id/til_dialog_skill_name" />
+
+    <Button
+        android:id="@+id/btn_dialog_skill_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_12dp"
+        android:text="@string/button_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_dialog_skill_name" />
+
+</android.support.constraint.ConstraintLayout>

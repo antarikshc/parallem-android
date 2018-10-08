@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentCareerDetailsBinding;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.util.SkillHelper;
 
 public class CareerDetailsFragment extends Fragment {
 
@@ -27,6 +30,8 @@ public class CareerDetailsFragment extends Fragment {
     // Global params
     private FragmentCareerDetailsBinding binding;
     private AddProfileViewModel viewModel;
+    private Skill[] mSkills;
+    private String[] mSkillNameArray;
 
     @Nullable
     @Override
@@ -60,8 +65,14 @@ public class CareerDetailsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Skill[] skills) {
                 assert skills != null;
-                
                 Log.i(LOG_TAG, skills.length + " skills received");
+
+                if (skills.length > 0) {
+                    // Save values in Global params
+                    mSkills = skills;
+                    mSkillNameArray = SkillHelper.getSkillNameArray(skills);
+                }
+
             }
         });
 
@@ -93,6 +104,14 @@ public class CareerDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createCertificateDialog();
+            }
+        });
+
+        // Button - Add Skill
+        binding.imgCareerSkillAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createSkillDialog();
             }
         });
     }
@@ -185,6 +204,47 @@ public class CareerDetailsFragment extends Fragment {
         TextInputEditText certAuthority = mView.findViewById(R.id.edit_dialog_certificate_authority);
         Button btnSave = mView.findViewById(R.id.btn_dialog_certificate_save);
         Button btnCancel = mView.findViewById(R.id.btn_dialog_certificate_cancel);
+
+        // Set view and create AlertDialog
+        mBuilder.setView(mView);
+        final AlertDialog alertDialog = mBuilder.create();
+
+        // OnClickListeners for Buttons
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+    /**
+     * AlertDialog for adding Certificate
+     */
+    private void createSkillDialog() {
+
+        // Build AlertDialog and inflate views
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity(), R.style.DialogRoundedCorners);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_skill, null);
+
+        // Bind views from Dialog layout
+        AutoCompleteTextView autoTextView = mView.findViewById(R.id.auto_complete_text_skill);
+        Button btnSave = mView.findViewById(R.id.btn_dialog_skill_save);
+        Button btnCancel = mView.findViewById(R.id.btn_dialog_skill_cancel);
+
+        // Creating instance of ArrayAdapter for AutoCompleteTextView
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.select_dialog_item, mSkillNameArray);
+        autoTextView.setAdapter(adapter);
 
         // Set view and create AlertDialog
         mBuilder.setView(mView);
