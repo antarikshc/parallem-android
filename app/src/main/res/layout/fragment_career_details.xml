@@ -184,7 +184,7 @@
                             app:layout_constraintTop_toTopOf="@+id/txt_career_cert_label" />
 
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recycler_profile_certifications"
+                            android:id="@+id/recycler_career_certifications"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_8dp"
@@ -203,7 +203,7 @@
                             android:padding="@dimen/dimen_4dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/recycler_profile_certifications"
+                            app:layout_constraintTop_toBottomOf="@+id/recycler_career_certifications"
                             app:srcCompat="@drawable/ic_add" />
 
                     </android.support.constraint.ConstraintLayout>

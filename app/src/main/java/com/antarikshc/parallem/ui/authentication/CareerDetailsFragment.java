@@ -10,6 +10,8 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,10 @@ import com.antarikshc.parallem.models.user.Certification;
 import com.antarikshc.parallem.models.user.Experience;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.models.user.UserProject;
+import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
+import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
 import com.antarikshc.parallem.util.SkillHelper;
 
 import java.util.ArrayList;
@@ -41,11 +47,21 @@ public class CareerDetailsFragment extends Fragment {
     private AddProfileViewModel viewModel;
     private Skill[] mSkills;
     private String[] mSkillNameArray;
+
     private User user;
     private List<Experience> experiences = new ArrayList<Experience>();
     private List<UserProject> projects = new ArrayList<UserProject>();
     private List<Certification> certifications = new ArrayList<Certification>();
     private List<Skill> userSkills = new ArrayList<Skill>();
+
+    private RecyclerView experienceList;
+    private ExperienceRecyclerAdapter expAdapter;
+    private RecyclerView userProjectList;
+    private UserProjectRecyclerAdapter userProjectAdapter;
+    private RecyclerView certificateList;
+    private CertificationRecyclerAdapter certificationAdapter;
+    private RecyclerView skillList;
+    private SkillRecyclerAdapter skillAdapter;
 
     @Nullable
     @Override
@@ -60,6 +76,8 @@ public class CareerDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setupAdapter();
 
         onClickListeners();
 
@@ -183,6 +201,9 @@ public class CareerDetailsFragment extends Fragment {
                     Experience exp = new Experience(company, title, null, null);
                     experiences.add(exp);
 
+                    // Update adapter with data
+                    expAdapter.setData(experiences);
+
                     alertDialog.dismiss();
                 }
 
@@ -249,6 +270,9 @@ public class CareerDetailsFragment extends Fragment {
                     UserProject userProject = new UserProject(name, desc);
                     projects.add(userProject);
 
+                    // Update adapter with data
+                    userProjectAdapter.setData(projects);
+
                     alertDialog.dismiss();
                 }
 
@@ -314,6 +338,9 @@ public class CareerDetailsFragment extends Fragment {
                     // Create UserProject object and add to Array of UserProjects
                     Certification certificate = new Certification(name, authority);
                     certifications.add(certificate);
+
+                    // Update adapter with data
+                    certificationAdapter.setData(certifications);
 
                     alertDialog.dismiss();
                 }
@@ -384,6 +411,9 @@ public class CareerDetailsFragment extends Fragment {
                         Skill skill = new Skill(skillId, name);
                         userSkills.add(skill);
 
+                        // Update adapter with data
+                        skillAdapter.setData(userSkills);
+
                         alertDialog.dismiss();
                     }
                 }
@@ -398,5 +428,39 @@ public class CareerDetailsFragment extends Fragment {
         });
 
         alertDialog.show();
+    }
+
+    /**
+     * Boilerplate setup for RecyclerViewAdapter
+     */
+    private void setupAdapter() {
+
+        // Experience Adapter
+        experienceList = binding.recyclerCareerExperience;
+        expAdapter = new ExperienceRecyclerAdapter(getActivity());
+        experienceList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        experienceList.setNestedScrollingEnabled(false);
+        experienceList.setAdapter(expAdapter);
+
+        // User Project Adapter
+        userProjectList = binding.recyclerCareerProjects;
+        userProjectAdapter = new UserProjectRecyclerAdapter(getActivity());
+        userProjectList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        userProjectList.setNestedScrollingEnabled(false);
+        userProjectList.setAdapter(userProjectAdapter);
+
+        // Certification Adapter
+        certificateList = binding.recyclerCareerCertifications;
+        certificationAdapter = new CertificationRecyclerAdapter(getActivity());
+        certificateList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        certificateList.setNestedScrollingEnabled(false);
+        certificateList.setAdapter(certificationAdapter);
+
+        // Skill Adapter
+        skillList = binding.recyclerCareerSkills;
+        skillAdapter = new SkillRecyclerAdapter(getActivity());
+        skillList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        skillList.setNestedScrollingEnabled(false);
+        skillList.setAdapter(skillAdapter);
     }
 }
