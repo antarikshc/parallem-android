@@ -10,7 +10,7 @@ public class SkillHelper {
 
     public static Integer getSkillId(Skill[] skills, String inputSkill) {
 
-        Integer skillId = null;
+        Integer skillId = 404;
 
         for (Skill skill : skills) {
 
