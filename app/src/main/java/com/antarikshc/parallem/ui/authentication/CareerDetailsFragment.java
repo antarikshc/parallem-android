@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -134,10 +135,12 @@ public class CareerDetailsFragment extends Fragment {
         Log.i(LOG_TAG, "Getting User from ViewModel");
         // This will essentially return the Updated User from PersonalDetailsFragment
         user = viewModel.getUser();
-        experiences = user.getExperiences();
-        certifications = user.getCertifications();
-        projects = user.getUserProjects();
-        userSkills = user.getSkills();
+        if (!(user == null)) {
+            experiences = user.getExperiences();
+            certifications = user.getCertifications();
+            projects = user.getUserProjects();
+            userSkills = user.getSkills();
+        }
     }
 
     /**
@@ -503,15 +506,29 @@ public class CareerDetailsFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                        Log.i(LOG_TAG, "Volley Response received");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                        Toast.makeText(getActivity(), "Couldn't update user :(", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                // Launch Dashboard if status code is 201
+                if (response.statusCode == 201) {
+                    Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+
+                return super.parseNetworkResponse(response);
+            }
+        };
 
         // Make the request to backoff after 1 retry
         // Set the timeout to 0
