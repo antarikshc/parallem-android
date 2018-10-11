@@ -1,6 +1,7 @@
 package com.antarikshc.parallem.ui.authentication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivityLoginBinding;
+import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
@@ -156,16 +158,12 @@ public class LoginActivity extends AppCompatActivity {
                         // Retrieve user_id
                         userID = data.getString("user_id");
 
-                        // Create toast with user_id
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(LoginActivity.this, "Login Successful\n" + userID,
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
                         ParallemApp.addUserId(userID);
+
+                        // Launch Dashboard Activity
+                        Intent intent = new Intent(this, DashboardActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 } else {
                     runOnUiThread(new Runnable() {
@@ -181,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LoginActivity.this, "Login Unsuccessful",
+                        Toast.makeText(LoginActivity.this, "Login Unsuccessful :(",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
