@@ -15,6 +15,10 @@ public class Master {
         return PARALLEM_BASE_API + "/users";
     }
 
+    public static String getUpdateEndpoint(@NonNull String userId) {
+        return PARALLEM_BASE_API + "/users/" + userId;
+    }
+
     public static String getEmailCheckEndpoint() {
         return PARALLEM_BASE_API + "/users/check";
     }

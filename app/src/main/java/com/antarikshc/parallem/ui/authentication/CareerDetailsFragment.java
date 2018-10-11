@@ -21,6 +21,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentCareerDetailsBinding;
@@ -33,7 +39,14 @@ import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
+import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.SkillHelper;
+import com.antarikshc.parallem.util.VolleySingleton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +58,9 @@ public class CareerDetailsFragment extends Fragment {
     // Global params
     private FragmentCareerDetailsBinding binding;
     private AddProfileViewModel viewModel;
+    private RequestQueue requestQueue;
+    private Gson gson;
+
     private Skill[] mSkills;
     private String[] mSkillNameArray;
 
@@ -82,6 +98,11 @@ public class CareerDetailsFragment extends Fragment {
         onClickListeners();
 
         setupViewModel();
+
+        // Get Singleton Volley Request Queue Instance
+        requestQueue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
+
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
     /**
@@ -111,6 +132,10 @@ public class CareerDetailsFragment extends Fragment {
         Log.i(LOG_TAG, "Getting User from ViewModel");
         // This will essentially return the Updated User from PersonalDetailsFragment
         user = viewModel.getUser();
+        experiences = user.getExperiences();
+        certifications = user.getCertifications();
+        projects = user.getUserProjects();
+        userSkills = user.getSkills();
     }
 
     /**
@@ -147,6 +172,22 @@ public class CareerDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createSkillDialog();
+            }
+        });
+
+        // Button - Save Profile
+        binding.btnCareerSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveProfile();
+            }
+        });
+
+        // Button - Skip
+        binding.btnCareerSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -428,6 +469,55 @@ public class CareerDetailsFragment extends Fragment {
         });
 
         alertDialog.show();
+    }
+
+
+    /**
+     * Add the arrays into User object
+     * and call Update User API
+     */
+    private void saveProfile() {
+
+        user.setExperiences(experiences);
+        user.setCertifications(certifications);
+        user.setUserProjects(projects);
+        user.setSkills(userSkills);
+
+        JSONObject userObject = null;
+        try {
+            String jsonString = gson.toJson(user);
+            userObject = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Call Update API with user object
+        JsonObjectRequest updateRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                Master.getUpdateEndpoint(user.get_id()),
+                userObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                    }
+                });
+
+        // Make the request to backoff after 1 retry
+        // Set the timeout to 0
+        updateRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        // Queue the request
+        requestQueue.add(updateRequest);
+
     }
 
     /**
