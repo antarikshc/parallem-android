@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivitySignUpBinding;
 import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 
 import org.json.JSONException;
@@ -171,6 +172,8 @@ public class SignUpActivity extends AppCompatActivity {
 
                     // Retrieve user_id
                     userID = data.getString("user_id");
+
+                    ParallemApp.addUserId(userID);
 
                     // Create toast with user_id
                     runOnUiThread(new Runnable() {
