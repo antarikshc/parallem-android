@@ -2,6 +2,7 @@ package com.antarikshc.parallem.ui.authentication;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
+import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.SkillHelper;
 import com.antarikshc.parallem.util.VolleySingleton;
@@ -187,7 +189,9 @@ public class CareerDetailsFragment extends Fragment {
         binding.btnCareerSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }
