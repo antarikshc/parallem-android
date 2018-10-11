@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,7 +90,7 @@ public class ProfileFragment extends Fragment {
         // Skill Adapter
         skillList = binding.recyclerProfileSkills;
         skillAdapter = new SkillRecyclerAdapter(getActivity());
-        skillList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        skillList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         skillList.setNestedScrollingEnabled(false);
         skillList.setAdapter(skillAdapter);
     }
