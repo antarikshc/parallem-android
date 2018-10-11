@@ -37,11 +37,11 @@ public class SkillRecyclerAdapter extends RecyclerView.Adapter<SkillRecyclerAdap
 
         if (data != null && data.size() > 0) {
 
-            // Get the single Experience
+            // Get the single Skill
             Skill skill = data.get(i);
 
-            // Set Certificate name
-            viewHolder.txtSkillName.setText(String.valueOf(skill.getSkillId()));
+            // Set Skill name
+            viewHolder.txtSkillName.setText(skill.getName());
 
         }
 

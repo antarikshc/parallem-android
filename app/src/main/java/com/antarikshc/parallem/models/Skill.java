@@ -9,7 +9,8 @@ public class Skill {
     @SerializedName("skill_id")
     private Integer skillId;
 
-    @Expose(serialize = false)
+    @Expose
+    @SerializedName("skill_name")
     private String name;
 
     public Skill(Integer skillId, String name) {
