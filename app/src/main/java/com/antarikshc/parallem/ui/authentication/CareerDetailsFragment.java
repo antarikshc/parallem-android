@@ -106,6 +106,7 @@ public class CareerDetailsFragment extends Fragment {
         // Get Singleton Volley Request Queue Instance
         requestQueue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
 
+        // Create GsonBuilder with Expose Annotation
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 

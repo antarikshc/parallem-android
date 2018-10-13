@@ -2,6 +2,7 @@ package com.antarikshc.parallem.ui.dashboard;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,7 +19,11 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentHomeBinding;
 import com.antarikshc.parallem.models.user.User;
+import com.antarikshc.parallem.ui.UserProfileActivity;
+import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 import com.antarikshc.parallem.ui.adapters.ExploreRecyclerAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 public class HomeFragment extends Fragment {
@@ -28,6 +33,8 @@ public class HomeFragment extends Fragment {
     // Global params
     private FragmentHomeBinding binding;
     private DashboardViewModel viewModel;
+    private User[] mUsers;
+    private Gson gson;
     private RecyclerView exploreUserList;
     private ExploreRecyclerAdapter adapter;
 
@@ -49,6 +56,9 @@ public class HomeFragment extends Fragment {
 
         setupViewModel();
 
+        // Create GsonBuilder with Expose Annotation
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
     }
 
     /**
@@ -59,11 +69,32 @@ public class HomeFragment extends Fragment {
         exploreUserList = binding.recyclerHomeExplore;
 
         // Initialize Adapter
-        adapter = new ExploreRecyclerAdapter(getActivity());
+        adapter = new ExploreRecyclerAdapter(getActivity(), new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                openUserProfile(position);
+            }
+        });
 
         exploreUserList.setLayoutManager(new LinearLayoutManager(getActivity()));
         exploreUserList.setAdapter(adapter);
 
+    }
+
+    /**
+     * Retrieve User object, convert to String and
+     * Pass through Intent
+     */
+    private void openUserProfile(Integer position) {
+
+        // Retrieve single User which we want to open
+        User user = mUsers[position];
+
+        String jsonString = gson.toJson(user);
+
+        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+        intent.putExtra("json_string", jsonString);
+        startActivity(intent);
     }
 
     /**
@@ -82,6 +113,7 @@ public class HomeFragment extends Fragment {
 
                 Log.i(LOG_TAG, users.length + " Users Received");
                 if (users.length > 0) {
+                    mUsers = users;
                     adapter.setData(users);
                 }
             }

@@ -18,10 +18,12 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
     // Global params
     private Context context;
+    private CustomItemClickListener listener;
     private User[] data;
 
-    public ExploreRecyclerAdapter(Context context) {
+    public ExploreRecyclerAdapter(Context context, CustomItemClickListener listener) {
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -30,7 +32,17 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.layout_explore_items_recycler, viewGroup, false);
 
-        return new ViewHolder(view);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        // Pass OnClickListener from view to CustomOnItemClickListener
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, viewHolder.getAdapterPosition());
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
