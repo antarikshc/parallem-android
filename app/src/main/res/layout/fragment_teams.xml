@@ -48,7 +48,6 @@
                     android:layout_below="@+id/horizontal_line_user_team"
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="@dimen/dimen_10dp"
-                    android:text="Overkill"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -60,8 +59,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="@dimen/dimen_2dp"
                     android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="Blah Blah Blah" />
+                    android:maxLines="3" />
 
             </RelativeLayout>
         </android.support.design.card.MaterialCardView>

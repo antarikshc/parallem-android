@@ -2,6 +2,7 @@ package com.antarikshc.parallem.ui.dashboard;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,9 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentTeamsBinding;
 import com.antarikshc.parallem.models.team.Team;
+import com.antarikshc.parallem.ui.team.TeamProfileActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class TeamsFragment extends Fragment {
 
@@ -24,6 +28,8 @@ public class TeamsFragment extends Fragment {
     // Global params
     private FragmentTeamsBinding binding;
     private DashboardViewModel viewModel;
+    private Gson gson;
+    private Team userTeam;
 
     @Nullable
     @Override
@@ -42,6 +48,9 @@ public class TeamsFragment extends Fragment {
         onClickListeners();
 
         setupViewModel();
+
+        // Create GsonBuilder with Expose Annotation
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
     /**
@@ -57,7 +66,10 @@ public class TeamsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Team team) {
                 assert team != null;
-                Log.i(LOG_TAG, "UserTeam: " + team.getName());
+                userTeam = team;
+
+                binding.txtUserTeamName.setText(team.getName());
+                binding.txtUserTeamDesc.setText(team.getDesc());
             }
         });
 
@@ -71,6 +83,12 @@ public class TeamsFragment extends Fragment {
         binding.cardUserTeamTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String jsonString = gson.toJson(userTeam);
+
+                Intent intent = new Intent(getActivity(), TeamProfileActivity.class);
+                intent.putExtra("json_string", jsonString);
+                startActivity(intent);
 
             }
         });
