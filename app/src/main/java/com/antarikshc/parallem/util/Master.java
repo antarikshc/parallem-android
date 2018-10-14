@@ -39,12 +39,16 @@ public class Master {
         return PARALLEM_BASE_API + "/weekly";
     }
 
-    public static String getProfileImageUrl(String imageId) {
+    public static String getProfileImageUrl(@NonNull String imageId) {
         return PARALLEM_BASE_API + "/images/profile" + imageId + ".png";
     }
 
-    public static String getTeamById(String teamId) {
+    public static String getTeamById(@NonNull String teamId) {
         return PARALLEM_BASE_API + "/teams/" + teamId;
+    }
+
+    public static String getTeamMembers(@NonNull String teamId) {
+        return PARALLEM_BASE_API + "/teams/" + teamId + "/members";
     }
 
     public static String getSkillsEndpoint() {

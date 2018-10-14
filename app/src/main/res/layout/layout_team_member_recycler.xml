@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignStart="@+id/materialCardView"
+    android:padding="@dimen/dimen_8dp">
+
+    <View
+        android:id="@+id/horizontal_line_team_member"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginBottom="@dimen/dimen_4dp"
+        android:background="@drawable/bg_horizontal_line" />
+
+    <ImageView
+        android:id="@+id/img_team_member_profile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/horizontal_line_team_member"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/txt_team_member_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line_team_member"
+        android:layout_marginStart="@dimen/dimen_8dp"
+        android:layout_toEndOf="@+id/img_team_member_profile"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_team_member_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_team_member_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/dimen_2dp"
+        android:layout_toEndOf="@+id/img_team_member_profile" />
+
+
+</RelativeLayout>
+

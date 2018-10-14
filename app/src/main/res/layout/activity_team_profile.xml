@@ -80,15 +80,13 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_team_members"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_4dp"
-                    android:layout_marginBottom="@dimen/dimen_8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_team_request_join"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_team_members_label"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/layout_explore_items_recycler" />
+                    tools:itemCount="1"
+                    tools:listitem="@layout/layout_explore_users_recycler" />
 
                 <Button
                     android:id="@+id/btn_team_request_join"

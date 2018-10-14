@@ -10,18 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.antarikshc.parallem.R;
-import com.antarikshc.parallem.models.user.User;
+import com.antarikshc.parallem.models.team.Member;
 import com.antarikshc.parallem.util.Master;
 import com.squareup.picasso.Picasso;
 
-public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.ViewHolder> {
+import java.util.List;
+
+public class TeamMemberRecyclerAdapter extends RecyclerView.Adapter<TeamMemberRecyclerAdapter.ViewHolder> {
 
     // Global params
     private Context context;
     private CustomItemClickListener listener;
-    private User[] data;
+    private List<Member> data;
 
-    public ExploreRecyclerAdapter(Context context, CustomItemClickListener listener) {
+    public TeamMemberRecyclerAdapter(Context context, CustomItemClickListener listener) {
         this.context = context;
         this.listener = listener;
     }
@@ -30,7 +32,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.layout_explore_users_recycler, viewGroup, false);
+                .inflate(R.layout.layout_team_member_recycler, viewGroup, false);
 
         final ViewHolder viewHolder = new ViewHolder(view);
 
@@ -46,58 +48,59 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExploreRecyclerAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        if (data != null && data.length > 0) {
+        if (data != null && data.size() > 0) {
 
             // Get the single User
-            User user = data[i];
+            Member member = data.get(i);
 
-            // Set Profile name
-            viewHolder.profileName.setText(user.getName());
+            // Set Member name
+            viewHolder.memberName.setText(member.getName());
 
-            // Set Profile headline
-            viewHolder.profileHeadline.setText(user.getHeadline());
+            // Set Member role
+            viewHolder.memberRole.setText(member.getRole());
 
             // Load image with Picasso and set to ImageView
             Picasso.get()
-                    .load(Master.getProfileImageUrl(user.getProfileImage()))
-                    .into(viewHolder.profileImage);
+                    .load(Master.getProfileImageUrl(member.getProfileImage()))
+                    .into(viewHolder.memberImage);
 
         }
+
     }
+
+    public List<Member> getData() {
+        return data;
+    }
+
+    public void setData(List<Member> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
         if (data == null) {
             return 0;
         } else {
-            return data.length;
+            return data.size();
         }
-    }
-
-    public User[] getData() {
-        return data;
-    }
-
-    public void setData(User[] data) {
-        this.data = data;
-        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView profileImage;
-        TextView profileName;
-        TextView profileHeadline;
+        ImageView memberImage;
+        TextView memberName;
+        TextView memberRole;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            profileImage = itemView.findViewById(R.id.img_explore_profile);
-            profileName = itemView.findViewById(R.id.txt_explore_name);
-            profileHeadline = itemView.findViewById(R.id.txt_explore_headline);
-
+            memberImage = itemView.findViewById(R.id.img_team_member_profile);
+            memberName = itemView.findViewById(R.id.txt_team_member_name);
+            memberRole = itemView.findViewById(R.id.txt_team_member_role);
 
         }
     }

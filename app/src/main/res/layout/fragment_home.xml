@@ -146,7 +146,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_explore_label"
-                tools:listitem="@layout/layout_explore_items_recycler" />
+                tools:listitem="@layout/layout_explore_users_recycler" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </layout>
