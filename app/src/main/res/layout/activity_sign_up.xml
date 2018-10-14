@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
+        android:background="@color/colorPrimary"
         tools:context=".ui.authentication.SignUpActivity">
 
         <ImageView
@@ -29,6 +30,7 @@
             android:layout_marginStart="@dimen/dimen_18dp"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:text="@string/signup_title"
+            android:textColor="@android:color/white"
             android:textSize="22sp" />
 
         <TextView
@@ -39,7 +41,8 @@
             android:layout_below="@+id/text_signup_title"
             android:layout_marginStart="@dimen/dimen_18dp"
             android:layout_marginTop="@dimen/dimen_4dp"
-            android:text="@string/signup_desc" />
+            android:text="@string/signup_desc"
+            android:textColor="@android:color/white" />
 
         <android.support.design.card.MaterialCardView
             android:id="@+id/card_login"
@@ -51,7 +54,7 @@
             android:layout_marginStart="@dimen/dimen_8dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             app:cardCornerRadius="@dimen/dimen_8dp"
-            app:cardElevation="@dimen/dimen_10dp">
+            app:cardElevation="@dimen/dimen_12dp">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -170,7 +173,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_signup_mobile_layout"
                     app:passwordToggleDrawable="@drawable/ic_password_toggle"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/parallemPurpleLight">
+                    app:passwordToggleTint="@color/colorAccent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edit_signup_password"
@@ -191,7 +194,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_signup_password_layout"
                     app:passwordToggleDrawable="@drawable/ic_password_toggle"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/parallemPurpleLight">
+                    app:passwordToggleTint="@color/colorAccent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edit_signup_cnf_password"
@@ -209,7 +212,6 @@
                     android:layout_marginTop="@dimen/dimen_8dp"
                     android:onClick="hitSignUpAPI"
                     android:text="@string/button_signup"
-                    app:backgroundTint="@color/parallemPurpleLight"
                     app:cornerRadius="@dimen/dimen_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
