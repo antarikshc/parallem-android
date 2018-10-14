@@ -6,15 +6,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/card_user_team_team"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Teams Fragment"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/dimen_8dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:layout_marginEnd="@dimen/dimen_8dp"
+            app:cardCornerRadius="@dimen/dimen_8dp"
+            app:cardElevation="@dimen/dimen_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_8dp">
+
+                <TextView
+                    android:id="@+id/txt_user_team_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Your team" />
+
+                <View
+                    android:id="@+id/horizontal_line_user_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/txt_user_team_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:background="@drawable/bg_horizontal_line" />
+
+                <TextView
+                    android:id="@+id/txt_user_team_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/horizontal_line_user_team"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:text="Overkill"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_user_team_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_user_team_name"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/dimen_2dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="Blah Blah Blah" />
+
+            </RelativeLayout>
+        </android.support.design.card.MaterialCardView>
 
     </android.support.constraint.ConstraintLayout>
 

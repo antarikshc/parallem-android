@@ -15,6 +15,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.models.team.Team;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
@@ -39,6 +40,7 @@ public class NetworkDataSource {
     private final MutableLiveData<User> userProfile;
     private final MutableLiveData<Skill[]> retrievedSkills;
     private final MutableLiveData<User> weeklyDev;
+    private final MutableLiveData<Team> userTeam;
     private final Gson gson;
 
     private NetworkDataSource(Context context, RequestQueue requestQueue) {
@@ -48,6 +50,7 @@ public class NetworkDataSource {
         userProfile = new MutableLiveData<User>();
         retrievedSkills = new MutableLiveData<Skill[]>();
         weeklyDev = new MutableLiveData<User>();
+        userTeam = new MutableLiveData<Team>();
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
@@ -100,11 +103,21 @@ public class NetworkDataSource {
     /**
      * Public method to return data in Repository
      *
-     * @return List of all Skills
+     * @return Profile of Top Weekly developer
      */
     public LiveData<User> getTopWeeklyDev() {
         fetchTopWeeklyDev();
         return weeklyDev;
+    }
+
+    /**
+     * Public method to return data in Repository
+     *
+     * @return Profile of Top Weekly developer
+     */
+    public LiveData<Team> getUserTeam() {
+        fetchUserTeam();
+        return userTeam;
     }
 
     /**
@@ -275,6 +288,62 @@ public class NetworkDataSource {
 
         // Queue the API Call
         mRequestQueue.add(fetchWeeklyRequest);
+    }
+
+    /**
+     * Contains Volley request to fetch Team of the user from /teams/{team_id} endpoint
+     */
+    private void fetchUserTeam() {
+
+        JsonObjectRequest userTeamRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                Master.getTeamById(ParallemApp.getTeamId()),
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(LOG_TAG, "Volley response received");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                    }
+                }
+        ) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                Log.i(LOG_TAG, "Parsing network response");
+
+                try {
+                    // Parse response data into String
+                    String responseString = new String(response.data, "UTF-8");
+
+                    // Create JSONObject from the responseString
+                    JSONObject teamObject = new JSONObject(responseString);
+
+                    // Parse JSON Array
+                    Team team = gson.fromJson(teamObject.toString(), Team.class);
+
+                    // Let the LiveData know that content has been updated
+                    // This posts the update to the main thread
+                    userTeam.postValue(team);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Store the response in cache
+                cacheResponse(response);
+
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        // Queue the API Call
+        mRequestQueue.add(userTeamRequest);
+
     }
 
     /**

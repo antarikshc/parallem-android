@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.antarikshc.parallem.data.network.NetworkDataSource;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.models.team.Team;
 import com.antarikshc.parallem.models.user.User;
 
 public class ParallemRepository {
@@ -56,6 +57,12 @@ public class ParallemRepository {
     public LiveData<User> getTopWeeklyDev() {
         Log.i(LOG_TAG, "Getting Weekly developer from Data Source");
         return mNetworkDataSource.getTopWeeklyDev();
+    }
+
+    // Retrieve User's team profile from Data Source
+    public LiveData<Team> getUserTeam() {
+        Log.i(LOG_TAG, "Getting User's team profile from Data Source");
+        return mNetworkDataSource.getUserTeam();
     }
 
 }

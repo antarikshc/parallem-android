@@ -43,6 +43,10 @@ public class Master {
         return PARALLEM_BASE_API + "/images/profile" + imageId + ".png";
     }
 
+    public static String getTeamById(String teamId) {
+        return PARALLEM_BASE_API + "/teams/" + teamId;
+    }
+
     public static String getSkillsEndpoint() {
         return PARALLEM_BASE_API + "/skills";
     }

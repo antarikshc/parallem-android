@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.antarikshc.parallem.data.ParallemRepository;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.models.team.Team;
 import com.antarikshc.parallem.models.user.User;
 
 public class DashboardViewModel extends ViewModel {
@@ -17,6 +18,7 @@ public class DashboardViewModel extends ViewModel {
     private final LiveData<User> mProfile;
     private final LiveData<Skill[]> mSkills;
     private final LiveData<User> mWeeklyDev;
+    private final LiveData<Team> mUserTeam;
 
     public DashboardViewModel(ParallemRepository repository) {
         mRepository = repository;
@@ -26,6 +28,7 @@ public class DashboardViewModel extends ViewModel {
         mProfile = mRepository.getProfileDetails();
         mSkills = mRepository.getAllSkills();
         mWeeklyDev = mRepository.getTopWeeklyDev();
+        mUserTeam = mRepository.getUserTeam();
 
     }
 
@@ -47,5 +50,9 @@ public class DashboardViewModel extends ViewModel {
     // Return the Top Weekly Dev
     public LiveData<User> getTopWeeklyDev() {
         return mWeeklyDev;
+    }
+
+    public LiveData<Team> getUserTeam() {
+        return mUserTeam;
     }
 }
