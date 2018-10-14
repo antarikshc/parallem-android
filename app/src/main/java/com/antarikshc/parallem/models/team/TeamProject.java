@@ -1,8 +1,13 @@
 package com.antarikshc.parallem.models.team;
 
+import com.google.gson.annotations.Expose;
+
 public class TeamProject {
 
+    @Expose
     private String name;
+
+    @Expose
     private Integer status;
 
     public TeamProject(String name, Integer status) {

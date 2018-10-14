@@ -1,16 +1,30 @@
 package com.antarikshc.parallem.models.team;
 
 import com.antarikshc.parallem.models.Skill;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
 public class Team {
 
+    @Expose
     private String name;
+
+    @Expose
     private String desc;
+
+    @Expose
     private Integer capacity;
+
+    @Expose
     private ArrayList<Skill> skills;
+
+    @Expose
     private ArrayList<Member> members;
+
+    @Expose
+    @SerializedName("projects")
     private ArrayList<TeamProject> teamProjects;
 
     public Team(String name, String desc, Integer capacity, ArrayList<Skill> skills, ArrayList<Member> members, ArrayList<TeamProject> teamProjects) {

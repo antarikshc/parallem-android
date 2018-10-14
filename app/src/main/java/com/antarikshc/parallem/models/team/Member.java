@@ -1,9 +1,19 @@
 package com.antarikshc.parallem.models.team;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Member {
 
+    @Expose
+    @SerializedName("user")
     private String userId;
+
+    @Expose
     private String role;
+
+    @Expose
+    @SerializedName("is_owner")
     private Boolean isOwner;
 
     public Member(String userId, String role, Boolean isOwner) {
