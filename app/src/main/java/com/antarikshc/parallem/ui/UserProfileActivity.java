@@ -45,18 +45,21 @@ public class UserProfileActivity extends AppCompatActivity {
         // Bind the layout
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
 
-        Intent intent = getIntent();
+        // For some reason Material Buttons are refusing to attach Drawable through XML
+        binding.btnUserCollabRequest.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+                R.drawable.ic_send, 0);
 
-        if (intent != null) {
-            userJsonString = intent.getStringExtra("json_string");
-        }
+        Intent intent = getIntent();
 
         // Create GsonBuilder with Expose Annotation
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         setupAdapter();
 
-        hookDataToViews();
+        if (intent != null) {
+            userJsonString = intent.getStringExtra("json_string");
+            hookDataToViews();
+        }
 
     }
 

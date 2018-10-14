@@ -60,6 +60,15 @@
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
+            <Button
+                android:id="@+id/btn_user_collab_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_user_picture"
+                android:layout_centerHorizontal="true"
+                android:drawableEnd="@drawable/ic_send"
+                android:text="Request to Collab" />
+
         </RelativeLayout>
 
         <ImageView
