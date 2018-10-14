@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/btn_login_back"
@@ -29,6 +30,7 @@
             android:layout_marginStart="@dimen/dimen_18dp"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:text="@string/login_title"
+            android:textColor="@android:color/white"
             android:textSize="22sp" />
 
         <android.support.design.card.MaterialCardView
@@ -41,7 +43,7 @@
             android:layout_marginStart="@dimen/dimen_8dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             app:cardCornerRadius="@dimen/dimen_8dp"
-            app:cardElevation="@dimen/dimen_10dp">
+            app:cardElevation="@dimen/dimen_12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +74,7 @@
                     android:layout_marginTop="@dimen/dimen_10dp"
                     app:passwordToggleDrawable="@drawable/ic_password_toggle"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/parallemPurpleLight">
+                    app:passwordToggleTint="@color/colorAccent">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edit_login_password"
@@ -89,7 +91,6 @@
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:onClick="hitLoginAPI"
                     android:text="@string/button_login"
-                    app:backgroundTint="@color/parallemPurpleLight"
                     app:cornerRadius="@dimen/dimen_8dp" />
 
                 <TextView
@@ -102,7 +103,6 @@
                     android:textSize="12sp" />
 
             </LinearLayout>
-
 
         </android.support.design.card.MaterialCardView>
 
