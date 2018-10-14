@@ -160,6 +160,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         ParallemApp.saveUserId(userID);
 
+                        // Save Team ID into SharedPref if exist
+                        if (data.has("team_id")) {
+                            ParallemApp.saveTeamId(data.getString("team_id"));
+                        }
+
                         // Launch Dashboard Activity
                         Intent intent = new Intent(this, DashboardActivity.class);
                         startActivity(intent);
