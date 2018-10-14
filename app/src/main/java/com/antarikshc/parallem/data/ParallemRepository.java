@@ -46,11 +46,16 @@ public class ParallemRepository {
         return mNetworkDataSource.getExploreUsers();
     }
 
-
-    // Retrieve Skilsl from Data Source
+    // Retrieve Skills from Data Source
     public LiveData<Skill[]> getAllSkills() {
         Log.i(LOG_TAG, "Getting Skills from Data Source");
         return mNetworkDataSource.getAllSkills();
+    }
+
+    // Retrieve Top Weekly Dev from Data Source
+    public LiveData<User> getTopWeeklyDev() {
+        Log.i(LOG_TAG, "Getting Weekly developer from Data Source");
+        return mNetworkDataSource.getTopWeeklyDev();
     }
 
 }

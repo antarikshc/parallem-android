@@ -38,6 +38,7 @@ public class NetworkDataSource {
     private final MutableLiveData<User[]> retrievedUsers;
     private final MutableLiveData<User> userProfile;
     private final MutableLiveData<Skill[]> retrievedSkills;
+    private final MutableLiveData<User> weeklyDev;
     private final Gson gson;
 
     private NetworkDataSource(Context context, RequestQueue requestQueue) {
@@ -46,6 +47,7 @@ public class NetworkDataSource {
         retrievedUsers = new MutableLiveData<User[]>();
         userProfile = new MutableLiveData<User>();
         retrievedSkills = new MutableLiveData<Skill[]>();
+        weeklyDev = new MutableLiveData<User>();
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
@@ -85,9 +87,24 @@ public class NetworkDataSource {
         return retrievedUsers;
     }
 
+    /**
+     * Public method to return data in Repository
+     *
+     * @return List of all Skills
+     */
     public LiveData<Skill[]> getAllSkills() {
         fetchAllSkills();
         return retrievedSkills;
+    }
+
+    /**
+     * Public method to return data in Repository
+     *
+     * @return List of all Skills
+     */
+    public LiveData<User> getTopWeeklyDev() {
+        fetchTopWeeklyDev();
+        return weeklyDev;
     }
 
     /**
@@ -203,6 +220,61 @@ public class NetworkDataSource {
 
         // Queue the API Call
         mRequestQueue.add(fetchUserRequest);
+    }
+
+    /**
+     * Contains Volley request to fetch Top weekly developer from /weekly endpoint
+     */
+    private void fetchTopWeeklyDev() {
+
+        // Temporary - until Explore API is ready
+        // Fetch all users from API
+        JsonObjectRequest fetchWeeklyRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                Master.getWeeklyEndpoint(),
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(LOG_TAG, "Volley response received");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                    }
+                }
+        ) {
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                Log.i(LOG_TAG, "Parsing network response");
+
+                try {
+                    // Parse response data into String
+                    String responseString = new String(response.data, "UTF-8");
+                    JSONObject jsonObject = new JSONObject(responseString);
+
+                    // Parse JSON Object into User Object
+                    User user = gson.fromJson(jsonObject.toString(), User.class);
+
+                    // Let the LiveData know that content has been updated
+                    // This posts the update to the main thread
+                    weeklyDev.postValue(user);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Store the response in cache
+                cacheResponse(response);
+
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        // Queue the API Call
+        mRequestQueue.add(fetchWeeklyRequest);
     }
 
     /**

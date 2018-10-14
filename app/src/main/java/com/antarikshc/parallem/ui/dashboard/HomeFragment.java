@@ -22,9 +22,10 @@ import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.UserProfileActivity;
 import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 import com.antarikshc.parallem.ui.adapters.ExploreRecyclerAdapter;
+import com.antarikshc.parallem.util.Master;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
+import com.squareup.picasso.Picasso;
 
 public class HomeFragment extends Fragment {
 
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment {
     private User[] mUsers;
     private Gson gson;
     private RecyclerView exploreUserList;
-    private ExploreRecyclerAdapter adapter;
+    private ExploreRecyclerAdapter exploreAdapter;
 
     @Nullable
     @Override
@@ -69,7 +70,7 @@ public class HomeFragment extends Fragment {
         exploreUserList = binding.recyclerHomeExplore;
 
         // Initialize Adapter
-        adapter = new ExploreRecyclerAdapter(getActivity(), new CustomItemClickListener() {
+        exploreAdapter = new ExploreRecyclerAdapter(getActivity(), new CustomItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 openUserProfile(position);
@@ -77,7 +78,7 @@ public class HomeFragment extends Fragment {
         });
 
         exploreUserList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        exploreUserList.setAdapter(adapter);
+        exploreUserList.setAdapter(exploreAdapter);
 
     }
 
@@ -105,6 +106,15 @@ public class HomeFragment extends Fragment {
         DashboardViewModelFactory factory = InjectorUtils.provideDashboardViewModelFactory(getActivity().getApplicationContext());
         viewModel = ViewModelProviders.of(getActivity(), factory).get(DashboardViewModel.class);
 
+        Log.i(LOG_TAG, "Getting Top Weekly Developer from ViewModel");
+        viewModel.getTopWeeklyDev().observe(HomeFragment.this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                assert user != null;
+                hookDataToWeeklyCard(user);
+            }
+        });
+
         Log.i(LOG_TAG, "Getting Users from ViewModel");
         viewModel.getExploreUsers().observe(HomeFragment.this, new Observer<User[]>() {
             @Override
@@ -114,10 +124,27 @@ public class HomeFragment extends Fragment {
                 Log.i(LOG_TAG, users.length + " Users Received");
                 if (users.length > 0) {
                     mUsers = users;
-                    adapter.setData(users);
+                    exploreAdapter.setData(users);
                 }
             }
         });
+
+    }
+
+    /**
+     * This represent data onto the Weekly Developer card
+     *
+     * @param user Object of TWD
+     */
+    private void hookDataToWeeklyCard(User user) {
+
+        // Load image with Picasso and set to ImageView
+        Picasso.get()
+                .load(Master.getProfileImageUrl(user.getProfileImage()))
+                .into(binding.imgTwdProfile);
+
+        binding.txtTwdName.setText(user.getName());
+        binding.txtTwdHeadline.setText(user.getHeadline());
 
     }
 

@@ -16,6 +16,7 @@ public class DashboardViewModel extends ViewModel {
     private final LiveData<User[]> mUsers;
     private final LiveData<User> mProfile;
     private final LiveData<Skill[]> mSkills;
+    private final LiveData<User> mWeeklyDev;
 
     public DashboardViewModel(ParallemRepository repository) {
         mRepository = repository;
@@ -24,6 +25,7 @@ public class DashboardViewModel extends ViewModel {
         mUsers = mRepository.getExploreUsers();
         mProfile = mRepository.getProfileDetails();
         mSkills = mRepository.getAllSkills();
+        mWeeklyDev = mRepository.getTopWeeklyDev();
 
     }
 
@@ -40,5 +42,10 @@ public class DashboardViewModel extends ViewModel {
     // Return the List of all Skills
     public LiveData<Skill[]> getAllSkills() {
         return mSkills;
+    }
+
+    // Return the Top Weekly Dev
+    public LiveData<User> getTopWeeklyDev() {
+        return mWeeklyDev;
     }
 }

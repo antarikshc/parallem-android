@@ -35,6 +35,10 @@ public class Master {
         return PARALLEM_BASE_API + "/explore";
     }
 
+    public static String getWeeklyEndpoint() {
+        return PARALLEM_BASE_API + "/weekly";
+    }
+
     public static String getProfileImageUrl(String imageId) {
         return PARALLEM_BASE_API + "/images/profile" + imageId + ".png";
     }
