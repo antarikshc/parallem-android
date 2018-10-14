@@ -173,7 +173,7 @@ public class SignUpActivity extends AppCompatActivity {
                     // Retrieve user_id
                     userID = data.getString("user_id");
 
-                    ParallemApp.addUserId(userID);
+                    ParallemApp.saveUserId(userID);
 
                     // Create toast with user_id
                     runOnUiThread(new Runnable() {

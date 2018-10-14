@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Retrieve user_id
                         userID = data.getString("user_id");
 
-                        ParallemApp.addUserId(userID);
+                        ParallemApp.saveUserId(userID);
 
                         // Launch Dashboard Activity
                         Intent intent = new Intent(this, DashboardActivity.class);
