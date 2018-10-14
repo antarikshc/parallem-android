@@ -10,6 +10,7 @@ import com.antarikshc.parallem.ui.authentication.AddProfileActivity;
 import com.antarikshc.parallem.ui.authentication.LoginActivity;
 import com.antarikshc.parallem.ui.authentication.SignUpActivity;
 import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
+import com.antarikshc.parallem.ui.team.TeamProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToAddProfile(View view) {
         Intent intent = new Intent(this, AddProfileActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToTeamProfile(View view) {
+        Intent intent = new Intent(this, TeamProfileActivity.class);
         startActivity(intent);
     }
 }

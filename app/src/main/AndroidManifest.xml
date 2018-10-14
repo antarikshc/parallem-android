@@ -23,7 +23,8 @@
         <activity android:name=".ui.authentication.SignUpActivity" />
         <activity android:name=".ui.dashboard.DashboardActivity" />
         <activity android:name=".ui.authentication.AddProfileActivity" />
-        <activity android:name=".ui.UserProfileActivity"></activity>
+        <activity android:name=".ui.UserProfileActivity" />
+        <activity android:name=".ui.team.TeamProfileActivity"></activity>
     </application>
 
 </manifest>
