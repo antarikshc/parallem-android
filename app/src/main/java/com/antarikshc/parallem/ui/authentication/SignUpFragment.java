@@ -98,6 +98,14 @@ public class SignUpFragment extends Fragment {
             }
         });
 
+        // Button - Skip
+        binding.btnSignupSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthenticationActivity.attachFragment(new PersonalDetailsFragment());
+            }
+        });
+
     }
 
 
