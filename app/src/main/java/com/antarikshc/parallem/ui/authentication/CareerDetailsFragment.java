@@ -423,7 +423,7 @@ public class CareerDetailsFragment extends Fragment {
         Button btnCancel = mView.findViewById(R.id.btn_dialog_skill_cancel);
 
         // Creating instance of ArrayAdapter for AutoCompleteTextView
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.select_dialog_item, mSkillNameArray);
         autoTextView.setAdapter(adapter);
 

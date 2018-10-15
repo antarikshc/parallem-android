@@ -26,6 +26,7 @@
             android:layout_marginStart="@dimen/dimen_12dp"
             android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_marginEnd="@dimen/dimen_12dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             app:cardCornerRadius="@dimen/dimen_12dp"
             app:cardElevation="@dimen/dimen_12dp"
             app:layout_constraintBottom_toBottomOf="parent"
