@@ -1,9 +1,7 @@
 package com.antarikshc.parallem.ui.authentication;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
-import android.support.annotation.Nullable;
 
 import com.antarikshc.parallem.data.ParallemRepository;
 import com.antarikshc.parallem.models.Skill;
@@ -21,12 +19,6 @@ public class AuthenticationViewModel extends ViewModel {
     public AuthenticationViewModel(ParallemRepository mRepository) {
         this.mRepository = mRepository;
         mSkills = mRepository.getAllSkills();
-        mRepository.getProfileDetails().observeForever(new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                mUser = user;
-            }
-        });
     }
 
     // Return the List of all Skills
