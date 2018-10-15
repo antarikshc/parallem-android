@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ui.authentication.AddProfileActivity">
+    tools:context=".ui.authentication.AuthenticationActivity">
 
     <TextView
         android:id="@+id/txt_label_know_you"

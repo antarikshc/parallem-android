@@ -61,7 +61,7 @@ public class CareerDetailsFragment extends Fragment {
 
     // Global params
     private FragmentCareerDetailsBinding binding;
-    private AddProfileViewModel viewModel;
+    private AuthenticationViewModel viewModel;
     private RequestQueue requestQueue;
     private Gson gson;
 
@@ -115,8 +115,8 @@ public class CareerDetailsFragment extends Fragment {
      */
     private void setupViewModel() {
 
-        AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
-        viewModel = ViewModelProviders.of(getActivity(), factory).get(AddProfileViewModel.class);
+        AuthenticationViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
+        viewModel = ViewModelProviders.of(getActivity(), factory).get(AuthenticationViewModel.class);
 
         Log.i(LOG_TAG, "Getting Skills from ViewModel");
         viewModel.getAllSkills().observe(CareerDetailsFragment.this, new Observer<Skill[]>() {

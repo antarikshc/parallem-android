@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.antarikshc.parallem.data.ParallemRepository;
 
-public class AddProfileViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class AuthenticationViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private final ParallemRepository mRepository;
 
-    public AddProfileViewModelFactory(ParallemRepository mRepository) {
+    public AuthenticationViewModelFactory(ParallemRepository mRepository) {
         this.mRepository = mRepository;
     }
 
@@ -18,6 +18,6 @@ public class AddProfileViewModelFactory extends ViewModelProvider.NewInstanceFac
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         // No inspection unchecked
-        return (T) new AddProfileViewModel(mRepository);
+        return (T) new AuthenticationViewModel(mRepository);
     }
 }

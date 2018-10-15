@@ -31,7 +31,7 @@ public class PersonalDetailsFragment extends Fragment {
 
     // Global params
     private FragmentPersonalDetailsBinding binding;
-    private AddProfileViewModel viewModel;
+    private AuthenticationViewModel viewModel;
     private RecyclerView avatarList;
     private AvatarRecyclerAdapter avatarAdapter;
     private List<ProfileAvatar> avatars;
@@ -65,8 +65,8 @@ public class PersonalDetailsFragment extends Fragment {
      */
     private void setupViewModel() {
 
-        AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
-        viewModel = ViewModelProviders.of(getActivity(), factory).get(AddProfileViewModel.class);
+        AuthenticationViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
+        viewModel = ViewModelProviders.of(getActivity(), factory).get(AuthenticationViewModel.class);
 
     }
 
@@ -113,7 +113,7 @@ public class PersonalDetailsFragment extends Fragment {
         binding.btnPersonalDetailsContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+                AuthenticationActivity.attachFragment(new CareerDetailsFragment());
 
                 saveUser();
             }
@@ -123,7 +123,7 @@ public class PersonalDetailsFragment extends Fragment {
         binding.btnPersonalDetailsSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddProfileActivity.attachFragment(new CareerDetailsFragment());
+                AuthenticationActivity.attachFragment(new CareerDetailsFragment());
             }
         });
     }

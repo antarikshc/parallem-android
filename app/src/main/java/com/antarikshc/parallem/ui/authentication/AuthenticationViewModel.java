@@ -10,7 +10,7 @@ import com.antarikshc.parallem.models.Skill;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.dashboard.DashboardViewModel;
 
-public class AddProfileViewModel extends ViewModel {
+public class AuthenticationViewModel extends ViewModel {
 
     private static final String LOG_TAG = DashboardViewModel.class.getSimpleName();
 
@@ -18,7 +18,7 @@ public class AddProfileViewModel extends ViewModel {
     private final LiveData<Skill[]> mSkills;
     private User mUser;
 
-    public AddProfileViewModel(ParallemRepository mRepository) {
+    public AuthenticationViewModel(ParallemRepository mRepository) {
         this.mRepository = mRepository;
         mSkills = mRepository.getAllSkills();
         mRepository.getProfileDetails().observeForever(new Observer<User>() {

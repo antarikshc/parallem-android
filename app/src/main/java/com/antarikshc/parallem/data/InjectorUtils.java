@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.android.volley.RequestQueue;
 import com.antarikshc.parallem.data.network.NetworkDataSource;
-import com.antarikshc.parallem.ui.authentication.AddProfileViewModelFactory;
+import com.antarikshc.parallem.ui.authentication.AuthenticationViewModelFactory;
 import com.antarikshc.parallem.ui.dashboard.DashboardViewModelFactory;
 import com.antarikshc.parallem.util.VolleySingleton;
 
@@ -37,9 +37,9 @@ public class InjectorUtils {
         return new DashboardViewModelFactory(repository);
     }
 
-    public static AddProfileViewModelFactory provideAddProfileViewModelFactory(Context context) {
+    public static AuthenticationViewModelFactory provideAddProfileViewModelFactory(Context context) {
         ParallemRepository repository = provideRepository(context.getApplicationContext());
 
-        return new AddProfileViewModelFactory(repository);
+        return new AuthenticationViewModelFactory(repository);
     }
 }

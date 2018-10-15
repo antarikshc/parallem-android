@@ -14,15 +14,15 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.models.Skill;
 
-public class AddProfileActivity extends AppCompatActivity {
+public class AuthenticationActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = AddProfileActivity.class.getSimpleName();
+    private static final String LOG_TAG = AuthenticationActivity.class.getSimpleName();
 
     // Global params
     private static FragmentManager fragmentManager;
     private PersonalDetailsFragment personalDetailsFragment;
     private CareerDetailsFragment careerDetailsFragment;
-    private AddProfileViewModel viewModel;
+    private AuthenticationViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class AddProfileActivity extends AppCompatActivity {
      */
     private void setupViewModel() {
 
-        AddProfileViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getApplicationContext());
-        viewModel = ViewModelProviders.of(this, factory).get(AddProfileViewModel.class);
+        AuthenticationViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getApplicationContext());
+        viewModel = ViewModelProviders.of(this, factory).get(AuthenticationViewModel.class);
 
         // No need to explicitly fetch User data
         // as it's being fetched as soon as the ViewModel is instantiated
