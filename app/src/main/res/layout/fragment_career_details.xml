@@ -314,7 +314,7 @@
                     android:layout_marginEnd="@dimen/dimen_8dp"
                     android:layout_marginBottom="0dp"
                     android:layout_toStartOf="@+id/btn_career_save"
-                    android:text="Skip" />
+                    android:text="@string/button_skip" />
 
                 <Button
                     android:id="@+id/btn_career_save"

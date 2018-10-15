@@ -20,9 +20,26 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     // Global params
     private static FragmentManager fragmentManager;
+    private LoginFragment loginFragment;
+    private SignUpFragment signUpFragment;
     private PersonalDetailsFragment personalDetailsFragment;
     private CareerDetailsFragment careerDetailsFragment;
     private AuthenticationViewModel viewModel;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_authentication);
+
+        loginFragment = new LoginFragment();
+        signUpFragment = new SignUpFragment();
+        personalDetailsFragment = new PersonalDetailsFragment();
+        careerDetailsFragment = new CareerDetailsFragment();
+
+        setupFragmentManager();
+
+        setupViewModel();
+    }
 
     /**
      * Method to avoid fragment recreation
@@ -83,19 +100,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         // Keep PersonalDetailsFragment attached by default
-        attachFragment(personalDetailsFragment);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authentication);
-
-        personalDetailsFragment = new PersonalDetailsFragment();
-        careerDetailsFragment = new CareerDetailsFragment();
-
-        setupFragmentManager();
-
-        setupViewModel();
+        attachFragment(loginFragment);
     }
 }
