@@ -24,17 +24,29 @@ public class AuthenticationActivity extends AppCompatActivity {
     private CareerDetailsFragment careerDetailsFragment;
     private AuthenticationViewModel viewModel;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_profile);
+    /**
+     * Method to avoid fragment recreation
+     *
+     * @param fragment Pass the Fragment to be launched
+     */
+    public static void attachFragment(Fragment fragment) {
+        String backStateName = fragment.getClass().getSimpleName();
 
-        personalDetailsFragment = new PersonalDetailsFragment();
-        careerDetailsFragment = new CareerDetailsFragment();
+        Fragment fragmentFromBackStack = fragmentManager.findFragmentByTag(backStateName);
 
-        setupFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(
+                R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);
 
-        setupViewModel();
+        if (fragmentFromBackStack == null) {
+            // Fragment not in back stack, create it.
+            fragmentTransaction.replace(R.id.frame_authentication_main, fragment, backStateName);
+            fragmentTransaction.addToBackStack(backStateName);
+            fragmentTransaction.commit();
+        } else {
+            fragmentManager.popBackStack(backStateName, 0);
+        }
     }
 
     /**
@@ -74,29 +86,16 @@ public class AuthenticationActivity extends AppCompatActivity {
         attachFragment(personalDetailsFragment);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_authentication);
 
-    /**
-     * Method to avoid fragment recreation
-     *
-     * @param fragment Pass the Fragment to be launched
-     */
-    public static void attachFragment(Fragment fragment) {
-        String backStateName = fragment.getClass().getSimpleName();
+        personalDetailsFragment = new PersonalDetailsFragment();
+        careerDetailsFragment = new CareerDetailsFragment();
 
-        Fragment fragmentFromBackStack = fragmentManager.findFragmentByTag(backStateName);
+        setupFragmentManager();
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(
-                R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left, R.anim.exit_to_right);
-
-        if (fragmentFromBackStack == null) {
-            // Fragment not in back stack, create it.
-            fragmentTransaction.replace(R.id.frame_add_profile, fragment, backStateName);
-            fragmentTransaction.addToBackStack(backStateName);
-            fragmentTransaction.commit();
-        } else {
-            fragmentManager.popBackStack(backStateName, 0);
-        }
+        setupViewModel();
     }
 }
