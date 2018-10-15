@@ -100,6 +100,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         // Keep PersonalDetailsFragment attached by default
-        attachFragment(loginFragment);
+        attachFragment(signUpFragment);
     }
 }
