@@ -1,5 +1,6 @@
 package com.antarikshc.parallem.ui.authentication;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,9 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentSignUpBinding;
+import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.util.Master;
 import com.antarikshc.parallem.util.ParallemApp;
+import com.antarikshc.parallem.util.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +37,9 @@ public class SignUpFragment extends Fragment {
 
     // Global Params
     private FragmentSignUpBinding binding;
+    private AuthenticationViewModel viewModel;
     private RequestQueue requestQueue;
+    private User user;
     private String firstName;
     private String lastName;
     private String userEmail;
@@ -59,9 +65,23 @@ public class SignUpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setupViewModel();
+
         setupEmailFocusListener();
 
         onClickListeners();
+
+        // Get Singleton Volley Request Queue Instance
+        requestQueue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
+    }
+
+    /**
+     * Initiate ViewModel to start fetching data
+     */
+    private void setupViewModel() {
+
+        AuthenticationViewModelFactory factory = InjectorUtils.provideAddProfileViewModelFactory(getActivity().getApplicationContext());
+        viewModel = ViewModelProviders.of(getActivity(), factory).get(AuthenticationViewModel.class);
 
     }
 
@@ -82,7 +102,7 @@ public class SignUpFragment extends Fragment {
 
 
     /**
-     * OnClick Button SignUp - Validate form and Call API
+     * Validate form and Call SignUp API
      */
     public void hitSignUpAPI() {
 
@@ -95,7 +115,12 @@ public class SignUpFragment extends Fragment {
         userPassword = binding.editSignupPassword.getText().toString();
         userConfirmPassword = binding.editSignupCnfPassword.getText().toString();
 
-        if (validateForm() && isEmailExist) {
+        if (validateForm() && !isEmailExist) {
+
+            // Create User object to store in ViewModel
+            user = new User(null, firstName + " " + lastName, userEmail, mobileNumber, null, null,
+                    null, null, null, null, null, null, null,
+                    null, null);
 
             // Create JsonObject for POST Method
             JSONObject userObject = new JSONObject();
@@ -118,6 +143,8 @@ public class SignUpFragment extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
                             Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+
+                            AuthenticationActivity.attachFragment(new PersonalDetailsFragment());
                         }
                     },
                     new Response.ErrorListener() {
@@ -182,7 +209,7 @@ public class SignUpFragment extends Fragment {
                 Log.i(LOG_TAG, message);
             }
 
-            if (statusCode == 200) {
+            if (statusCode == 201) {
 
                 if (resObject.has("data")) {
                     data = resObject.getJSONObject("data");
@@ -190,16 +217,20 @@ public class SignUpFragment extends Fragment {
                     // Retrieve user_id
                     userID = data.getString("user_id");
 
+                    // Update user object with Id and update ViewModel data
+                    user.set_id(userID);
+                    viewModel.updateUser(user);
+
                     ParallemApp.saveUserId(userID);
 
                     // Create toast with user_id
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getActivity(), "SignUp Successful\n" + userID,
-                                    Toast.LENGTH_SHORT).show();
+                            AuthenticationActivity.attachFragment(new PersonalDetailsFragment());
                         }
                     });
+
 
                 }
 

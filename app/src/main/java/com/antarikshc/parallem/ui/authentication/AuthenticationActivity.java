@@ -22,8 +22,6 @@ public class AuthenticationActivity extends AppCompatActivity {
     private static FragmentManager fragmentManager;
     private LoginFragment loginFragment;
     private SignUpFragment signUpFragment;
-    private PersonalDetailsFragment personalDetailsFragment;
-    private CareerDetailsFragment careerDetailsFragment;
     private AuthenticationViewModel viewModel;
 
     @Override
@@ -33,8 +31,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         loginFragment = new LoginFragment();
         signUpFragment = new SignUpFragment();
-        personalDetailsFragment = new PersonalDetailsFragment();
-        careerDetailsFragment = new CareerDetailsFragment();
 
         setupFragmentManager();
 
