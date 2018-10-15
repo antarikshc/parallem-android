@@ -137,12 +137,6 @@ public class CareerDetailsFragment extends Fragment {
         Log.i(LOG_TAG, "Getting User from ViewModel");
         // This will essentially return the Updated User from PersonalDetailsFragment
         user = viewModel.getUser();
-        if (!(user == null)) {
-            experiences = user.getExperiences();
-            certifications = user.getCertifications();
-            projects = user.getUserProjects();
-            userSkills = user.getSkills();
-        }
     }
 
     /**
