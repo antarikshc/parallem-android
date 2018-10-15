@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_2dp">
+
+    <View
+        android:id="@+id/horizontal_line_notification"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_marginBottom="@dimen/dimen_4dp"
+        android:background="@drawable/bg_horizontal_line" />
+
+    <TextView
+        android:id="@+id/txt_notification_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontal_line_notification"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/img_notification_accept"
+        android:maxLines="2"
+        android:padding="@dimen/dimen_4dp"
+        android:text="Notification message"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/img_notification_accept"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/horizontal_line_notification"
+        android:layout_marginEnd="@dimen/dimen_4dp"
+        android:layout_toStartOf="@+id/img_notification_decline"
+        app:srcCompat="@drawable/ic_accept" />
+
+    <ImageView
+        android:id="@+id/img_notification_decline"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/horizontal_line_notification"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_decline" />
+</RelativeLayout>
