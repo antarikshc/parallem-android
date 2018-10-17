@@ -2,7 +2,6 @@ package com.antarikshc.parallem.ui.dashboard;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.util.Log;
 
 import com.antarikshc.parallem.data.ParallemRepository;
 import com.antarikshc.parallem.models.Skill;
@@ -23,7 +22,6 @@ public class DashboardViewModel extends ViewModel {
     public DashboardViewModel(ParallemRepository repository) {
         mRepository = repository;
 
-        Log.i(LOG_TAG, "Getting Users from Repository");
         mUsers = mRepository.getExploreUsers();
         mProfile = mRepository.getProfileDetails();
         mSkills = mRepository.getAllSkills();
@@ -52,6 +50,7 @@ public class DashboardViewModel extends ViewModel {
         return mWeeklyDev;
     }
 
+    // Return the Team that user has currently joined
     public LiveData<Team> getUserTeam() {
         return mUserTeam;
     }
