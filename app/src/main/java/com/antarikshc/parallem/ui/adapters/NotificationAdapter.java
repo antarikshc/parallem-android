@@ -42,6 +42,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             viewHolder.notificationMessage.setText(notification.getMessage());
 
+            if (notification.getStatus() != null) {
+                if (!(notification.getStatus() == 0)) {
+                    viewHolder.imgBtnAccept.setVisibility(View.GONE);
+                    viewHolder.imgBtnDecline.setVisibility(View.GONE);
+                }
+            }
+
             viewHolder.imgBtnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

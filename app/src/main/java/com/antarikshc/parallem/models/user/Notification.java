@@ -16,10 +16,14 @@ public class Notification {
     @SerializedName("team_id")
     private String teamId;
 
-    public Notification(Integer typeId, String message, String teamId) {
+    @Expose
+    private Integer status;
+
+    public Notification(Integer typeId, String message, String teamId, Integer status) {
         this.typeId = typeId;
         this.message = message;
         this.teamId = teamId;
+        this.status = status;
     }
 
     public Integer getTypeId() {
@@ -44,5 +48,13 @@ public class Notification {
 
     public void setTeamId(String teamId) {
         this.teamId = teamId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
