@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "373393669994",
+    "firebase_url": "https://parallem.firebaseio.com",
+    "project_id": "parallem",
+    "storage_bucket": "parallem.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373393669994:android:9351021427771329",
+        "android_client_info": {
+          "package_name": "com.antarikshc.parallem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373393669994-ciaibvv3nn4cfhoug8v191dg6qb8ob08.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.antarikshc.parallem",
+            "certificate_hash": "7718815b7dae2ba9634bb43e813d6b8bf1183e80"
+          }
+        },
+        {
+          "client_id": "373393669994-qb2c1ergf7pmogq3f3ulqtkog3o5ut9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAukpoEY4HMkxwIUiAynelyOR5k0vNgm0o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373393669994-qb2c1ergf7pmogq3f3ulqtkog3o5ut9q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
