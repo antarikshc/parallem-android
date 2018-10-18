@@ -68,6 +68,9 @@ public class TeamsFragment extends Fragment {
                 assert team != null;
                 userTeam = team;
 
+                // Make YourTeam card visible and present data
+                binding.cardUserTeamTeam.setVisibility(View.VISIBLE);
+
                 binding.txtUserTeamName.setText(team.getName());
                 binding.txtUserTeamDesc.setText(team.getDesc());
             }
