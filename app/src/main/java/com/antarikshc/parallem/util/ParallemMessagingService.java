@@ -18,7 +18,14 @@ public class ParallemMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Log.i(LOG_TAG, "Message: " + remoteMessage.getData().toString());
+        String forId = remoteMessage.getData().get("for");
+        String teamId = remoteMessage.getData().get("team_id");
+        String message = remoteMessage.getData().get("message");
+
+        // Show Notification for the Messages received only for the logged in user
+        if (forId.equals(ParallemApp.getUserId())) {
+            Log.i(LOG_TAG, "Message: " + message);
+        }
 
     }
 }
