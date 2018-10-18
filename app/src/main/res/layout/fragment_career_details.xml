@@ -105,7 +105,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/recycler_career_experience"
-                                    app:srcCompat="@drawable/ic_add" />
+                                    app:srcCompat="@drawable/ic_add_circle" />
 
                             </android.support.constraint.ConstraintLayout>
                         </android.support.design.card.MaterialCardView>
@@ -168,7 +168,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/recycler_career_projects"
-                                    app:srcCompat="@drawable/ic_add" />
+                                    app:srcCompat="@drawable/ic_add_circle" />
 
                             </android.support.constraint.ConstraintLayout>
                         </android.support.design.card.MaterialCardView>
@@ -232,7 +232,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/recycler_career_certifications"
-                                    app:srcCompat="@drawable/ic_add" />
+                                    app:srcCompat="@drawable/ic_add_circle" />
 
                             </android.support.constraint.ConstraintLayout>
                         </android.support.design.card.MaterialCardView>
@@ -297,7 +297,7 @@
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/recycler_career_skills"
-                                    app:srcCompat="@drawable/ic_add" />
+                                    app:srcCompat="@drawable/ic_add_circle" />
 
                             </android.support.constraint.ConstraintLayout>
                         </android.support.design.card.MaterialCardView>

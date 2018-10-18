@@ -70,6 +70,8 @@ public class TeamsFragment extends Fragment {
 
                 // Make YourTeam card visible and present data
                 binding.cardUserTeamTeam.setVisibility(View.VISIBLE);
+                // Hide the FAB Button to create a team
+                binding.fabTeamsCreate.hide();
 
                 binding.txtUserTeamName.setText(team.getName());
                 binding.txtUserTeamDesc.setText(team.getDesc());
