@@ -42,6 +42,7 @@
     <string name="hint_authority">Authority</string>
     <string name="label_top_weekly">Top Weekly Developer</string>
     <string name="btn_request_to_collab">Request to Collab</string>
+    <string name="hint_capacity">Capacity</string>
 
 
     <!-- Keys to set tag to the button-->

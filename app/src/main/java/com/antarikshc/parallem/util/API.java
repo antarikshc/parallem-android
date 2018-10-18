@@ -65,6 +65,10 @@ public class API {
         return PARALLEM_BASE_API + "/teams/" + teamId + "/members";
     }
 
+    public static String getCreateTeamEndpoint(@NonNull String userId) {
+        return PARALLEM_BASE_API + "/users/" + userId + "/teams";
+    }
+
     /**
      * Endpoints for FCM and Collab requests
      */
@@ -82,4 +86,5 @@ public class API {
     public static String getSkillsEndpoint() {
         return PARALLEM_BASE_API + "/skills";
     }
+
 }
