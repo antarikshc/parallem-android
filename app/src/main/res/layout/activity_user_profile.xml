@@ -67,7 +67,8 @@
                 android:layout_below="@+id/img_user_picture"
                 android:layout_centerHorizontal="true"
                 android:drawableEnd="@drawable/ic_send"
-                android:text="Request to Collab" />
+                android:onClick="sendCollabRequest"
+                android:text="@string/btn_request_to_collab" />
 
         </RelativeLayout>
 
@@ -320,6 +321,17 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.design.card.MaterialCardView>
 
+        <ProgressBar
+            android:id="@+id/progress_bar_user_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

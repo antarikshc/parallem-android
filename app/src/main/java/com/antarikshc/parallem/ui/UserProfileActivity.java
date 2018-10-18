@@ -7,7 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivityUserProfileBinding;
 import com.antarikshc.parallem.models.user.User;
@@ -15,10 +23,15 @@ import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
+import com.antarikshc.parallem.util.ParallemApp;
+import com.antarikshc.parallem.util.VolleySingleton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -27,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
     // Global params
     private ActivityUserProfileBinding binding;
     private Gson gson;
+    private RequestQueue requestQueue;
     private String userJsonString;
     private User user;
     private RecyclerView experienceList;
@@ -54,10 +68,17 @@ public class UserProfileActivity extends AppCompatActivity {
         // Create GsonBuilder with Expose Annotation
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
+        // Get Singleton Volley Request Queue Instance
+        requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
+
         setupAdapter();
 
         if (intent != null) {
+
+            // Create User object from JSON String passed through intent
             userJsonString = intent.getStringExtra("json_string");
+            user = gson.fromJson(userJsonString, User.class);
+
             hookDataToViews();
         }
 
@@ -69,12 +90,9 @@ public class UserProfileActivity extends AppCompatActivity {
      */
     private void hookDataToViews() {
 
-        // Convert String to Object
-        user = gson.fromJson(userJsonString, User.class);
-
         // Load image with Picasso and set to ImageView
         Picasso.get()
-                .load(Master.getProfileImageUrl(user.getProfileImage()))
+                .load(API.getProfileImageUrl(user.getProfileImage()))
                 .into(binding.imgUserPicture);
 
         // Represent data in Toolbar
@@ -89,6 +107,64 @@ public class UserProfileActivity extends AppCompatActivity {
         userProjectAdapter.setData(user.getUserProjects());
         certificationAdapter.setData(user.getCertifications());
         skillAdapter.setData(user.getSkills());
+
+    }
+
+    /**
+     * On Click for Sending Collab request
+     *
+     * @param view Request to Collab button
+     */
+    public void sendCollabRequest(View view) {
+
+        if (ParallemApp.isTeamIdExist()) {
+
+            binding.progressBarUserProfile.setVisibility(View.VISIBLE);
+
+            JSONObject jsonObject = new JSONObject();
+
+            try {
+                jsonObject.put("team_id", ParallemApp.getTeamId());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            JsonObjectRequest collabRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    API.getCollabRequestEndpoint(user.get_id()),
+                    jsonObject,
+
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i(LOG_TAG, "HTTP Response received for CollabRequest");
+                            binding.progressBarUserProfile.setVisibility(View.GONE);
+
+                            Toast.makeText(UserProfileActivity.this, "Collab request has been sent!", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    },
+
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i(LOG_TAG, "HTTP Error occurred: " + error);
+                            binding.progressBarUserProfile.setVisibility(View.GONE);
+
+                            Toast.makeText(UserProfileActivity.this, "Couldn't send collab request :(", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+            );
+
+            // Queue the API Call
+            requestQueue.add(collabRequest);
+
+        } else {
+
+            Toast.makeText(this, "Please first create a team!", Toast.LENGTH_LONG).show();
+
+        }
 
     }
 
@@ -125,6 +201,5 @@ public class UserProfileActivity extends AppCompatActivity {
         skillList.setNestedScrollingEnabled(false);
         skillList.setAdapter(skillAdapter);
     }
-
 
 }
