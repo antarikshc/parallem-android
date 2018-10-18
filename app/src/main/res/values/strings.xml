@@ -42,4 +42,8 @@
     <string name="hint_authority">Authority</string>
     <string name="label_top_weekly">Top Weekly Developer</string>
     <string name="btn_request_to_collab">Request to Collab</string>
+
+
+    <!-- Keys to set tag to the button-->
+    <item name="item_number" type="id" />
 </resources>

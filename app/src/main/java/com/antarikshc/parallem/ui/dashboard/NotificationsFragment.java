@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.RequestQueue;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentNotificationsBinding;
 import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.adapters.NotificationAdapter;
+import com.antarikshc.parallem.util.VolleySingleton;
 
 public class NotificationsFragment extends Fragment {
 
@@ -25,6 +27,7 @@ public class NotificationsFragment extends Fragment {
 
     // Global params
     private FragmentNotificationsBinding binding;
+    private RequestQueue requestQueue;
     private DashboardViewModel viewModel;
     private RecyclerView notificationList;
     private NotificationAdapter adapter;
@@ -43,6 +46,9 @@ public class NotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Get Singleton Volley Request Queue Instance
+        requestQueue = VolleySingleton.getInstance(getActivity()).getRequestQueue();
+
         setupNotificationAdapter();
 
         setupViewModel();
@@ -56,7 +62,7 @@ public class NotificationsFragment extends Fragment {
         notificationList = binding.recyclerNotification;
 
         // Initialize Adapter
-        adapter = new NotificationAdapter(getActivity());
+        adapter = new NotificationAdapter(getActivity(), requestQueue);
 
         notificationList.setLayoutManager(new LinearLayoutManager(getActivity()));
         notificationList.setAdapter(adapter);
