@@ -109,7 +109,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         int count = getFragmentManager().getBackStackEntryCount();
         if (count == 0) {
             super.onBackPressed();
-            finish();
         } else {
             getFragmentManager().popBackStack();
         }

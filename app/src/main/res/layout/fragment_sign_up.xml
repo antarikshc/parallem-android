@@ -214,7 +214,8 @@
             android:layout_height="40dp"
             android:layout_below="@+id/card_login"
             android:layout_alignEnd="@+id/card_login"
-            android:text="DO NOT PRESS" />
+            android:text="DO NOT PRESS"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
