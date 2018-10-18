@@ -113,7 +113,7 @@ public class ParallemApp extends Application {
     /**
      * Remove teamId from Shared Preferences
      */
-    public static void removeTeanId() {
+    public static void removeTeamId() {
 
         if (sp == null) {
             return;
@@ -165,6 +165,19 @@ public class ParallemApp extends Application {
      */
     public static boolean isFcmTokenExist() {
         return sp.contains(FCM_TOKEN);
+    }
+
+    /**
+     * Clear all keys
+     */
+    public static void removeAll() {
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(USER_ID);
+        editor.remove(TEAM_ID);
+        editor.remove(FCM_TOKEN);
+        editor.apply();
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.antarikshc.parallem.ui.dashboard;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +24,9 @@ import com.antarikshc.parallem.ui.adapters.CertificationRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
+import com.antarikshc.parallem.ui.authentication.AuthenticationActivity;
 import com.antarikshc.parallem.util.API;
+import com.antarikshc.parallem.util.ParallemApp;
 import com.squareup.picasso.Picasso;
 
 public class ProfileFragment extends Fragment {
@@ -59,6 +62,8 @@ public class ProfileFragment extends Fragment {
         setupAdapter();
 
         setupViewModel();
+
+        onClickListeners();
     }
 
     /**
@@ -130,6 +135,34 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
+    }
+
+    /**
+     * Setup all the Button onClick here
+     */
+    private void onClickListeners() {
+
+        // Button Logout
+        binding.btnProfileLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
+    }
+
+    /**
+     * This clears the SharedPrefs and Finishes the activity
+     */
+    private void logoutUser() {
+
+        ParallemApp.removeAll();
+
+        Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
+        startActivity(intent);
+
+        getActivity().finish();
 
     }
 }
