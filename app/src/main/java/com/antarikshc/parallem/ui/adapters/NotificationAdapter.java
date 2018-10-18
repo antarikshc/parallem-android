@@ -80,10 +80,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                         Toast.makeText(context, "Please leave your current team", Toast.LENGTH_SHORT).show();
                     } else {
 
+                        Integer position = (Integer) viewHolder.itemView.getTag(R.id.item_number);
+
                         // Get the Notification object from data
-                        Notification currentNotification = data.get((Integer) viewHolder.itemView.getTag(R.id.item_number));
+                        Notification currentNotification = data.get(position);
 
                         addUserToTeam(currentNotification);
+                        removeNotification(currentNotification, position);
 
                     }
 
@@ -95,6 +98,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 @Override
                 public void onClick(View v) {
 
+                    Integer position = (Integer) viewHolder.itemView.getTag(R.id.item_number);
+
+                    // Get the Notification object from data
+                    Notification currentNotification = data.get(position);
+
+                    removeNotification(currentNotification, position);
+
                 }
             });
 
@@ -102,6 +112,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     }
 
+    /**
+     * Contains Volley request to add User to Team
+     *
+     * @param notification Contains team_id
+     */
     private void addUserToTeam(final Notification notification) {
 
         JSONObject requestObject = new JSONObject();
@@ -112,8 +127,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             e.printStackTrace();
         }
 
-
-        // Volley request to Register FCM Token
+        // Volley request to Add member in team
         JsonObjectRequest teamMemberRequest = new JsonObjectRequest(
                 Request.Method.POST,
                 API.getTeamMembers(notification.getTeamId()),
@@ -156,6 +170,48 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // Queue the API Call
         requestQueue.add(teamMemberRequest);
 
+    }
+
+    /**
+     * Contains request to remove all notifications from Team ID
+     *
+     * @param notification contains the team_id
+     * @param position     to remove the item from recycler
+     */
+    private void removeNotification(Notification notification, final Integer position) {
+
+        JSONObject requestObject = new JSONObject();
+        try {
+            requestObject.put("team_id", notification.getTeamId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Volley request to Add member in team
+        JsonObjectRequest removeNotificationRequest = new JsonObjectRequest(
+                Request.Method.PUT,
+                API.getRemoveNotificationEndpoint(ParallemApp.getUserId()),
+                requestObject,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(LOG_TAG, "HTTP Response received for RemoveNotification");
+
+                        removeAt(position);
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
+                    }
+                }
+        );
+
+        // Queue the API Call
+        requestQueue.add(removeNotificationRequest);
 
     }
 
@@ -168,7 +224,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
     }
 
-
     public List<Notification> getData() {
         return data;
     }
@@ -176,6 +231,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void setData(List<Notification> data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    private void removeAt(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, data.size());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -31,6 +31,10 @@ public class API {
         return PARALLEM_BASE_API + "/images/profile" + imageId + ".png";
     }
 
+    public static String getRemoveNotificationEndpoint(@NonNull String userId) {
+        return PARALLEM_BASE_API + "/users/" + userId + "/notification";
+    }
+
     /**
      * Endpoints to handle User Authentication- Login, Sign Up, Update Profile
      */
