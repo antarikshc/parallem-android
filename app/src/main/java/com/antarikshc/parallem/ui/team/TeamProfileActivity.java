@@ -22,7 +22,7 @@ import com.antarikshc.parallem.models.team.Member;
 import com.antarikshc.parallem.models.team.Team;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.TeamMemberRecyclerAdapter;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 import com.google.gson.Gson;
@@ -82,7 +82,7 @@ public class TeamProfileActivity extends AppCompatActivity {
 
         JsonArrayRequest teamMemberRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Master.getTeamMembers(team.getId()),
+                API.getTeamMembers(team.getId()),
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override

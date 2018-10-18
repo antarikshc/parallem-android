@@ -22,7 +22,7 @@ import com.antarikshc.parallem.models.user.User;
 import com.antarikshc.parallem.ui.UserProfileActivity;
 import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 import com.antarikshc.parallem.ui.adapters.ExploreRecyclerAdapter;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
 
         // Load image with Picasso and set to ImageView
         Picasso.get()
-                .load(Master.getProfileImageUrl(user.getProfileImage()))
+                .load(API.getProfileImageUrl(user.getProfileImage()))
                 .into(binding.imgTwdProfile);
 
         binding.txtTwdName.setText(user.getName());

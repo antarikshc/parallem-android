@@ -17,7 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.models.Skill;
 import com.antarikshc.parallem.models.team.Team;
 import com.antarikshc.parallem.models.user.User;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -131,7 +131,7 @@ public class NetworkDataSource {
         // Volley request to fetch single user (profile)
         JsonObjectRequest profileRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                Master.getUserById(userId),
+                API.getUserById(userId),
                 null,
 
                 new Response.Listener<JSONObject>() {
@@ -189,7 +189,7 @@ public class NetworkDataSource {
         // Fetch all users from API
         JsonArrayRequest fetchExploreUsersRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Master.getExploreEndpoint(),
+                API.getExploreEndpoint(),
                 null,
 
                 new Response.Listener<JSONArray>() {
@@ -244,7 +244,7 @@ public class NetworkDataSource {
         // Fetch all users from API
         JsonObjectRequest fetchWeeklyRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                Master.getWeeklyEndpoint(),
+                API.getWeeklyEndpoint(),
                 null,
 
                 new Response.Listener<JSONObject>() {
@@ -297,7 +297,7 @@ public class NetworkDataSource {
 
         JsonObjectRequest userTeamRequest = new JsonObjectRequest(
                 Request.Method.GET,
-                Master.getTeamById(ParallemApp.getTeamId()),
+                API.getTeamById(ParallemApp.getTeamId()),
                 null,
 
                 new Response.Listener<JSONObject>() {
@@ -353,7 +353,7 @@ public class NetworkDataSource {
 
         JsonArrayRequest fetchSkillsRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Master.getSkillsEndpoint(),
+                API.getSkillsEndpoint(),
                 null,
 
                 new Response.Listener<JSONArray>() {

@@ -20,7 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -207,7 +207,7 @@ public class DashboardActivity extends AppCompatActivity {
                             // Volley request to Register FCM Token
                             JsonObjectRequest tokenRequest = new JsonObjectRequest(
                                     Request.Method.POST,
-                                    Master.getTokenEndpoint(ParallemApp.getUserId()),
+                                    API.getTokenEndpoint(ParallemApp.getUserId()),
                                     tokenObject,
 
                                     new Response.Listener<JSONObject>() {

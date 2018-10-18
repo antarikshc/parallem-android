@@ -24,7 +24,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.databinding.FragmentSignUpBinding;
 import com.antarikshc.parallem.models.user.User;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 
@@ -145,7 +145,7 @@ public class SignUpFragment extends Fragment {
 
             JsonObjectRequest signUpRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    Master.getSignUpEndpoint(),
+                    API.getSignUpEndpoint(),
                     userObject,
 
                     new Response.Listener<JSONObject>() {
@@ -314,7 +314,7 @@ public class SignUpFragment extends Fragment {
         // Create a Volley request to check email endpoint
         JsonObjectRequest emailCheckRequest = new JsonObjectRequest(
                 Request.Method.POST,
-                Master.getEmailCheckEndpoint(),
+                API.getEmailCheckEndpoint(),
                 emailObject,
 
                 new Response.Listener<JSONObject>() {

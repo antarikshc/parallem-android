@@ -43,7 +43,7 @@ import com.antarikshc.parallem.ui.adapters.ExperienceRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.UserProjectRecyclerAdapter;
 import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.SkillHelper;
 import com.antarikshc.parallem.util.VolleySingleton;
 import com.google.gson.Gson;
@@ -497,7 +497,7 @@ public class CareerDetailsFragment extends Fragment {
         // Call Update API with user object
         JsonObjectRequest updateRequest = new JsonObjectRequest(
                 Request.Method.PUT,
-                Master.getUpdateEndpoint(user.get_id()),
+                API.getUpdateEndpoint(user.get_id()),
                 userObject,
                 new Response.Listener<JSONObject>() {
                     @Override

@@ -22,7 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.FragmentLoginBinding;
 import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.antarikshc.parallem.util.ParallemApp;
 import com.antarikshc.parallem.util.VolleySingleton;
 
@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment {
 
             JsonObjectRequest loginRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    Master.getLoginEndpoint(),
+                    API.getLoginEndpoint(),
                     userObject,
 
                     new Response.Listener<JSONObject>() {

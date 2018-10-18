@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.models.user.ProfileAvatar;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class AvatarRecyclerAdapter extends RecyclerView.Adapter<AvatarRecyclerAd
 
             // Download Image bitmap with Picasso
             Picasso.get()
-                    .load(Master.getProfileImageUrl(String.valueOf(avatarIdId)))
+                    .load(API.getProfileImageUrl(String.valueOf(avatarIdId)))
                     .into(viewHolder.imgAvatar);
 
             if (avatar.getSelected()) {

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.models.team.Member;
-import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.API;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class TeamMemberRecyclerAdapter extends RecyclerView.Adapter<TeamMemberRe
 
             // Load image with Picasso and set to ImageView
             Picasso.get()
-                    .load(Master.getProfileImageUrl(member.getProfileImage()))
+                    .load(API.getProfileImageUrl(member.getProfileImage()))
                     .into(viewHolder.memberImage);
 
         }
