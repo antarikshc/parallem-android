@@ -133,23 +133,23 @@ public class NetworkDataSource {
                 Request.Method.GET,
                 Master.getUserById(userId),
                 null,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley response received");
+                        Log.i(LOG_TAG, "HTTP Response received for profileRequest");
                     }
                 },
+                
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                     }
                 }
         ) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Parsing network response");
 
                 try {
                     // Parse response data into String
@@ -187,27 +187,27 @@ public class NetworkDataSource {
 
         // Temporary - until Explore API is ready
         // Fetch all users from API
-        JsonArrayRequest fetchUserRequest = new JsonArrayRequest(
+        JsonArrayRequest fetchExploreUsersRequest = new JsonArrayRequest(
                 Request.Method.GET,
                 Master.getExploreEndpoint(),
                 null,
+
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i(LOG_TAG, "Volley response received");
+                        Log.i(LOG_TAG, "HTTP Response received for ExploreUsersRequest");
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                     }
                 }
         ) {
             @Override
             protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Parsing network response");
 
                 try {
                     // Parse response data into String
@@ -232,7 +232,7 @@ public class NetworkDataSource {
         };
 
         // Queue the API Call
-        mRequestQueue.add(fetchUserRequest);
+        mRequestQueue.add(fetchExploreUsersRequest);
     }
 
     /**
@@ -246,23 +246,23 @@ public class NetworkDataSource {
                 Request.Method.GET,
                 Master.getWeeklyEndpoint(),
                 null,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley response received");
+                        Log.i(LOG_TAG, "HTTP Response received for WeeklyRequest");
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                     }
                 }
         ) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Parsing network response");
 
                 try {
                     // Parse response data into String
@@ -299,23 +299,23 @@ public class NetworkDataSource {
                 Request.Method.GET,
                 Master.getTeamById(ParallemApp.getTeamId()),
                 null,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley response received");
+                        Log.i(LOG_TAG, "HTTP Response received for UserTeamRequest");
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                     }
                 }
         ) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Parsing network response");
 
                 try {
                     // Parse response data into String
@@ -355,23 +355,23 @@ public class NetworkDataSource {
                 Request.Method.GET,
                 Master.getSkillsEndpoint(),
                 null,
+
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i(LOG_TAG, "Volley response received");
+                        Log.i(LOG_TAG, "HTTP Response received for SkillsRequest");
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                     }
                 }
         ) {
             @Override
             protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Parsing network response");
 
                 try {
                     // Parse response data into String

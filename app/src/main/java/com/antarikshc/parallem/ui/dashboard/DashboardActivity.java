@@ -213,14 +213,14 @@ public class DashboardActivity extends AppCompatActivity {
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
-                                            Log.i(LOG_TAG, "Volley response received for tokenRequest");
+                                            Log.i(LOG_TAG, "HTTP Response received for tokenRequest");
                                         }
                                     },
 
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                                            Log.i(LOG_TAG, "HTTP Error occurred: " + error);
                                         }
                                     }
                             ) {

@@ -502,13 +502,13 @@ public class CareerDetailsFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley Response received");
+                        Log.i(LOG_TAG, "HTTP Response received for UpdateUserRequest");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error.toString());
                         Toast.makeText(getActivity(), "Couldn't update user :(", Toast.LENGTH_SHORT).show();
                     }
                 }) {

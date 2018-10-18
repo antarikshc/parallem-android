@@ -147,26 +147,26 @@ public class SignUpFragment extends Fragment {
                     Request.Method.POST,
                     Master.getSignUpEndpoint(),
                     userObject,
+
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                            Log.i(LOG_TAG, "HTTP Response received for SignUpRequest");
 
                             AuthenticationActivity.attachFragment(new PersonalDetailsFragment());
                         }
                     },
+
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                            Log.i(LOG_TAG, "HTTP Error occurred: " + error.toString());
                             Toast.makeText(getActivity(), "Couldn't SignUp", Toast.LENGTH_SHORT).show();
                         }
                     }) {
 
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                    Log.i(LOG_TAG, "Volley Parsing network response");
 
                     parseJson(response);
 
@@ -316,24 +316,24 @@ public class SignUpFragment extends Fragment {
                 Request.Method.POST,
                 Master.getEmailCheckEndpoint(),
                 emailObject,
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                        Log.i(LOG_TAG, "HTTP Response received for EmailCheckRequest");
                         lastCheckedEmail = currentEmail;
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                        Log.i(LOG_TAG, "HTTP Error occurred: " + error.toString());
                         lastCheckedEmail = currentEmail;
                     }
                 }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                Log.i(LOG_TAG, "Volley: Parsing network response");
 
                 Integer statusCode;
                 String responseString;

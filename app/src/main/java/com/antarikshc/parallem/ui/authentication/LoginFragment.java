@@ -106,24 +106,24 @@ public class LoginFragment extends Fragment {
                     Request.Method.POST,
                     Master.getLoginEndpoint(),
                     userObject,
+
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.i(LOG_TAG, "Volley Response received: " + response.toString());
+                            Log.i(LOG_TAG, "HTTP Response received for LoginRequest");
                         }
                     },
+
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.i(LOG_TAG, "Volley Error occurred: " + error.toString());
+                            Log.i(LOG_TAG, "HTTP Error occurred: " + error.toString());
                             Toast.makeText(getActivity(), "Login Unsuccessful", Toast.LENGTH_SHORT).show();
                         }
                     }) {
 
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-
-                    Log.i(LOG_TAG, "Volley Parsing network response");
 
                     parseJson(response);
 
