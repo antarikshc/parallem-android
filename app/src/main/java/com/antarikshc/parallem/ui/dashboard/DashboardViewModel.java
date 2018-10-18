@@ -54,4 +54,9 @@ public class DashboardViewModel extends ViewModel {
     public LiveData<Team> getUserTeam() {
         return mUserTeam;
     }
+
+    // Requery Get User Team
+    public void requeryGetTeams() {
+        mRepository.getUserTeam();
+    }
 }

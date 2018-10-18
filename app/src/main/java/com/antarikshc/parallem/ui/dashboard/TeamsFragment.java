@@ -195,6 +195,8 @@ public class TeamsFragment extends Fragment {
 
                         ParallemApp.saveTeamId(teamId);
 
+                        // Requery User Team to display it onto View
+                        viewModel.requeryGetTeams();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
