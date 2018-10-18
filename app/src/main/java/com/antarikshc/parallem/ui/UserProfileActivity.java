@@ -3,12 +3,14 @@ package com.antarikshc.parallem.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -59,10 +61,6 @@ public class UserProfileActivity extends AppCompatActivity {
         // Bind the layout
         binding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
 
-        // For some reason Material Buttons are refusing to attach Drawable through XML
-        binding.btnUserCollabRequest.setCompoundDrawablesWithIntrinsicBounds(0, 0,
-                R.drawable.ic_send, 0);
-
         Intent intent = getIntent();
 
         // Create GsonBuilder with Expose Annotation
@@ -78,6 +76,24 @@ public class UserProfileActivity extends AppCompatActivity {
             // Create User object from JSON String passed through intent
             userJsonString = intent.getStringExtra("json_string");
             user = gson.fromJson(userJsonString, User.class);
+
+            // Disable Collab Button if user is already in a team
+            if (user.getTeams().size() > 0) {
+
+                Button collabButton = binding.btnUserCollabRequest;
+                collabButton.setText("Already in team");
+                collabButton.setTextColor(getResources().getColor(android.R.color.white));
+                ViewCompat.setBackgroundTintList(collabButton,
+                        getResources().getColorStateList(R.color.darkGray));
+                collabButton.setEnabled(false);
+
+            } else {
+
+                // For some reason Material Buttons are refusing to attach Drawable through XML
+                binding.btnUserCollabRequest.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+                        R.drawable.ic_send, 0);
+
+            }
 
             hookDataToViews();
         }
