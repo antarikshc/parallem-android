@@ -19,8 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.authentication.LoginActivity" />
-        <activity android:name=".ui.authentication.SignUpActivity" />
         <activity android:name=".ui.dashboard.DashboardActivity" />
         <activity android:name=".ui.authentication.AuthenticationActivity" />
         <activity android:name=".ui.UserProfileActivity" />
