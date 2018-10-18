@@ -12,9 +12,6 @@ public class ParallemMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String token) {
         super.onNewToken(token);
-
-        Log.i(LOG_TAG, "OneTimeToken: " + token);
-
     }
 
     @Override

@@ -8,11 +8,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.antarikshc.parallem.R;
+import com.antarikshc.parallem.util.Master;
+import com.antarikshc.parallem.util.ParallemApp;
+import com.antarikshc.parallem.util.VolleySingleton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -27,6 +44,7 @@ public class DashboardActivity extends AppCompatActivity {
     // Global params
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private RequestQueue requestQueue;
     private HomeFragment homeFragment;
     private ProjectsFragment projectFragment;
     private TeamsFragment teamsFragment;
@@ -50,6 +68,11 @@ public class DashboardActivity extends AppCompatActivity {
         setupToolbar();
 
         setupBottomNavListener();
+
+        // Get Singleton Volley Request Queue Instance
+        requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
+
+        registerFcmToken();
     }
 
     /**
@@ -153,6 +176,81 @@ public class DashboardActivity extends AppCompatActivity {
         } else {
             fragmentManager.popBackStack(backStateName, 0);
         }
+    }
+
+    /**
+     * Retrieve and Register FCM token on to the backend server
+     */
+    private void registerFcmToken() {
+
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Firebase Instance", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        // Get new Instance ID token
+                        final String token = task.getResult().getToken();
+
+                        JSONObject tokenObject = new JSONObject();
+                        try {
+                            tokenObject.put("token", token);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (!ParallemApp.isFcmTokenExist()) {
+
+                            // Volley request to Register FCM Token
+                            JsonObjectRequest tokenRequest = new JsonObjectRequest(
+                                    Request.Method.POST,
+                                    Master.getTokenEndpoint(ParallemApp.getUserId()),
+                                    tokenObject,
+
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            Log.i(LOG_TAG, "Volley response received for tokenRequest");
+                                        }
+                                    },
+
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.i(LOG_TAG, "Volley Error occurred: " + error);
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+
+                                    // Retrieve status code
+                                    Integer statusCode = response.statusCode;
+
+                                    try {
+                                        if (statusCode == 201) {
+
+                                            ParallemApp.saveFcmToken(token);
+
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    return super.parseNetworkResponse(response);
+                                }
+                            };
+
+                            // Queue the API Call
+                            requestQueue.add(tokenRequest);
+                        }
+
+                    }
+                });
+
     }
 
     /**
