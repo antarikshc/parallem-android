@@ -2,6 +2,7 @@ package com.antarikshc.parallem.ui.authentication;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.util.Log;
 import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.data.InjectorUtils;
 import com.antarikshc.parallem.models.Skill;
+import com.antarikshc.parallem.ui.dashboard.DashboardActivity;
+import com.antarikshc.parallem.util.ParallemApp;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -26,6 +29,12 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+
+        if (ParallemApp.isUserIdExist()) {
+            Intent intent = new Intent(this, DashboardActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         setupFragmentManager();
 
