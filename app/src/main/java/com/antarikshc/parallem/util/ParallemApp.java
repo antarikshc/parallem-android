@@ -11,11 +11,13 @@ public class ParallemApp extends Application {
     private static final String PARALLEM_SHARED_PREFS = "parallem_shared_prefs";
     private static final String USER_ID = "user_id";
     private static final String TEAM_ID = "team_id";
+    private static final String FCM_TOKEN = "fcm_token";
 
     // Global params
     private static SharedPreferences sp;
     private static String userId;
     private static String teamId;
+    private static String fcmToken;
 
     public ParallemApp() {
         super();
@@ -29,7 +31,7 @@ public class ParallemApp extends Application {
     public static void saveUserId(@NonNull String userId) {
 
         // Null checks
-        if (userId == null || sp == null) {
+        if (sp == null) {
             return;
         }
         // Add UserId to shared preference
@@ -48,7 +50,28 @@ public class ParallemApp extends Application {
      * @return Boolean value indicating whether token exist or not
      */
     public static boolean isUserIdExist() {
-        return !userId.isEmpty() && userId.length() > 0;
+        return sp.contains(USER_ID);
+    }
+
+    /**
+     * Add teamId into Shared Preferences
+     *
+     * @param teamId Should not be null
+     */
+    public static void saveTeamId(@NonNull String teamId) {
+
+        // Null checks
+        if (sp == null) {
+            return;
+        }
+        // Add teamId to shared preference
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(TEAM_ID, teamId);
+        editor.apply();
+
+        // Save the teamId in class variable
+        ParallemApp.teamId = teamId;
+
     }
 
     /**
@@ -79,24 +102,12 @@ public class ParallemApp extends Application {
     }
 
     /**
-     * Add teamId into Shared Preferences
+     * Method to check the validity of teamId
      *
-     * @param teamId Should not be null
+     * @return Boolean value indicating whether token exist or not
      */
-    public static void saveTeamId(@NonNull String teamId) {
-
-        // Null checks
-        if (teamId == null || sp == null) {
-            return;
-        }
-        // Add teamId to shared preference
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putString(TEAM_ID, teamId);
-        editor.apply();
-
-        // Save the teamId in class variable
-        ParallemApp.teamId = teamId;
-
+    public static boolean isTeamIdExist() {
+        return sp.contains(TEAM_ID);
     }
 
     /**
@@ -127,12 +138,33 @@ public class ParallemApp extends Application {
     }
 
     /**
-     * Method to check the validity of teamId
+     * Add FCM Token into Shared Preferences
+     *
+     * @param fcmToken Should not be null
+     */
+    public static void saveFcmToken(@NonNull String fcmToken) {
+
+        // Null checks
+        if (sp == null) {
+            return;
+        }
+        // Add fcmToken to shared preference
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(FCM_TOKEN, fcmToken);
+        editor.apply();
+
+        // Save the fcmToken in class variable
+        ParallemApp.fcmToken = fcmToken;
+
+    }
+
+    /**
+     * Method to check the validity of fcmToken
      *
      * @return Boolean value indicating whether token exist or not
      */
-    public static boolean isTeamIdExist() {
-        return !teamId.isEmpty() && teamId.length() > 0;
+    public static boolean isFcmTokenExist() {
+        return sp.contains(FCM_TOKEN);
     }
 
     @Override
@@ -143,6 +175,7 @@ public class ParallemApp extends Application {
         sp = getSharedPreferences(PARALLEM_SHARED_PREFS, Context.MODE_PRIVATE);
         userId = sp.getString(USER_ID, null);
         teamId = sp.getString(TEAM_ID, null);
+        fcmToken = sp.getString(FCM_TOKEN, null);
 
     }
 
