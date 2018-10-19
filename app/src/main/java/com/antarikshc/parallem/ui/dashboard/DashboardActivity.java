@@ -285,4 +285,13 @@ public class DashboardActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.title_dashboard_parallem);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        
+        if (isToolbarHidden) {
+            showToolbar();
+        }
+    }
 }
