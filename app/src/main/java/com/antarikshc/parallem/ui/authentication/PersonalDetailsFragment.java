@@ -152,7 +152,7 @@ public class PersonalDetailsFragment extends Fragment {
             if (!location.isEmpty()) {
                 user.setLocation(location);
             }
-            user.setProfileImage(String.valueOf(currentSelectedAvatar));
+            user.setProfileImage(String.valueOf(currentSelectedAvatar + 1));
 
             // Pass back User to ViewModel
             viewModel.updateUser(user);
