@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment {
      *
      * @param user Object of TWD
      */
-    private void hookDataToWeeklyCard(User user) {
+    private void hookDataToWeeklyCard(final User user) {
 
         // Load image with Picasso and set to ImageView
         Picasso.get()
@@ -145,6 +145,20 @@ public class HomeFragment extends Fragment {
 
         binding.txtTwdName.setText(user.getName());
         binding.txtTwdHeadline.setText(user.getHeadline());
+
+        // OnClick listener to open profile
+        binding.materialCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String jsonString = gson.toJson(user);
+
+                Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                intent.putExtra("json_string", jsonString);
+                startActivity(intent);
+                
+            }
+        });
 
     }
 
