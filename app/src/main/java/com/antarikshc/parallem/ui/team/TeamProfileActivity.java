@@ -20,6 +20,7 @@ import com.antarikshc.parallem.R;
 import com.antarikshc.parallem.databinding.ActivityTeamProfileBinding;
 import com.antarikshc.parallem.models.team.Member;
 import com.antarikshc.parallem.models.team.Team;
+import com.antarikshc.parallem.ui.adapters.CustomItemClickListener;
 import com.antarikshc.parallem.ui.adapters.SkillRecyclerAdapter;
 import com.antarikshc.parallem.ui.adapters.TeamMemberRecyclerAdapter;
 import com.antarikshc.parallem.util.API;
@@ -165,7 +166,12 @@ public class TeamProfileActivity extends AppCompatActivity {
 
         // Team Members Adapter
         membersList = binding.recyclerTeamMembers;
-        membersAdapter = new TeamMemberRecyclerAdapter(this, null);
+        membersAdapter = new TeamMemberRecyclerAdapter(this, new CustomItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                // Do nothing for now
+            }
+        });
         membersList.setLayoutManager(new LinearLayoutManager(this));
         membersList.setNestedScrollingEnabled(false);
         membersList.setAdapter(membersAdapter);
