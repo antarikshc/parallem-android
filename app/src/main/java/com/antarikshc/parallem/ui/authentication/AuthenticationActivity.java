@@ -102,15 +102,4 @@ public class AuthenticationActivity extends AppCompatActivity {
         // Keep PersonalDetailsFragment attached by default
         attachFragment(new IntroFragment());
     }
-
-    @Override
-    public void onBackPressed() {
-        // If no fragments are left in backstack, finish the activity
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            super.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }
 }

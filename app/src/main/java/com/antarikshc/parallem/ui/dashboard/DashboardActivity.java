@@ -274,24 +274,6 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if (isToolbarHidden) {
-            showToolbar();
-        }
-
-        // If no fragments are left in backstack, finish the activity
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            super.onBackPressed();
-            finish();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-
-    }
-
     /**
      * Set Title and Text Color on Toolbar
      */
