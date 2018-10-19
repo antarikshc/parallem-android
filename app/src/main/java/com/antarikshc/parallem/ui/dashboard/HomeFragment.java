@@ -138,6 +138,8 @@ public class HomeFragment extends Fragment {
      */
     private void hookDataToWeeklyCard(final User user) {
 
+        binding.materialCardView.setVisibility(View.VISIBLE);
+
         // Load image with Picasso and set to ImageView
         Picasso.get()
                 .load(API.getProfileImageUrl(user.getProfileImage()))
@@ -145,6 +147,8 @@ public class HomeFragment extends Fragment {
 
         binding.txtTwdName.setText(user.getName());
         binding.txtTwdHeadline.setText(user.getHeadline());
+        binding.txtTwdCollab.setText("Collab Requests: 16");
+        binding.txtTwdProjects.setText("Projects: 7");
 
         // OnClick listener to open profile
         binding.materialCardView.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +160,7 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 intent.putExtra("json_string", jsonString);
                 startActivity(intent);
-                
+
             }
         });
 
