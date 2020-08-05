@@ -12,10 +12,10 @@ Parallem is a collaborative platform for developer, designer and techstars based
 </br>
 
 <p align="center">
-<img src="assets\02-SignUp.png" width="32%" />
-<img src="assets\04-Dashboard.png" width="32%" />
-<img src="assets\05-PersonalDetails.png" width="32%" />
-<img src="assets\07-Profile.png" width="32%" />
+<img src="assets\02-SignUp.jpg" width="32%" />
+<img src="assets\04-Dashboard.jpg" width="32%" />
+<img src="assets\05-PersonalDetails.jpg" width="32%" />
+<img src="assets\07-Profile.jpg" width="32%" />
 </p>
 
 ## Built with
